@@ -40,3 +40,4 @@ D:\Репозитории\Social_network\SocialNetworkServer\obj\Debug\net7.0\re
 D:\Репозитории\Social_network\SocialNetworkServer\obj\Debug\net7.0\SocialNetworkServer.pdb
 D:\Репозитории\Social_network\SocialNetworkServer\obj\Debug\net7.0\SocialNetworkServer.genruntimeconfig.cache
 D:\Репозитории\Social_network\SocialNetworkServer\obj\Debug\net7.0\ref\SocialNetworkServer.dll
+D:\Репозитории\Social_network\SocialNetworkServer\bin\Debug\net7.0\BCrypt.Net-Next.dll

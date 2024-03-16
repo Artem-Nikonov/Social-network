@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "SB26Gvl8R+kCzWUL2W4Pf7jI+oGzQ9FWqIDxOV8NaxrHpwArNsJa5CbZm5fYHg2kP38S5eReX5P2g0D6MmTpkw==",
+  "dgSpecHash": "Hfs8u9uK8mUod4pqSnC4E5QhVZ7fKv/hjybd+jWsCJTyHAd3uefnozE7Ttl4b3rBZ0WlcplOUcXsmR6pZUd03Q==",
   "success": true,
   "projectFilePath": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\SocialNetworkServer.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\HP\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.17\\microsoft.entityframeworkcore.7.0.17.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.17\\microsoft.entityframeworkcore.abstractions.7.0.17.nupkg.sha512",

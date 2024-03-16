@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SocialNetworkServer.Models;
+using SocialNetworkServer.Services;
 
 namespace SocialNetworkServer.Controllers
 {
@@ -13,12 +15,10 @@ namespace SocialNetworkServer.Controllers
         }
 
         [HttpPost]
-        public string Registration(UserRegistrationModel userAccountData)
+        public IActionResult Registration([FromServices]RegistrationService rs, UserRegistrationModel userAccountData)
         {
-            if (ModelState.IsValid)
-                return "ок";
-            return "не ок";
-
+            var res = rs.reg(userAccountData.Password);
+            return Content(res);
         }
     }
 }
