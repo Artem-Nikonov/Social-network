@@ -1,0 +1,22 @@
+﻿body {
+    background-color: #1f1f1f; /* Темный фон */
+    color: #fff; /* Белый цвет текста */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif; /* Шрифт */
+}
+
+header {
+    background-color: #333; /* Цвет фона заголовка */
+    padding: 15px; /* Отступы */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header div {
+   display: flex;
+}
+.text-center {
+    text-align: center; /* Центрирование текста */
+}

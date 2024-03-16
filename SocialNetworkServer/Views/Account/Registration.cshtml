@@ -1,0 +1,26 @@
+﻿@model UserRegistrationModel
+@{
+    ViewData["Title"] = "Регистрация";
+}
+
+<p>Регистрация:</p>
+<form method="post" title="Регистрация:">
+    <div>
+        <label asp-for="Login"></label>
+        <input type="text" asp-for="Login" />
+        <span asp-validation-for="Login"></span>
+        <br />
+        <label asp-for="Password"></label>
+        <input type="text" asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+        <br />
+        <label asp-for="ConfirmPassword"></label>
+        <input type="text" asp-for="ConfirmPassword" />
+        <span asp-validation-for="ConfirmPassword"></span>
+        <br />
+        <input type="submit" />
+    </div>
+</form>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.10/jquery.validate.unobtrusive.min.js"></script>

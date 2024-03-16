@@ -1,7 +1,7 @@
-﻿using SocialNetworkServer.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System;
+using SocialNetworkServer.SocNetworkDBContext.Entities;
 
 namespace SocialNetworkServer.SocNetworkDBContext
 {

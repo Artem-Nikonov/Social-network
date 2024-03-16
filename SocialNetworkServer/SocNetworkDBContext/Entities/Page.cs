@@ -1,10 +1,10 @@
-﻿namespace SocialNetworkServer.Models
+﻿namespace SocialNetworkServer.SocNetworkDBContext.Entities
 {
     internal class Page
     {
         public int PageId { get; set; }
         public List<Post> Posts { get; set; } = new List<Post>();
-        public int UserAccountId { get; set; } 
+        public int UserAccountId { get; set; }
         public UserAccount UserAccount { get; set; }
         public List<Subscription> Subscriptions { get; set; } = new List<Subscription>();
     }

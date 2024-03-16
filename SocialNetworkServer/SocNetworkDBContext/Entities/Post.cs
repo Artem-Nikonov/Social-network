@@ -1,4 +1,4 @@
-﻿namespace SocialNetworkServer.Models
+﻿namespace SocialNetworkServer.SocNetworkDBContext.Entities
 {
     internal class Post
     {

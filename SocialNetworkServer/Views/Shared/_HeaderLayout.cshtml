@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"]</title>
+        <link rel="stylesheet" href="~/css/HeaderLayout.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/BtnStyle.css" asp-append-version="true" />
+    </head>
+
+    <body>
+
+        <header class="btnContainer">
+            <div>
+                <a>Моя страница</a>
+            </div>
+            <div>
+                <a asp-controller="Home" asp-action ="Index">Авторизация</a>
+            </div>
+        </header>
+
+
+        <main role="main">
+            @RenderBody()
+        </main>
+
+    </body>
+
+</html>
