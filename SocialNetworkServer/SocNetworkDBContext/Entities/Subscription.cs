@@ -1,6 +1,6 @@
 ﻿namespace SocialNetworkServer.SocNetworkDBContext.Entities
 {
-    internal class Subscription
+    public class Subscription
     {
         public int SubscriptionId { get; set; }
         public Page Page { get; set; }

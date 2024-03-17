@@ -8,17 +8,44 @@ namespace SocialNetworkServer.Controllers
 {
     public class AccountController : Controller
     {
+        private RegistrationService registrationService;
+        private AuthorizationService authorizationService;
+        public AccountController(RegistrationService registrationService, AuthorizationService authorizationService)
+        {
+            this.registrationService = registrationService;
+            this.authorizationService = authorizationService;
+        }
+
         [HttpGet]
         public IActionResult Registration()
         {
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Registration([FromServices]RegistrationService rs, UserRegistrationModel userAccountData)
+        [HttpGet]
+        public IActionResult Authorization()
         {
-            var res = rs.reg(userAccountData.Password);
-            return Content(res);
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Registration(UserRegistrationModel userAccount)
+        {
+            var IsSuccessful = await registrationService.TryRegisterAccountAsync(userAccount);
+            if (IsSuccessful && ModelState.IsValid) return Redirect("~/Home/Index");
+            var errorMessage = registrationService.ErrorMessage ?? "Ошибка регистрации!";
+            ModelState.AddModelError("", errorMessage);
+            return View(userAccount);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Authorization(string? returnUrl,UserAuthorizationModel accountData)
+        {
+            var IsSuccessful = await authorizationService.TryAuthorizeUserAsync(accountData, HttpContext);
+            if (IsSuccessful && ModelState.IsValid) return Redirect(returnUrl ?? "~/Home/Index");
+            var errorMessage = authorizationService.ErrorMessage ?? "Ошибка авторизации!";
+            ModelState.AddModelError("", errorMessage);
+            return View(accountData);
         }
     }
 }

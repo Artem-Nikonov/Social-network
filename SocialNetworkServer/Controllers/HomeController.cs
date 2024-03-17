@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SocialNetworkServer.Models;
 using System.Diagnostics;
 
@@ -17,10 +18,17 @@ namespace SocialNetworkServer.Controllers
         {
             return View();
         }
-
+        [Route("/PR")]
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        [Authorize]
+        [Route("/SEC")]
+        public IActionResult Secret()
+        {
+            return Content("секретная страница.");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

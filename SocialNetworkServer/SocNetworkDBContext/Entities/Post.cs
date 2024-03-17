@@ -1,6 +1,6 @@
 ﻿namespace SocialNetworkServer.SocNetworkDBContext.Entities
 {
-    internal class Post
+    public class Post
     {
         public int PostId { get; set; }
         public int PageId { get; set; }
