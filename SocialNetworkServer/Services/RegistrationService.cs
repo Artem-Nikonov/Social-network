@@ -18,7 +18,7 @@ namespace SocialNetworkServer.Services
         }
         public async Task<bool> TryRegisterAccountAsync(UserRegistrationModel userAccount)
         {
-            var account = await dbContext.Accounts.FirstOrDefaultAsync(acc => acc.Login == userAccount.Login);
+            var account = await dbContext.Users.FirstOrDefaultAsync(user => user.Login == userAccount.Login);
             if(account == null)
             {
                 await RegisterAccountAsync(userAccount);
@@ -31,9 +31,9 @@ namespace SocialNetworkServer.Services
         private async Task RegisterAccountAsync(UserRegistrationModel userAccount)
         {
             var login = userAccount.Login;
-            var password = passwordHasher.GenerateHash(userAccount.Password!);
-            var account = new UserAccount(login, password);
-            await dbContext.Accounts.AddAsync(account);
+            var passwordHash = passwordHasher.GenerateHash(userAccount.Password!);
+            var account = new User(){Login = login,PasswordHash = passwordHash};
+            await dbContext.Users.AddAsync(account);
             await dbContext.SaveChangesAsync();
         }
     }

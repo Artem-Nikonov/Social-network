@@ -13,7 +13,7 @@ namespace SocialNetworkServer.Services
     {
         private SocialNetworkDBContext dbContext;
         private IPasswordHasher passwordHasher;
-        public string? ErrorMessage;
+        public string? ErrorMessage { get; private set; }
         public AuthorizationService(SocialNetworkDBContext dBContext, IPasswordHasher passwordHasher)
         {
             this.dbContext = dBContext;
@@ -22,10 +22,9 @@ namespace SocialNetworkServer.Services
 
         public async Task<bool> TryAuthorizeUserAsync(UserAuthorizationModel accountData, HttpContext httpContext)
         {
-            var account = await dbContext.Accounts.FirstOrDefaultAsync(acc => acc.Login == accountData.Login);
-            if (account != null && passwordHasher.Verify(accountData.Password!, account.Password))
+            var account = await dbContext.Users.FirstOrDefaultAsync(user => user.Login == accountData.Login);
+            if (account != null && passwordHasher.Verify(accountData.Password!, account.PasswordHash))
             {
-                await dbContext.Entry(account).Reference(acc=>acc.UserPage).LoadAsync();
                 await AuthorizeUserAsync(account, httpContext);
                 return true;
             }
@@ -33,17 +32,17 @@ namespace SocialNetworkServer.Services
             return false;
         }
 
-        private async Task AuthorizeUserAsync(UserAccount account, HttpContext httpContext)
+        private async Task AuthorizeUserAsync(User user, HttpContext httpContext)
         {
             var claims = new List<Claim>()
             {
-                new Claim("UserID", account.UserAccountId.ToString()),
-                new Claim("UserPageID", account.UserPage.PageId.ToString())
+                new Claim("UserID", user.UserId.ToString())
             };
             var claimsIdenty = new ClaimsIdentity(claims, "Cookies");
             var claimsPrincipial = new ClaimsPrincipal(claimsIdenty);
             await httpContext.SignInAsync("Cookies", claimsPrincipial);
-
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.WriteLine(user.UserId);
         }
     }
 }

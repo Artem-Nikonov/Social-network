@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SocialNetworkServer.SocNetworkDBContext;
 
@@ -10,9 +11,11 @@ using SocialNetworkServer.SocNetworkDBContext;
 namespace SocialNetworkServer.Migrations
 {
     [DbContext(typeof(SocialNetworkDBContext))]
-    partial class SocialNetworkDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240320000416_alpha_migration_0_1")]
+    partial class alpha_migration_0_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,7 +105,7 @@ namespace SocialNetworkServer.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("longtext")
-                        .HasComputedColumnSql("DATE_FORMAT('2024-03-20 00:09', '%Y-%m-%d %H:%i')");
+                        .HasComputedColumnSql("DATE_FORMAT('2024-03-20 00:04', '%Y-%m-%d %H:%i')");
 
                     b.Property<string>("Login")
                         .IsRequired()
@@ -127,14 +130,6 @@ namespace SocialNetworkServer.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            Login = "kkkkk",
-                            PasswordHash = "ohjhygui"
-                        });
                 });
 
             modelBuilder.Entity("SocialNetworkServer.SocNetworkDBContext.Entities.UserSubscription", b =>
