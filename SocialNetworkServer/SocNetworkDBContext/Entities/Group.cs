@@ -21,5 +21,6 @@ namespace SocialNetworkServer.SocNetworkDBContext.Entities
         public User Creator { get; set; }
 
         public List<Post> Posts { get; set; } = new();
+        public List<GroupSubscription> Subscribers { get; set; } = new();
     }
 }

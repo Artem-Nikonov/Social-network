@@ -11,12 +11,12 @@ namespace SocialNetworkServer.SocNetworkDBContext.Entities
         [Required]
         public int SubscriberId { get; set; }
 
-        public virtual User Subscriber { get; set; }
+        public User Subscriber { get; set; }
 
         [Required]
         public int SubscribedToUserId { get; set; }
 
-        public virtual User SubscribedToUser { get; set; }
+        public User SubscribedToUser { get; set; }
     }
 
     public class GroupSubscription
@@ -31,6 +31,6 @@ namespace SocialNetworkServer.SocNetworkDBContext.Entities
         [Required]
         public int SubscribedToGroupId { get; set; }
 
-        public virtual Group SubscribedToGroup { get; set; }
+        public Group SubscribedToGroup { get; set; }
     }
 }

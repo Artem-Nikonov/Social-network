@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SocialNetworkServer.Migrations
 {
     /// <inheritdoc />
-    public partial class alpha_migration_0_1 : Migration
+    public partial class alpha_01 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -29,8 +29,7 @@ namespace SocialNetworkServer.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     PasswordHash = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    FormattedRegistrationDate = table.Column<string>(type: "longtext", nullable: false, computedColumnSql: "DATE_FORMAT('2024-03-20 00:04', '%Y-%m-%d %H:%i')")
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    RegistrationDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "NOW()")
                 },
                 constraints: table =>
                 {
@@ -144,6 +143,11 @@ namespace SocialNetworkServer.Migrations
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "UserId", "Login", "PasswordHash" },
+                values: new object[] { 1, "kkkkk", "ohjhygui" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Groups_CreatorId",

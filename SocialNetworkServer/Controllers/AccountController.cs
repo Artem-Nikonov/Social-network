@@ -32,7 +32,7 @@ namespace SocialNetworkServer.Controllers
         public async Task<IActionResult> Registration(UserRegistrationModel userAccount)
         {
             var IsSuccessful = await registrationService.TryRegisterAccountAsync(userAccount);
-            if (IsSuccessful && ModelState.IsValid) return Redirect("~/Home/Index");
+            if (IsSuccessful && ModelState.IsValid) return Redirect("/");
             var errorMessage = registrationService.ErrorMessage ?? "Ошибка регистрации!";
             ModelState.AddModelError("", errorMessage);
             return View(userAccount);

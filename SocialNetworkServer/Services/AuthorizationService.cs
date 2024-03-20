@@ -36,7 +36,8 @@ namespace SocialNetworkServer.Services
         {
             var claims = new List<Claim>()
             {
-                new Claim("UserID", user.UserId.ToString())
+                new Claim("UserID", user.UserId.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName)
             };
             var claimsIdenty = new ClaimsIdentity(claims, "Cookies");
             var claimsPrincipial = new ClaimsPrincipal(claimsIdenty);

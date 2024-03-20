@@ -11,8 +11,8 @@ using SocialNetworkServer.SocNetworkDBContext;
 namespace SocialNetworkServer.Migrations
 {
     [DbContext(typeof(SocialNetworkDBContext))]
-    [Migration("20240320000907_alpha_migration_0_2")]
-    partial class alpha_migration_0_2
+    [Migration("20240320185402_alpha_0.1")]
+    partial class alpha_01
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,12 +101,6 @@ namespace SocialNetworkServer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("FormattedRegistrationDate")
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("longtext")
-                        .HasComputedColumnSql("DATE_FORMAT('2024-03-20 00:09', '%Y-%m-%d %H:%i')");
-
                     b.Property<string>("Login")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -114,6 +108,11 @@ namespace SocialNetworkServer.Migrations
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<DateTime>("RegistrationDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -136,7 +135,8 @@ namespace SocialNetworkServer.Migrations
                         {
                             UserId = 1,
                             Login = "kkkkk",
-                            PasswordHash = "ohjhygui"
+                            PasswordHash = "ohjhygui",
+                            RegistrationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 

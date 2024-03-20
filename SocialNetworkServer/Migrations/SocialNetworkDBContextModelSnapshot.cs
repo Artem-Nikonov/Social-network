@@ -61,7 +61,7 @@ namespace SocialNetworkServer.Migrations
 
                     b.HasIndex("SubscriberId");
 
-                    b.ToTable("GroupSubscriptions");
+                    b.ToTable("GroupSubscriptions", (string)null);
                 });
 
             modelBuilder.Entity("SocialNetworkServer.SocNetworkDBContext.Entities.Post", b =>
@@ -98,12 +98,6 @@ namespace SocialNetworkServer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("FormattedRegistrationDate")
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("longtext")
-                        .HasComputedColumnSql("DATE_FORMAT('2024-03-20 00:09', '%Y-%m-%d %H:%i')");
-
                     b.Property<string>("Login")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -111,6 +105,11 @@ namespace SocialNetworkServer.Migrations
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<DateTime>("RegistrationDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -126,15 +125,7 @@ namespace SocialNetworkServer.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            Login = "kkkkk",
-                            PasswordHash = "ohjhygui"
-                        });
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("SocialNetworkServer.SocNetworkDBContext.Entities.UserSubscription", b =>
@@ -155,7 +146,7 @@ namespace SocialNetworkServer.Migrations
 
                     b.HasIndex("SubscriberId");
 
-                    b.ToTable("UserSubscriptions");
+                    b.ToTable("UserSubscriptions", (string)null);
                 });
 
             modelBuilder.Entity("SocialNetworkServer.SocNetworkDBContext.Entities.Group", b =>
@@ -172,13 +163,13 @@ namespace SocialNetworkServer.Migrations
             modelBuilder.Entity("SocialNetworkServer.SocNetworkDBContext.Entities.GroupSubscription", b =>
                 {
                     b.HasOne("SocialNetworkServer.SocNetworkDBContext.Entities.Group", "SubscribedToGroup")
-                        .WithMany()
+                        .WithMany("Subscribers")
                         .HasForeignKey("SubscribedToGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SocialNetworkServer.SocNetworkDBContext.Entities.User", "Subscriber")
-                        .WithMany()
+                        .WithMany("SubscribedGroups")
                         .HasForeignKey("SubscriberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -208,13 +199,13 @@ namespace SocialNetworkServer.Migrations
             modelBuilder.Entity("SocialNetworkServer.SocNetworkDBContext.Entities.UserSubscription", b =>
                 {
                     b.HasOne("SocialNetworkServer.SocNetworkDBContext.Entities.User", "SubscribedToUser")
-                        .WithMany()
+                        .WithMany("Followers")
                         .HasForeignKey("SubscribedToUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SocialNetworkServer.SocNetworkDBContext.Entities.User", "Subscriber")
-                        .WithMany()
+                        .WithMany("Followings")
                         .HasForeignKey("SubscriberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -227,11 +218,19 @@ namespace SocialNetworkServer.Migrations
             modelBuilder.Entity("SocialNetworkServer.SocNetworkDBContext.Entities.Group", b =>
                 {
                     b.Navigation("Posts");
+
+                    b.Navigation("Subscribers");
                 });
 
             modelBuilder.Entity("SocialNetworkServer.SocNetworkDBContext.Entities.User", b =>
                 {
+                    b.Navigation("Followers");
+
+                    b.Navigation("Followings");
+
                     b.Navigation("Posts");
+
+                    b.Navigation("SubscribedGroups");
                 });
 #pragma warning restore 612, 618
         }

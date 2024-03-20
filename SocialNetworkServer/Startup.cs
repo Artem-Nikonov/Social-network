@@ -17,14 +17,9 @@ namespace SocialNetworkServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            //services.AddMySqlDBContext(Configuration);
-            services.AddCustomServices();
             services.AddCustomAuthentication();
-            var connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<SocialNetworkDBContext>(options =>
-            {
-                options.UseMySql(connection, new MySqlServerVersion(new Version(8, 0, 34)));
-            });
+            services.AddMySqlDBContext(Configuration);
+            services.AddCustomServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +40,7 @@ namespace SocialNetworkServer
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
