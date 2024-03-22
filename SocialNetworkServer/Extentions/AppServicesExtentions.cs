@@ -28,6 +28,7 @@ namespace SocialNetworkServer.Extentions
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
             services.AddScoped<RegistrationService>();
             services.AddScoped<AuthorizationService>();
+            services.AddTransient<UserService>();
             return services;
         }
 

@@ -20,6 +20,7 @@ namespace SocialNetworkServer
             services.AddCustomAuthentication();
             services.AddMySqlDBContext(Configuration);
             services.AddCustomServices();
+            services.AddMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

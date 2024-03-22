@@ -1,0 +1,15 @@
+﻿@model UserInfoModel
+@{
+    ViewBag.fullName = Model.GetFullName();
+    ViewData["Title"] =ViewBag.fullName;
+
+}
+<div>
+    <span>@ViewBag.fullName</span>
+</div>
+<div>
+    @if ((bool)ViewData["IsOvner"])
+    {
+        <textarea></textarea>
+    }
+</div>

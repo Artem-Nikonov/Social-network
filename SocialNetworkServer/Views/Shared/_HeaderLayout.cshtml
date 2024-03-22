@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    ViewBag.userId = User.FindFirst("UserID")?.Value;
+}
+ <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -9,16 +12,17 @@
     </head>
 
     <body>
-
-        <header class="btnContainer">
-            <div>
-                <a>Моя страница</a>
-            </div>
-            <div>
-                <a asp-controller="Home" asp-action ="Index">Авторизация</a>
-            </div>
-        </header>
-
+        @if (User.Identity.IsAuthenticated)
+        {
+            <header class="btnContainer">
+                <div>
+                <a href="/page/@ViewBag.userId">Моя страница</a>
+                </div>
+                <div>
+                    <a asp-controller="Home" asp-action ="Index">Авторизация</a>
+                </div>
+            </header>
+        }
 
         <main role="main">
             @RenderBody()
