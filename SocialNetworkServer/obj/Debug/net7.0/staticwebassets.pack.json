@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\SocialNetworkServer.bundle.scp.css"
     },
     {
+      "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\FormStyle.css",
+      "PackagePath": "staticwebassets\\css\\FormStyle.css"
+    },
+    {
       "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\HeaderLayout.css",
       "PackagePath": "staticwebassets\\css\\HeaderLayout.css"
     },

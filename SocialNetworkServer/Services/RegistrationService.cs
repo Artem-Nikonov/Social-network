@@ -30,9 +30,14 @@ namespace SocialNetworkServer.Services
 
         private async Task RegisterAccountAsync(UserRegistrationModel userAccount)
         {
-            var login = userAccount.Login;
             var passwordHash = passwordHasher.GenerateHash(userAccount.Password!);
-            var account = new User(){Login = login,PasswordHash = passwordHash};
+            var account = new User()
+            {
+                UserName = userAccount.UserName,
+                UserSurname = userAccount.UserSurname,
+                Login = userAccount.Login,
+                PasswordHash = passwordHash
+            };
             await dbContext.Users.AddAsync(account);
             await dbContext.SaveChangesAsync();
         }

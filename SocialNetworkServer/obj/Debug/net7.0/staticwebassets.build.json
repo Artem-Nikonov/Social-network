@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EltFJWqFnf9V8HPpWcjn8YwkFsCPnR5fUsRrOKuvbWg=",
+  "Hash": "mE8lykDbX01hfhisudZJIibHoBDvAGXx/bJE7hQcW2A=",
   "Source": "SocialNetworkServer",
   "BasePath": "_content/SocialNetworkServer",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\SocialNetworkServer.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\FormStyle.css",
+      "SourceId": "SocialNetworkServer",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\",
+      "BasePath": "_content/SocialNetworkServer",
+      "RelativePath": "css/FormStyle.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\FormStyle.css"
     },
     {
       "Identity": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\HeaderLayout.css",

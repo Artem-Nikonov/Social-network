@@ -29,6 +29,7 @@ namespace SocialNetworkServer.Extentions
             services.AddScoped<RegistrationService>();
             services.AddScoped<AuthorizationService>();
             services.AddTransient<UserService>();
+            services.AddScoped<UserPostsService>();
             return services;
         }
 

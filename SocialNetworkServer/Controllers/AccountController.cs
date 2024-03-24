@@ -33,6 +33,14 @@ namespace SocialNetworkServer.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> LogOut()
+        {
+            await authorizationService.LogOut(HttpContext);
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpPost]
         public async Task<IActionResult> Registration(UserRegistrationModel userAccount)
         {
@@ -53,11 +61,5 @@ namespace SocialNetworkServer.Controllers
             return View(accountData);
         }
 
-        [HttpPut]
-        public IActionResult ChangeUserInfo([FromBody]UserInfoModel userInfo)
-        {
-            Console.WriteLine(userInfo.userName);
-            return Json(userInfo);
-        }
     }
 }

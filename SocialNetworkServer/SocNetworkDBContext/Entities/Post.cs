@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace SocialNetworkServer.SocNetworkDBContext.Entities
 {
@@ -8,18 +9,16 @@ namespace SocialNetworkServer.SocNetworkDBContext.Entities
         [Key]
         public int PostId { get; set; }
 
-        [Required]
         public int UserId { get; set; }
+        [BindNever]
         public virtual User User { get; set; }
 
         public int? GroupId { get; set; }
-
+        [BindNever]
         public virtual Group Group { get; set; }
 
-        [Required]
         public string Content { get; set; }
 
-        [Required]
         public DateTime CreationDate { get; set; }
     }
 }

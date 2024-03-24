@@ -35,7 +35,7 @@ namespace SocialNetworkServer.Services
 
         public string? GetUserId(ClaimsPrincipal user)
         {
-            return user.FindFirst("UserID")?.Value;
+            return user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         }
     }
 }

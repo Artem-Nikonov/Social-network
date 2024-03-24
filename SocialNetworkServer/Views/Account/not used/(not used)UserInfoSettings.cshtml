@@ -1,0 +1,19 @@
+﻿@model UserInfoModel
+@{
+}
+<p>Обновление данных:</p>
+<form asp-action="ChangeUserInfo" asp-controller="Account" method="put">
+    <input type="hidden" name="_method" value="PUT">
+    <p>
+        <label asp-for="UserName"></label><br />
+        <input type="text" asp-for="UserName" name="UserName" />
+        <span asp-validation-for="UserName"></span>
+    </p>
+    <p>
+        <label asp-for="UserSurname"></label><br />
+        <input type="text" asp-for="UserSurname" name="UserSurname" />
+        <span asp-validation-for="UserSurname"></span>
+    </p>
+    <div asp-validation-summary="ModelOnly"></div>
+    <input type="submit" value="Войти" />
+</form>
