@@ -28,6 +28,11 @@ namespace SocialNetworkServer.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult AccountSettings()
+        {
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> Registration(UserRegistrationModel userAccount)
         {
@@ -46,6 +51,13 @@ namespace SocialNetworkServer.Controllers
             var errorMessage = authorizationService.ErrorMessage ?? "Ошибка авторизации!";
             ModelState.AddModelError("", errorMessage);
             return View(accountData);
+        }
+
+        [HttpPut]
+        public IActionResult ChangeUserInfo([FromBody]UserInfoModel userInfo)
+        {
+            Console.WriteLine(userInfo.userName);
+            return Json(userInfo);
         }
     }
 }

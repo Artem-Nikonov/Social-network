@@ -16,12 +16,20 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\Репозитории\Social_network\SocialNetworkServer
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/Репозитории/Social_network/SocialNetworkServer/Views/Account/AccountSettings.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBY2NvdW50U2V0dGluZ3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Репозитории/Social_network/SocialNetworkServer/Views/Account/Authorization.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBdXRob3JpemF0aW9uLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Репозитории/Social_network/SocialNetworkServer/Views/Account/Registration.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3RyYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Репозитории/Social_network/SocialNetworkServer/Views/Account/UserInfoSettings.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxVc2VySW5mb1NldHRpbmdzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Репозитории/Social_network/SocialNetworkServer/Views/Home/Index.cshtml]

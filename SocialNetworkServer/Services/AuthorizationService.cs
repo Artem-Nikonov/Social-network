@@ -42,8 +42,6 @@ namespace SocialNetworkServer.Services
             var claimsIdenty = new ClaimsIdentity(claims, "Cookies");
             var claimsPrincipial = new ClaimsPrincipal(claimsIdenty);
             await httpContext.SignInAsync("Cookies", claimsPrincipial);
-            Console.BackgroundColor = ConsoleColor.Red;
-            Console.WriteLine(user.UserId);
         }
     }
 }

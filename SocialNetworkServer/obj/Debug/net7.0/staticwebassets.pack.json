@@ -5,12 +5,12 @@
       "PackagePath": "staticwebassets\\SocialNetworkServer.bundle.scp.css"
     },
     {
-      "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\BtnStyle.css",
-      "PackagePath": "staticwebassets\\css\\BtnStyle.css"
-    },
-    {
       "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\HeaderLayout.css",
       "PackagePath": "staticwebassets\\css\\HeaderLayout.css"
+    },
+    {
+      "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\PostEditorStyles.css",
+      "PackagePath": "staticwebassets\\css\\PostEditorStyles.css"
     },
     {
       "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\site.css",

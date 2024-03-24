@@ -1,6 +1,4 @@
-﻿@{
-    ViewBag.userId = User.FindFirst("UserID")?.Value;
-}
+﻿
  <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,21 +6,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>@ViewData["Title"]</title>
         <link rel="stylesheet" href="~/css/HeaderLayout.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/css/BtnStyle.css" asp-append-version="true" />
     </head>
 
     <body>
-        @if (User.Identity.IsAuthenticated)
-        {
-            <header class="btnContainer">
-                <div>
-                <a href="/page/@ViewBag.userId">Моя страница</a>
-                </div>
-                <div>
-                    <a asp-controller="Home" asp-action ="Index">Авторизация</a>
-                </div>
-            </header>
-        }
+        <header  class="btnContainer">
+            <div authentication-status="@SocialNetworkServer.CustomTagHelpers.Enums.AuthenticationStatus.Authenticated">
+                <a asp-controller="Page" asp-action="UserPage" asp-route-id="@User.FindFirst("UserID")?.Value">Моя страница</a>
+            </div>
+            <div authentication-status="@SocialNetworkServer.CustomTagHelpers.Enums.AuthenticationStatus.Authenticated">
+            <a asp-controller="Account" asp-action="AccountSettings">Настройки</a>
+                <a asp-controller="Home" asp-action ="Index">Выход</a>
+            </div>
+            <div authentication-status="@SocialNetworkServer.CustomTagHelpers.Enums.AuthenticationStatus.NotAuthenticated">
+                <a asp-controller="Home" asp-action="Index">Авторизация</a>
+            </div>
+
+        </header>
+        
 
         <main role="main">
             @RenderBody()

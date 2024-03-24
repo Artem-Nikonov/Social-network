@@ -1,15 +1,24 @@
 ﻿@model UserInfoModel
 @{
-    ViewBag.fullName = Model.GetFullName();
-    ViewData["Title"] =ViewBag.fullName;
-
+    ViewData["Title"] = Model.GetFullName();
 }
-<div>
-    <span>@ViewBag.fullName</span>
+<link rel="stylesheet" href="~/css/PostEditorStyles.css" asp-append-version="true" />
+
+<div class="main_content">
+    <div>
+        <span>@Model.GetFullName()</span>
+        <hr />
+    </div>
+
+    <div>
+        @if (ViewBag.IsOwner)
+        {
+            <div>
+                <textarea class="post_textarea"></textarea>
+                <br>
+                <button class="custom_button">Опубликовать</button>
+            </div>   
+        }
+    </div>
 </div>
-<div>
-    @if ((bool)ViewData["IsOvner"])
-    {
-        <textarea></textarea>
-    }
-</div>
+<span id="IsOwner" data-owner="@ViewBag.IsOwner" style="display: none;"></span>

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "PVFjv2VWNVf7kR1tgolkio+Scb3q8A6gEawSvzPgZVg=",
+  "Hash": "EltFJWqFnf9V8HPpWcjn8YwkFsCPnR5fUsRrOKuvbWg=",
   "Source": "SocialNetworkServer",
   "BasePath": "_content/SocialNetworkServer",
   "Mode": "Default",
@@ -51,23 +51,6 @@
       "OriginalItemSpec": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\SocialNetworkServer.bundle.scp.css"
     },
     {
-      "Identity": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\BtnStyle.css",
-      "SourceId": "SocialNetworkServer",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\",
-      "BasePath": "_content/SocialNetworkServer",
-      "RelativePath": "css/BtnStyle.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\BtnStyle.css"
-    },
-    {
       "Identity": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\HeaderLayout.css",
       "SourceId": "SocialNetworkServer",
       "SourceType": "Discovered",
@@ -83,6 +66,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\HeaderLayout.css"
+    },
+    {
+      "Identity": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\PostEditorStyles.css",
+      "SourceId": "SocialNetworkServer",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\",
+      "BasePath": "_content/SocialNetworkServer",
+      "RelativePath": "css/PostEditorStyles.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\PostEditorStyles.css"
     },
     {
       "Identity": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\site.css",

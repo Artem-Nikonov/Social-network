@@ -20,17 +20,9 @@ namespace SocialNetworkServer.Controllers
         {
             var userModel = await userService.GetUserInfo(id);
             if(userModel == null) return NotFound();
-            ViewData["IsOvner"] = userService.GetUserId(HttpContext.User) == userModel.UserId.ToString();
+            ViewBag.IsOwner = userService.GetUserId(HttpContext.User) == userModel.UserId.ToString();
             return View(userModel);
         }
 
-        //[Authorize]
-        //[HttpGet]
-        //public IActionResult MyPage()
-        //{
-        //    var userModel = await userService.GetUserInfo(id);
-        //    ViewData["IsOvner"] = userService.GetUserId(HttpContext.User) == userModel.UserId.ToString();
-        //    return View(userModel);
-        //}
     }
 }
