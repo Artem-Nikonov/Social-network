@@ -9,7 +9,8 @@
         <span>@Model.GetFullName()</span>
         <hr />
     </div>
-
+    <span id="IsOwner" data-owner="@ViewBag.IsOwner" style="display: none;"></span>
+    <span id="PageId" data="@ViewBag.PageId" style="display: none;"></span>
     <div>
         @if (ViewBag.IsOwner)
         {
@@ -20,40 +21,9 @@
             </div>   
         }
     </div>
+
+    <div id="postsContainer">
+
+    </div>
 </div>
-<span id="IsOwner" data-owner="@ViewBag.IsOwner" style="display: none;"></span>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const publishBtn = document.getElementById("publishBtn");
-
-        publishBtn.addEventListener("click", async function () {
-            const postContent = document.getElementById("postContent").value;
-
-            const postData = {
-                Content: postContent
-            };
-
-            try {
-                const response = await fetch("/userPost/add", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(postData)
-                });
-
-                if (response.ok) {
-                    console.log("Пост успешно добавлен");
-                    // Дополнительные действия при успешном добавлении поста
-                } else {
-                    console.error("Произошла ошибка при выполнении запроса");
-                    // Дополнительные действия в случае ошибки
-                }
-            } catch (error) {
-                console.error("Ошибка:", error.message);
-                // Дополнительные действия при возникновении ошибки
-            }
-        });
-    });
-
-</script>
+<script src="~/js//posts.js" asp-append-version="true"/>

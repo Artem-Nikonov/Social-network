@@ -5,19 +5,34 @@ using SocialNetworkServer.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using SocialNetworkServer.SocNetworkDBContext;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.Extensions.Options;
+using SocialNetworkServer.OptionModels;
 
 namespace SocialNetworkServer.Extentions
 {
     public static class AppServicesExtentions
     {
-        public static IServiceCollection AddCustomAuthentication(this IServiceCollection services)
+        public static IServiceCollection AddCustomAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            Console.WriteLine("hello");
+            var JWTOptions= configuration.GetSection(nameof(SocialNetworkServer.OptionModels.JWTOptions)).Get<JWTOptions>();
+            Console.WriteLine(JWTOptions.SecretKey);
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
             {
-                options.Cookie.Name = "a_c";
-                options.LoginPath = "/Account/Authorization";
-                options.ClaimsIssuer = "SocNetw";
-                options.ExpireTimeSpan = TimeSpan.FromHours(2);
+                //options.RequireHttpsMetadata = true;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JWTOptions.SecretKey))
+                };
             });
             services.AddAuthorization();
             return services;

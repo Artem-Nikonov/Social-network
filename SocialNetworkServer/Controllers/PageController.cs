@@ -21,6 +21,7 @@ namespace SocialNetworkServer.Controllers
             var userModel = await userService.GetUserInfo(id);
             if(userModel == null) return NotFound();
             ViewBag.IsOwner = userService.GetUserId(HttpContext.User) == userModel.UserId.ToString();
+            ViewBag.PageId = id;
             return View(userModel);
         }
 

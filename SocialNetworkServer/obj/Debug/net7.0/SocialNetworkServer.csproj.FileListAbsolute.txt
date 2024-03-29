@@ -41,3 +41,11 @@ D:\Репозитории\Social_network\SocialNetworkServer\obj\Debug\net7.0\So
 D:\Репозитории\Social_network\SocialNetworkServer\obj\Debug\net7.0\SocialNetworkServer.genruntimeconfig.cache
 D:\Репозитории\Social_network\SocialNetworkServer\obj\Debug\net7.0\ref\SocialNetworkServer.dll
 D:\Репозитории\Social_network\SocialNetworkServer\bin\Debug\net7.0\BCrypt.Net-Next.dll
+D:\Репозитории\Social_network\SocialNetworkServer\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Репозитории\Social_network\SocialNetworkServer\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Репозитории\Social_network\SocialNetworkServer\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Репозитории\Social_network\SocialNetworkServer\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+D:\Репозитории\Social_network\SocialNetworkServer\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+D:\Репозитории\Social_network\SocialNetworkServer\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Репозитории\Social_network\SocialNetworkServer\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+D:\Репозитории\Social_network\SocialNetworkServer\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll

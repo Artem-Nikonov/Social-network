@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SocialNetworkServer.Extentions;
+using SocialNetworkServer.OptionModels;
 using SocialNetworkServer.SocNetworkDBContext;
 
 namespace SocialNetworkServer
@@ -17,7 +18,8 @@ namespace SocialNetworkServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddCustomAuthentication();
+            services.Configure<JWTOptions>(Configuration);
+            services.AddCustomAuthentication(Configuration);
             services.AddMySqlDBContext(Configuration);
             services.AddCustomServices();
             services.AddMemoryCache();
@@ -36,8 +38,14 @@ namespace SocialNetworkServer
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            //app.UseHttpsRedirection();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=600");
+                }
+            });
 
             app.UseRouting();
 
