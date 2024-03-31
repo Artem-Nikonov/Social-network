@@ -1,7 +1,9 @@
-﻿namespace SocialNetworkServer.Models
+﻿using SocialNetworkServer.AuxiliaryClasses;
+
+namespace SocialNetworkServer.Models
 {
     public class AccountSettingsModel
     {
-        public UserInfoModel UserInfoModel { get; set; }
+        public UserInfo UserInfoModel { get; set; }
     }
 }

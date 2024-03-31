@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
-using SocialNetworkServer.Models;
+using SocialNetworkServer.AuxiliaryClasses;
 using SocialNetworkServer.SocNetworkDBContext;
 using System.Security.Claims;
 
@@ -15,9 +15,9 @@ namespace SocialNetworkServer.Services
             this.dbContext = dbContext;
             this.cache = memoryCache;
         }
-        public async Task<UserInfoModel?> GetUserInfo(int id)
+        public async Task<UserInfo?> GetUserInfo(int id)
         {
-            cache.TryGetValue(id, out UserInfoModel? userInfo);
+            cache.TryGetValue(id, out UserInfo? userInfo);
             if (userInfo == null)
             {
                 var user = await dbContext.Users.FindAsync(id);

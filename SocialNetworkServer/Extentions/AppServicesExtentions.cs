@@ -20,11 +20,8 @@ namespace SocialNetworkServer.Extentions
         {
             bool LifetimeValidator(DateTime? notBefore, DateTime? expires, SecurityToken token, TokenValidationParameters @params)
             {
-                if (expires != null)
-                {
-                    return expires > DateTime.UtcNow;
-                }
-                return false;
+                if (expires == null) return false;
+                return expires > DateTime.UtcNow;
             }
             services.AddAuthorization();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

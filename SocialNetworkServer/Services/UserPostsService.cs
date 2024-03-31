@@ -27,19 +27,23 @@ namespace SocialNetworkServer.Services
             return postInfo;
         }
 
-        public async Task<List<PostInfoModel>> GetPosts(int userId,int startPostId)
+        public async Task<List<PostInfoModel>> GetPosts(int userId, int startPostId)
         {
-            var posts = await dbContext.Posts.OrderByDescending(p => p.PostId)
-                .Where(p => p.UserId == userId && p.GroupId == null && p.PostId <= startPostId)
-                .Take(limit).Select(post =>
-                new PostInfoModel
+            IQueryable<Post> query = dbContext.Posts.OrderByDescending(p => p.PostId)
+                                          .Where(p => p.UserId == userId && p.GroupId == null);
+
+            if (startPostId > 0)
+                query = query.Where(p => p.PostId <= startPostId);
+
+            var posts = await query.Take(limit)
+                .Select(post => new PostInfoModel
                 {
                     PostId = post.PostId,
                     UserId = post.UserId,
                     GroupId = post.GroupId,
                     Content = post.Content,
                     CreationDate = post.CreationDate.GetSpecialFormat()
-                })?.ToListAsync();
+                }).AsNoTracking().ToListAsync();
             return posts;
         }
     }

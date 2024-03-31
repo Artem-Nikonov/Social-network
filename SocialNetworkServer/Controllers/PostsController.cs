@@ -15,8 +15,8 @@ namespace SocialNetworkServer.Controllers
         
         [HttpPost]
         [Authorize]
-        [Route("userPost/add")]
-        public async Task<IActionResult> AddUserPost([FromBody][Bind("Content")] Post post)
+        [Route("userPosts/create")]
+        public async Task<IActionResult> CreateUserPost([FromBody][Bind("Content")] Post post)
         {
             var createdPost = await userPostsService.TryCreatePost(post, HttpContext);
             if(createdPost!=null) return Json(createdPost);
@@ -25,15 +25,15 @@ namespace SocialNetworkServer.Controllers
 
         [Authorize]
         [HttpGet]
-        [Route("userPost/{userId:int}")]
-        public async Task<JsonResult> GetPosts(int UserId,int startPostId = 1 )
+        [Route("userPosts/{userId:int}")]
+        public async Task<JsonResult> GetPosts(int UserId, int startPostId)
         {
             var posts= await userPostsService.GetPosts(UserId, startPostId);
             var postsData = new
             {
                 Meta = new
                 {
-                    lastPostID = posts.LastOrDefault()?.PostId ,
+                    LastPostId = posts.LastOrDefault()?.PostId,
                     IsLastPage = posts.Count < UserPostsService.limit
                 },
                 Posts = posts

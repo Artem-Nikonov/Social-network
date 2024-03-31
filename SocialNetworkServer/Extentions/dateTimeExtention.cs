@@ -10,7 +10,7 @@ namespace SocialNetworkServer.Extentions
         }
         public static string GetSpecialFormat(this DateTime dateTime)
         {
-            var dateTimeString = $"{dateTime.Day}.{dateTime.Month}.{dateTime.Year} {dateTime.Hour}:{dateTime.Minute}";
+            var dateTimeString = dateTime.ToString("d.M.yyyy HH:mm");
             return dateTimeString;
         }
     }

@@ -1,18 +1,18 @@
-﻿@model UserInfoModel
+﻿@model UserPageModel
 @{
-    ViewData["Title"] = Model.GetFullName();
+    ViewData["Title"] = Model.userInfo.GetFullName();
 }
 <link rel="stylesheet" href="~/css/PostEditorStyles.css" asp-append-version="true" />
 
 <div class="main_content">
     <div>
-        <span>@Model.GetFullName()</span>
+        <span id="userFullName">@Model.userInfo.GetFullName()</span>
         <hr />
     </div>
-    <span id="IsOwner" data-owner="@ViewBag.IsOwner" style="display: none;"></span>
-    <span id="PageId" data="@ViewBag.PageId" style="display: none;"></span>
+    <span id="IsOwner" data-owner="@Model.metaData!.VisitorIsOwner" style="display: none;"></span>
+    <span id="PageId" data="@Model.metaData!.PageId" style="display: none;"></span>
     <div>
-        @if (ViewBag.IsOwner)
+        @if (Model.metaData.VisitorIsOwner)
         {
             <div>
                 <textarea id="postContent" class="post_textarea"></textarea>
@@ -25,5 +25,6 @@
     <div id="postsContainer">
 
     </div>
+    <button id="AddLoadPostsBtn" class="custom_button">Показать больше</button>
 </div>
 <script src="~/js//posts.js" asp-append-version="true"/>

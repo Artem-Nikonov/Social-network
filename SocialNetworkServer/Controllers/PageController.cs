@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SocialNetworkServer.Models;
 using SocialNetworkServer.Services;
+using SocialNetworkServer.AuxiliaryClasses;
+using System.Globalization;
 
 namespace SocialNetworkServer.Controllers
 {
@@ -18,11 +21,21 @@ namespace SocialNetworkServer.Controllers
         [Route("{id:int=1}")]
         public async Task<IActionResult> UserPage(int id)
         {
-            var userModel = await userService.GetUserInfo(id);
-            if(userModel == null) return NotFound();
-            ViewBag.IsOwner = userService.GetUserId(HttpContext.User) == userModel.UserId.ToString();
-            ViewBag.PageId = id;
-            return View(userModel);
+            var userInfo = await userService.GetUserInfo(id);
+            if(userInfo == null) return NotFound();
+            int.TryParse(userService.GetUserId(HttpContext.User), out int visitorId);
+            var visitorIsOwner = visitorId == userInfo.UserId;
+            var userPageModel = new UserPageModel()
+            {
+                userInfo = userInfo,
+                metaData = new PageMetaData()
+                {
+                    PageId = id,
+                    VisitorId = visitorId,
+                    VisitorIsOwner = visitorIsOwner
+                }
+            };
+            return View(userPageModel);
         }
 
     }

@@ -1,10 +1,13 @@
 ﻿
+body,pre {
+    color: #fff; /* Белый цвет текста */
+    font-family: Arial, sans-serif; /* Шрифт */
+}
+
 body {
     background-color: #1f1f1f; /* Темный фон */
-    color: #fff; /* Белый цвет текста */
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif; /* Шрифт */
 }
 main {
     margin-top: 90px;
