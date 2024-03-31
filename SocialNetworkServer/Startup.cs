@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.CookiePolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using SocialNetworkServer.Extentions;
 using SocialNetworkServer.OptionModels;
 using SocialNetworkServer.SocNetworkDBContext;
+using System.Net;
 
 namespace SocialNetworkServer
 {
@@ -18,16 +21,17 @@ namespace SocialNetworkServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.Configure<JWTOptions>(Configuration);
-            services.AddCustomAuthentication(Configuration);
+            services.AddCustomAuthentication();
             services.AddMySqlDBContext(Configuration);
             services.AddCustomServices();
             services.AddMemoryCache();
         }
+        
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -47,8 +51,34 @@ namespace SocialNetworkServer
                 }
             });
 
-            app.UseRouting();
+            app.UseStatusCodePages(async context =>
+            {
+                var response = context.HttpContext.Response;
 
+                if (response.StatusCode == (int)HttpStatusCode.Unauthorized)
+                {
+                    var path = context.HttpContext.Request.Path;
+                    response.Redirect($"/Account/Authorization?returnUrl={path}");
+                }
+            });
+
+            app.UseCookiePolicy(new CookiePolicyOptions
+            {
+                MinimumSameSitePolicy = SameSiteMode.Strict,
+                HttpOnly = HttpOnlyPolicy.Always,
+                Secure = CookieSecurePolicy.Always
+            });
+
+            app.Use(async (context, next) =>
+            {
+                var token = context.Request.Cookies["a_c"];
+                if (!string.IsNullOrEmpty(token))
+                    context.Request.Headers.Add("Authorization", "Bearer " + token);
+
+                await next();
+            });
+
+            app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
 

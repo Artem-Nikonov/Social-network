@@ -26,6 +26,7 @@ async function publishBtnClick() {
             },
             body: JSON.stringify(postData)
         });
+        console.log(response.status)
 
         if (response.ok)
         {
@@ -59,8 +60,7 @@ async function getPosts() {
         if (response.ok) {
             console.log("Посты получены");
             posts = await response.json()
-            console.log(posts)
-            pageId++;
+            
         }
         else {
             console.error("Произошла ошибка при выполнении запроса");

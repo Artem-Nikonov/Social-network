@@ -9,11 +9,11 @@ namespace SocialNetworkServer.Controllers
     public class AccountController : Controller
     {
         private RegistrationService registrationService;
-        private AuthorizationService authorizationService;
-        public AccountController(RegistrationService registrationService, AuthorizationService authorizationService)
+        private AuthenticationService authenticationService;
+        public AccountController(RegistrationService registrationService, AuthenticationService authenticationService)
         {
             this.registrationService = registrationService;
-            this.authorizationService = authorizationService;
+            this.authenticationService = authenticationService;
         }
 
         [HttpGet]
@@ -37,7 +37,7 @@ namespace SocialNetworkServer.Controllers
         [HttpGet]
         public async Task<IActionResult> LogOut()
         {
-            await authorizationService.LogOut(HttpContext);
+            await authenticationService.LogOut(HttpContext);
             return RedirectToAction("Index", "Home");
         }
 
@@ -54,9 +54,9 @@ namespace SocialNetworkServer.Controllers
         [HttpPost]
         public async Task<IActionResult> Authorization(string? returnUrl,UserAuthorizationModel accountData)
         {
-            var IsSuccessful = await authorizationService.TryAuthorizeUserAsync(accountData, HttpContext);
+            var IsSuccessful = await authenticationService.TryAuthenticateUserAsync(accountData, HttpContext);
             if (IsSuccessful && ModelState.IsValid) return Redirect(returnUrl ?? "~/Home/Index");
-            var errorMessage = authorizationService.ErrorMessage ?? "Ошибка авторизации!";
+            var errorMessage = authenticationService.ErrorMessage ?? "Ошибка авторизации!";
             ModelState.AddModelError("", errorMessage);
             return View(accountData);
         }

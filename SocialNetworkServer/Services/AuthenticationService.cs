@@ -7,28 +7,31 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using SocialNetworkServer.OptionModels;
 
 namespace SocialNetworkServer.Services
 {
-    public class AuthorizationService
+    public class AuthenticationService
     {
         private SocialNetworkDBContext dbContext;
         private IPasswordHasher passwordHasher;
+        private IJWTProvider JwtProvider;
         public string? ErrorMessage { get; private set; }
 
-        public AuthorizationService(SocialNetworkDBContext dBContext, IPasswordHasher passwordHasher)
+        public AuthenticationService(SocialNetworkDBContext dBContext, IPasswordHasher passwordHasher, IJWTProvider JwtProvider)
         {
             this.dbContext = dBContext;
             this.passwordHasher = passwordHasher;
+            this.JwtProvider = JwtProvider;
         }
 
         //Попытка аутентифицировать пользователя
-        public async Task<bool> TryAuthorizeUserAsync(UserAuthorizationModel accountData, HttpContext httpContext)
+        public async Task<bool> TryAuthenticateUserAsync(UserAuthorizationModel accountData, HttpContext httpContext)
         {
             var account = await dbContext.Users.FirstOrDefaultAsync(user => user.Login == accountData.Login);
             if (account != null && passwordHasher.Verify(accountData.Password!, account.PasswordHash))
             {
-                await AuthorizeUserAsync(account, httpContext);
+                AuthenticateUser(account, httpContext);
                 return true;
             }
             ErrorMessage = "Неверный логин или пароль.";
@@ -38,20 +41,17 @@ namespace SocialNetworkServer.Services
         //выход из аккаунта
         public async Task LogOut(HttpContext httpContext)
         {
-            await httpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            httpContext.Response.Cookies.Delete("a_c");
         }
 
         //аутентификация пользователя
-        private async Task AuthorizeUserAsync(User user, HttpContext httpContext)
+        private void AuthenticateUser(User user, HttpContext httpContext)
         {
-            var claims = new List<Claim>()
+            var token = JwtProvider.GenerateToken(user);
+            httpContext.Response.Cookies.Append("a_c", token, new CookieOptions()
             {
-                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName)
-            };
-            var claimsIdenty = new ClaimsIdentity(claims, "Cookies");
-            var claimsPrincipial = new ClaimsPrincipal(claimsIdenty);
-            await httpContext.SignInAsync("Cookies", claimsPrincipial);
+                MaxAge = TimeSpan.FromHours(JWTOptions.ExpiresHours)
+            });
         }
 
     }

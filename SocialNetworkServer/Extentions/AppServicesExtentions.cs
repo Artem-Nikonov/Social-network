@@ -10,39 +10,49 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Options;
 using SocialNetworkServer.OptionModels;
+using Microsoft.AspNetCore.Authentication.OAuth;
 
 namespace SocialNetworkServer.Extentions
 {
     public static class AppServicesExtentions
     {
-        public static IServiceCollection AddCustomAuthentication(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddCustomAuthentication(this IServiceCollection services)
         {
-            Console.WriteLine("hello");
-            var JWTOptions= configuration.GetSection(nameof(SocialNetworkServer.OptionModels.JWTOptions)).Get<JWTOptions>();
-            Console.WriteLine(JWTOptions.SecretKey);
+            bool LifetimeValidator(DateTime? notBefore, DateTime? expires, SecurityToken token, TokenValidationParameters @params)
+            {
+                if (expires != null)
+                {
+                    return expires > DateTime.UtcNow;
+                }
+                return false;
+            }
+            services.AddAuthorization();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+            .AddJwtBearer(options =>
             {
                 //options.RequireHttpsMetadata = true;
-                options.SaveToken = true;
+                //options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
+                    ValidateIssuer = true,
+                    ValidIssuer = JWTOptions.ISSUER,
+                    ValidateAudience = true,
+                    ValidAudience = JWTOptions.AUDIENCE,
+                    LifetimeValidator = LifetimeValidator,
                     ValidateLifetime = true,
+                    IssuerSigningKey = JWTOptions.GetSymmetricSecurityKey(),
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JWTOptions.SecretKey))
                 };
             });
-            services.AddAuthorization();
             return services;
         }
 
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
-            services.AddSingleton<IPasswordHasher, PasswordHasher>();
+            services.AddScoped<IPasswordHasher, PasswordHasher>();
+            services.AddScoped<IJWTProvider, JWTPrpvider>();
             services.AddScoped<RegistrationService>();
-            services.AddScoped<AuthorizationService>();
+            services.AddScoped<AuthenticationService>();
             services.AddTransient<UserService>();
             services.AddScoped<UserPostsService>();
             return services;

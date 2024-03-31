@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using SocialNetworkServer.Extentions;
+using SocialNetworkServer.Models;
 using SocialNetworkServer.SocNetworkDBContext;
 using SocialNetworkServer.SocNetworkDBContext.Entities;
 using System.Security.Claims;
@@ -9,33 +11,35 @@ namespace SocialNetworkServer.Services
     public class UserPostsService
     {
         private SocialNetworkDBContext dbContext;
-        public int partSize { get; private set; } = 5;
+        public static int limit { get; private set; } = 5;
         public UserPostsService(SocialNetworkDBContext dbContext)
         {
             this.dbContext = dbContext;
         }
-        public async Task<bool> TryCreatePost(Post post, HttpContext context)
+        public async Task<PostInfoModel?> TryCreatePost(Post post, HttpContext context)
         {
             var strUserId = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (strUserId == null || !int.TryParse(strUserId, out int userId)) return false;
+            if (strUserId == null || !int.TryParse(strUserId, out int userId)) return null;
             post.UserId = userId;
             await dbContext.Posts.AddAsync(post);
             await dbContext.SaveChangesAsync();
-            return true;
+            var postInfo = post;
+            return postInfo;
         }
 
-        public async Task<List<object>> GetPosts(int userId,int partIndex)
+        public async Task<List<PostInfoModel>> GetPosts(int userId,int startPostId)
         {
             var posts = await dbContext.Posts.OrderByDescending(p => p.PostId)
-                .Where(p => p.UserId == userId && p.GroupId == null)
-                .Skip((partIndex - 1) * partSize).Take(partSize).Select(p =>
-                new
+                .Where(p => p.UserId == userId && p.GroupId == null && p.PostId <= startPostId)
+                .Take(limit).Select(post =>
+                new PostInfoModel
                 {
-                    PostId = p.PostId,
-                    UserId = userId,
-                    Content = p.Content,
-                    CreationDate = p.CreationDate.RemoveSeconds()
-                }).Cast<object>().ToListAsync();
+                    PostId = post.PostId,
+                    UserId = post.UserId,
+                    GroupId = post.GroupId,
+                    Content = post.Content,
+                    CreationDate = post.CreationDate.GetSpecialFormat()
+                })?.ToListAsync();
             return posts;
         }
     }

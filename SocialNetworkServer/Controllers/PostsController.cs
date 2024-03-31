@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SocialNetworkServer.Services;
 using SocialNetworkServer.SocNetworkDBContext.Entities;
 
@@ -11,24 +12,30 @@ namespace SocialNetworkServer.Controllers
         {
             this.userPostsService = userPostsService;
         }
-
+        
         [HttpPost]
+        [Authorize]
         [Route("userPost/add")]
         public async Task<IActionResult> AddUserPost([FromBody][Bind("Content")] Post post)
         {
-            var isSuccess = await userPostsService.TryCreatePost(post, HttpContext);
-            if(isSuccess) return Ok();
+            var createdPost = await userPostsService.TryCreatePost(post, HttpContext);
+            if(createdPost!=null) return Json(createdPost);
             return BadRequest();
         }
 
+        [Authorize]
         [HttpGet]
         [Route("userPost/{userId:int}")]
-        public async Task<JsonResult> GetPosts(int UserId,int partId = 0)
+        public async Task<JsonResult> GetPosts(int UserId,int startPostId = 1 )
         {
-            var posts= await userPostsService.GetPosts(UserId, partId);
+            var posts= await userPostsService.GetPosts(UserId, startPostId);
             var postsData = new
             {
-                IsAll = posts.Count <= userPostsService.partSize,
+                Meta = new
+                {
+                    lastPostID = posts.LastOrDefault()?.PostId ,
+                    IsLastPage = posts.Count < UserPostsService.limit
+                },
                 Posts = posts
             };
             return Json(postsData);

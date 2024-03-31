@@ -9,15 +9,7 @@ namespace SocialNetworkServer.Models
     {
         //[BindNever]
         public int UserId { get; set; }
-
-        //[Required(ErrorMessage ="Введите имя.")]
-        //[MinLength(2, ErrorMessage ="Длина имени должна быть не меньше 2-х символов.")]
-        //[Display(Name ="Имя:")]
         public string UserName { get; set; }
-
-        //[Required(ErrorMessage = "Введите Фамилию.")]
-        //[MinLength(2, ErrorMessage = "Длина фамилии должна быть не меньше 2-х символов.")]
-        //[Display(Name = "Фамилия:")]
         public string UserSurname { get; set; }
 
         public UserInfoModel() { }
