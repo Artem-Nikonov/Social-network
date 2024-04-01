@@ -7,7 +7,7 @@ using System.Globalization;
 
 namespace SocialNetworkServer.Controllers
 {
-    [Route("Page")]
+    [Route("page")]
     public class PageController : Controller
     {
         private UserService userService;
@@ -23,7 +23,7 @@ namespace SocialNetworkServer.Controllers
         {
             var userInfo = await userService.GetUserInfo(id);
             if(userInfo == null) return NotFound();
-            int.TryParse(userService.GetUserId(HttpContext.User), out int visitorId);
+            var visitorId = userService.GetUserId(HttpContext.User);
             var visitorIsOwner = visitorId == userInfo.UserId;
             var userPageModel = new UserPageModel()
             {

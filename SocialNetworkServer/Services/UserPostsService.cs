@@ -11,19 +11,35 @@ namespace SocialNetworkServer.Services
     public class UserPostsService
     {
         private SocialNetworkDBContext dbContext;
+        private UserService userService;
         public static int limit { get; private set; } = 5;
-        public UserPostsService(SocialNetworkDBContext dbContext)
+
+        public UserPostsService(SocialNetworkDBContext dbContext, UserService userService)
         {
             this.dbContext = dbContext;
+            this.userService = userService;
         }
-        public async Task<PostInfoModel?> TryCreatePost(Post post, HttpContext context)
+
+        public async Task<PostInfoModel> CreatePost(Post post, ClaimsPrincipal user)
         {
-            var strUserId = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (strUserId == null || !int.TryParse(strUserId, out int userId)) return null;
+            if (post.Content == null || post.Content.Length < 2)
+                throw new ArgumentException("Длина поста должна быть не менее 2-х символов");
+            var userId = userService.GetUserId(user);
             post.UserId = userId;
             await dbContext.Posts.AddAsync(post);
             await dbContext.SaveChangesAsync();
-            var postInfo = post;
+            PostInfoModel postInfo = post;
+            return postInfo;
+        }
+
+        public async Task<PostInfoModel?> DeletePost(int postId, ClaimsPrincipal user)
+        {
+            var userId = userService.GetUserId(user);
+            var post = await dbContext.Posts.FindAsync(postId);
+            if (post == null || post.UserId != userId) return null;
+            dbContext.Posts.Remove(post);
+            await dbContext.SaveChangesAsync();
+            PostInfoModel postInfo = post;
             return postInfo;
         }
 

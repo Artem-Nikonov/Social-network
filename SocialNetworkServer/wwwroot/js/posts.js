@@ -3,11 +3,13 @@ document.addEventListener("DOMContentLoaded", getPosts);
 let pageId = document.getElementById("PageId").getAttribute("data");
 let isOwner = document.getElementById("IsOwner").getAttribute("data-owner") 
 let pageName = document.getElementById("userFullName").textContent;
+
 let startPostId = 0;
 let postTextArea;
 let publishBtn;
 let postsContainer;
 let addLoadPostsBtn;
+
 function DOMContentLoaded()
 {
     console.log(isOwner)
@@ -99,8 +101,13 @@ function createPost(postInfo) {
 
 function createPostDataDiv(postInfo) {
     let dataDiv = document.createElement("div");
+    dataDiv.setAttribute("data-post-id", postInfo.postId)
+    dataDiv.setAttribute("data-autor-id", postInfo.userId)
+    dataDiv.setAttribute("data-group-id", postInfo.groupId)
     dataDiv.appendChild(createAutorLink(postInfo.userId, pageName));
     dataDiv.appendChild(createTimeSpan(postInfo.creationDate));
+    if (isOwner === "True")
+        dataDiv.appendChild(createDeleteButton());
     return dataDiv;
 }
 
@@ -114,7 +121,7 @@ function createPostContentDiv(postInfo) {
 
 function createAutorLink(id, name) {
     let autorLink = document.createElement("a");
-    autorLink.setAttribute("href", id);
+    autorLink.setAttribute("href", `/page/${id}`);
     autorLink.textContent = name;
     return autorLink;
 }
@@ -123,4 +130,32 @@ function createTimeSpan(time) {
     let timeSpan = document.createElement("span");
     timeSpan.textContent = time;
     return timeSpan;
+}
+
+function createDeleteButton() {
+    let delBtn = document.createElement("button");
+    delBtn.textContent = "удалить";
+    delBtn.addEventListener("click", delBtnClick);
+    return delBtn;
+}
+
+async function delBtnClick() {
+    const postId = this.parentNode.getAttribute("data-post-id");
+    try {
+        const response = await fetch(`/userPosts/delete/${postId}`, {
+            method: "DELETE"
+        });
+
+        if (response.ok) {
+            console.log("Пост удален.");
+            let post = this.parentNode.parentNode;
+            post.remove();
+        }
+        else {
+            console.error(await response.text());
+        }
+    }
+    catch (error) {
+        console.error("Ошибка:", error.message);
+    }
 }

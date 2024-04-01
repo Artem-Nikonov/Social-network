@@ -12,15 +12,21 @@ namespace SocialNetworkServer.Controllers
         {
             this.userPostsService = userPostsService;
         }
-        
-        [HttpPost]
+
         [Authorize]
+        [HttpPost]
         [Route("userPosts/create")]
         public async Task<IActionResult> CreateUserPost([FromBody][Bind("Content")] Post post)
         {
-            var createdPost = await userPostsService.TryCreatePost(post, HttpContext);
-            if(createdPost!=null) return Json(createdPost);
-            return BadRequest();
+            try
+            {
+                var createdPost = await userPostsService.CreatePost(post, HttpContext.User);
+                return Json(createdPost);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [Authorize]
@@ -39,6 +45,16 @@ namespace SocialNetworkServer.Controllers
                 Posts = posts
             };
             return Json(postsData);
+        }
+
+        [Authorize]
+        [HttpDelete]
+        [Route("userPosts/delete/{postId:int}")]
+        public async Task<IActionResult> CreateUserPost(int postId)
+        {
+            var deletedPost = await userPostsService.DeletePost(postId, HttpContext.User);
+            if (deletedPost != null) return Ok();
+            return BadRequest("Не удалось удалить пост.");
         }
     }
 }
