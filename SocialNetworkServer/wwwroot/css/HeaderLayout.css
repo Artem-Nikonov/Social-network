@@ -9,6 +9,7 @@ body {
     margin: 0;
     padding: 0;
 }
+
 main {
     margin-top: 90px;
 }
@@ -54,17 +55,40 @@ header div {
     transition: background-color 0.3s;
 }
 
+.link_btn {
+    background: none;
+    border: none;
+    color: #555; /* Нейтральный цвет */
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0;
+    font: inherit;
+}
+
+
 .container{
     margin-top:15px;
     padding:10px;
 }
+
 .container a {
     margin: 0 auto;
 }
+
 .btnBorders a {
     border: 1px #ccc solid
 }
 
 .btnContainer a:hover {
     background-color: #555;
+}
+
+.custom_link {
+    color: #008080; /* Цвет ссылок teal */
+    text-decoration: none; /* Удаление подчеркивания */
+    transition: color 0.3s; /* Плавное изменение цвета при наведении */
+}
+
+.custom_link:hover {
+    color: #006666; /* Цвет ссылок при наведении, темнее оттенок teal */
 }

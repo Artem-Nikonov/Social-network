@@ -20,5 +20,6 @@ namespace SocialNetworkServer.SocNetworkDBContext.Entities
         public string Content { get; set; }
 
         public DateTime CreationDate { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

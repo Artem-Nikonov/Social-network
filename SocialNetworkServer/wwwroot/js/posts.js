@@ -94,6 +94,7 @@ async function getPosts() {
 
 function createPost(postInfo) {
     let postDiv = document.createElement("div");
+    postDiv.classList.add("post");
     postDiv.appendChild(createPostDataDiv(postInfo));
     postDiv.appendChild(createPostContentDiv(postInfo));
     return postDiv;
@@ -101,29 +102,42 @@ function createPost(postInfo) {
 
 function createPostDataDiv(postInfo) {
     let dataDiv = document.createElement("div");
+    dataDiv.classList.add("post_data");
     dataDiv.setAttribute("data-post-id", postInfo.postId)
     dataDiv.setAttribute("data-autor-id", postInfo.userId)
     dataDiv.setAttribute("data-group-id", postInfo.groupId)
-    dataDiv.appendChild(createAutorLink(postInfo.userId, pageName));
-    dataDiv.appendChild(createTimeSpan(postInfo.creationDate));
-    if (isOwner === "True")
-        dataDiv.appendChild(createDeleteButton());
+    dataDiv.appendChild(createMetaDataDiv(pageName));
+    dataDiv.appendChild(createTimeSpanDiv(postInfo));
     return dataDiv;
 }
 
 function createPostContentDiv(postInfo) {
     let contentDiv = document.createElement("div");
+    contentDiv.classList.add("post_content");
     let content = document.createElement("pre");
     content.textContent = postInfo.content;
     contentDiv.appendChild(content)
     return contentDiv;
 }
 
-function createAutorLink(id, name) {
+function createTimeSpanDiv(postInfo) {
+    let timeSpanDiv = document.createElement("div");
+    timeSpanDiv.classList.add("post_data_section");
+    timeSpanDiv.appendChild(createTimeSpan(postInfo.creationDate));
+    return timeSpanDiv;
+}
+
+function createMetaDataDiv(name) {
+    let metaDataDiv = document.createElement("div");
+    metaDataDiv.classList.add("post_data_section");
     let autorLink = document.createElement("a");
-    autorLink.setAttribute("href", `/page/${id}`);
+    autorLink.classList.add("custom_link");
+    autorLink.setAttribute("href", `/page/${pageId}`);
     autorLink.textContent = name;
-    return autorLink;
+    metaDataDiv.appendChild(autorLink)
+    if (isOwner === "True")
+        metaDataDiv.appendChild(createDeleteButton());
+    return metaDataDiv;
 }
 
 function createTimeSpan(time) {
@@ -134,21 +148,22 @@ function createTimeSpan(time) {
 
 function createDeleteButton() {
     let delBtn = document.createElement("button");
-    delBtn.textContent = "удалить";
+    delBtn.classList.add("link_btn");
+    delBtn.textContent = "Удалить";
     delBtn.addEventListener("click", delBtnClick);
     return delBtn;
 }
 
 async function delBtnClick() {
-    const postId = this.parentNode.getAttribute("data-post-id");
+    const postId = this.parentNode.parentNode.getAttribute("data-post-id");
     try {
         const response = await fetch(`/userPosts/delete/${postId}`, {
-            method: "DELETE"
+            method: "PATCH"
         });
 
         if (response.ok) {
             console.log("Пост удален.");
-            let post = this.parentNode.parentNode;
+            let post = this.parentNode.parentNode.parentNode;
             post.remove();
         }
         else {

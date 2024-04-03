@@ -16,7 +16,7 @@ namespace SocialNetworkServer.SocNetworkDBContext
 
         public SocialNetworkDBContext(DbContextOptions<SocialNetworkDBContext> options) : base(options)
         {
-            //Database.EnsureCreated();
+            Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

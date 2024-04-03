@@ -36,8 +36,8 @@ namespace SocialNetworkServer.Services
         {
             var userId = userService.GetUserId(user);
             var post = await dbContext.Posts.FindAsync(postId);
-            if (post == null || post.UserId != userId) return null;
-            dbContext.Posts.Remove(post);
+            if (post == null || post.UserId != userId || post.IsDeleted) return null;
+            post.IsDeleted = true;
             await dbContext.SaveChangesAsync();
             PostInfoModel postInfo = post;
             return postInfo;
@@ -46,7 +46,7 @@ namespace SocialNetworkServer.Services
         public async Task<List<PostInfoModel>> GetPosts(int userId, int startPostId)
         {
             IQueryable<Post> query = dbContext.Posts.OrderByDescending(p => p.PostId)
-                                          .Where(p => p.UserId == userId && p.GroupId == null);
+                                          .Where(p => p.UserId == userId && p.GroupId == null && !p.IsDeleted);
 
             if (startPostId > 0)
                 query = query.Where(p => p.PostId <= startPostId);

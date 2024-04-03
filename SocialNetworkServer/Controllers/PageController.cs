@@ -18,7 +18,7 @@ namespace SocialNetworkServer.Controllers
 
         [Authorize]
         [HttpGet]
-        [Route("{id:int=1}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> UserPage(int id)
         {
             var userInfo = await userService.GetUserInfo(id);

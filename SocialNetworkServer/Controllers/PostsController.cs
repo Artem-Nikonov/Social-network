@@ -48,7 +48,7 @@ namespace SocialNetworkServer.Controllers
         }
 
         [Authorize]
-        [HttpDelete]
+        [HttpPatch]
         [Route("userPosts/delete/{postId:int}")]
         public async Task<IActionResult> CreateUserPost(int postId)
         {
