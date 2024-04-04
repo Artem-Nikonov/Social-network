@@ -1,12 +1,4 @@
-﻿.custom_button {
-    background-color: #333;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.custom_button:hover {
+﻿.custom_button:hover {
     background-color: #555;
 }
 .post_textarea {

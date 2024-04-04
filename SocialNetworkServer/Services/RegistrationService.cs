@@ -6,11 +6,10 @@ using SocialNetworkServer.SocNetworkDBContext.Entities;
 
 namespace SocialNetworkServer.Services
 {
-    public class RegistrationService
+    public class RegistrationService: IRegistrationService
     {
         private SocialNetworkDBContext dbContext;
         private IPasswordHasher passwordHasher;
-        public string? ErrorMessage;
         public RegistrationService (SocialNetworkDBContext dBContext,IPasswordHasher passwordHasher)
         {
             this.dbContext = dBContext;
@@ -24,7 +23,6 @@ namespace SocialNetworkServer.Services
                 await RegisterAccountAsync(userAccount);
                 return true;
             }
-            ErrorMessage = "Логин занят.";
             return false;
         }
 

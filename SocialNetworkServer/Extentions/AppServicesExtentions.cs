@@ -48,8 +48,8 @@ namespace SocialNetworkServer.Extentions
         {
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IJWTProvider, JWTPrpvider>();
-            services.AddScoped<RegistrationService>();
-            services.AddScoped<AuthenticationService>();
+            services.AddScoped<IRegistrationService, RegistrationService>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddTransient<UserService>();
             services.AddScoped<UserPostsService>();
             return services;

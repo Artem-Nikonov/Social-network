@@ -79,9 +79,7 @@ async function getPosts() {
             for (let post of postsData.posts) {
                 postsContainer.appendChild(createPost(post));
             }
-            if (postsData.meta.isLastPage)
-                addLoadPostsBtn.style.display = "none";
-            startPostId = postsData.meta.lastPostId - 1;
+            lastPageHandler(postsData.meta)
         }
         else {
             console.error("Произошла ошибка при выполнении запроса");
@@ -91,6 +89,8 @@ async function getPosts() {
         console.error("Ошибка:", error.message);
     }
 }
+
+
 
 function createPost(postInfo) {
     let postDiv = document.createElement("div");
@@ -173,4 +173,14 @@ async function delBtnClick() {
     catch (error) {
         console.error("Ошибка:", error.message);
     }
+}
+
+function lastPageHandler(pageMetaData) {
+    if (pageMetaData.isLastPage) {
+        addLoadPostsBtn.style.display = "none";
+    }
+    else {
+        addLoadPostsBtn.style.display = "inline-block";
+    }
+    startPostId = postsData.meta.lastPostId - 1;
 }

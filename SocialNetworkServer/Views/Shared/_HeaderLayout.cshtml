@@ -5,16 +5,18 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>@ViewData["Title"]</title>
-        <link rel="stylesheet" href="~/css/HeaderLayout.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/MainStyles.css" asp-append-version="true" />
     </head>
 
     <body>
         <header  class="btnContainer">
             <div authentication-status="@SocialNetworkServer.CustomTagHelpers.Enums.AuthenticationStatus.Authenticated">
-            <a asp-controller="Page" asp-action="UserPage" asp-route-id="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value">Моя страница</a>
+                <a asp-controller="Page" asp-action="UserPage" asp-route-id="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value">Моя страница</a>
+                <a asp-controller="Users" asp-action="Users">Пользователи</a>
+            
             </div>
             <div authentication-status="@SocialNetworkServer.CustomTagHelpers.Enums.AuthenticationStatus.Authenticated">
-            <a asp-controller="Account" asp-action="AccountSettings">Настройки</a>
+                <a asp-controller="Account" asp-action="AccountSettings">Настройки</a>
                 <a asp-controller="Home" asp-action ="Index">Выход</a>
             </div>
             <div authentication-status="@SocialNetworkServer.CustomTagHelpers.Enums.AuthenticationStatus.NotAuthenticated">

@@ -50,7 +50,7 @@ namespace SocialNetworkServer.Controllers
         [Authorize]
         [HttpPatch]
         [Route("userPosts/delete/{postId:int}")]
-        public async Task<IActionResult> CreateUserPost(int postId)
+        public async Task<IActionResult> DeleteUserPost(int postId)
         {
             var deletedPost = await userPostsService.DeletePost(postId, HttpContext.User);
             if (deletedPost != null) return Ok();

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "HS5Aa4SLy1hIw0+n0ZJFIgYVyoh2LW7dlrBhTJHQpdk=",
+  "Hash": "NquZJwmmJhmjKDBSbaClyCyAI3vZzJVEYZjDgJ+mg80=",
   "Source": "SocialNetworkServer",
   "BasePath": "_content/SocialNetworkServer",
   "Mode": "Default",
@@ -68,12 +68,12 @@
       "OriginalItemSpec": "wwwroot\\css\\FormStyle.css"
     },
     {
-      "Identity": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\HeaderLayout.css",
+      "Identity": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\MainStyles.css",
       "SourceId": "SocialNetworkServer",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\",
       "BasePath": "_content/SocialNetworkServer",
-      "RelativePath": "css/HeaderLayout.css",
+      "RelativePath": "css/MainStyles.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -82,7 +82,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\HeaderLayout.css"
+      "OriginalItemSpec": "wwwroot\\css\\MainStyles.css"
     },
     {
       "Identity": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\PostEditorStyles.css",
@@ -168,6 +168,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\users.js",
+      "SourceId": "SocialNetworkServer",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\",
+      "BasePath": "_content/SocialNetworkServer",
+      "RelativePath": "js/users.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\users.js"
     },
     {
       "Identity": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",

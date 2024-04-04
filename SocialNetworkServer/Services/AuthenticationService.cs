@@ -11,12 +11,11 @@ using SocialNetworkServer.OptionModels;
 
 namespace SocialNetworkServer.Services
 {
-    public class AuthenticationService
+    public class AuthenticationService: SocialNetworkServer.Interfaces.IAuthenticationService
     {
         private SocialNetworkDBContext dbContext;
         private IPasswordHasher passwordHasher;
         private IJWTProvider JwtProvider;
-        public string? ErrorMessage { get; private set; }
 
         public AuthenticationService(SocialNetworkDBContext dBContext, IPasswordHasher passwordHasher, IJWTProvider JwtProvider)
         {
@@ -34,12 +33,11 @@ namespace SocialNetworkServer.Services
                 AuthenticateUser(account, httpContext);
                 return true;
             }
-            ErrorMessage = "Неверный логин или пароль.";
             return false;
         }
 
         //выход из аккаунта
-        public async Task LogOut(HttpContext httpContext)
+        public void LogOut(HttpContext httpContext)
         {
             httpContext.Response.Cookies.Delete("a_c");
         }

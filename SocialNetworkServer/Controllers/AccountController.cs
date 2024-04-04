@@ -3,14 +3,15 @@ using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SocialNetworkServer.Models;
 using SocialNetworkServer.Services;
+using SocialNetworkServer.Interfaces;
 
 namespace SocialNetworkServer.Controllers
 {
     public class AccountController : Controller
     {
-        private RegistrationService registrationService;
-        private AuthenticationService authenticationService;
-        public AccountController(RegistrationService registrationService, AuthenticationService authenticationService)
+        private IRegistrationService registrationService;
+        private IAuthenticationService authenticationService;
+        public AccountController(IRegistrationService registrationService, IAuthenticationService authenticationService)
         {
             this.registrationService = registrationService;
             this.authenticationService = authenticationService;
@@ -35,9 +36,9 @@ namespace SocialNetworkServer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> LogOut()
+        public IActionResult LogOut()
         {
-            await authenticationService.LogOut(HttpContext);
+            authenticationService.LogOut(HttpContext);
             return RedirectToAction("Index", "Home");
         }
 
@@ -46,7 +47,7 @@ namespace SocialNetworkServer.Controllers
         {
             var IsSuccessful = await registrationService.TryRegisterAccountAsync(userAccount);
             if (IsSuccessful && ModelState.IsValid) return Redirect("/");
-            var errorMessage = registrationService.ErrorMessage ?? "Ошибка регистрации!";
+            var errorMessage = "Логин занят";
             ModelState.AddModelError("", errorMessage);
             return View(userAccount);
         }
@@ -56,7 +57,7 @@ namespace SocialNetworkServer.Controllers
         {
             var IsSuccessful = await authenticationService.TryAuthenticateUserAsync(accountData, HttpContext);
             if (IsSuccessful && ModelState.IsValid) return Redirect(returnUrl ?? "~/Home/Index");
-            var errorMessage = authenticationService.ErrorMessage ?? "Ошибка авторизации!";
+            var errorMessage = "Неверный логин или пароль.";
             ModelState.AddModelError("", errorMessage);
             return View(accountData);
         }

@@ -9,8 +9,8 @@
       "PackagePath": "staticwebassets\\css\\FormStyle.css"
     },
     {
-      "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\HeaderLayout.css",
-      "PackagePath": "staticwebassets\\css\\HeaderLayout.css"
+      "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\MainStyles.css",
+      "PackagePath": "staticwebassets\\css\\MainStyles.css"
     },
     {
       "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\PostEditorStyles.css",
@@ -31,6 +31,10 @@
     {
       "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\users.js",
+      "PackagePath": "staticwebassets\\js\\users.js"
     },
     {
       "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\lib\\bootstrap\\LICENSE",

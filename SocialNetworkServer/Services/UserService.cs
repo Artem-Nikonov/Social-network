@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Caching.Memory;
 using SocialNetworkServer.AuxiliaryClasses;
 using SocialNetworkServer.SocNetworkDBContext;
+using SocialNetworkServer.SocNetworkDBContext.Entities;
 using System.Security.Claims;
 
 namespace SocialNetworkServer.Services
@@ -10,6 +11,7 @@ namespace SocialNetworkServer.Services
     {
         private SocialNetworkDBContext dbContext;
         private IMemoryCache cache;
+        public static int limit { get; private set; } = 5;
 
         public UserService(SocialNetworkDBContext dbContext, IMemoryCache memoryCache)
         {
@@ -33,6 +35,19 @@ namespace SocialNetworkServer.Services
             else
                 Console.WriteLine($"{userInfo.UserId} ЮЗЕР ПОЛУЧЕН ИЗ КЭША!!!!!!!!!!!");
             return userInfo;
+        }
+
+        public async Task<List<UserInfo>>GetUsers(int page)
+        {
+            if (page <= 0) page = 1;
+            var users = await dbContext.Users.OrderByDescending(u => u.UserId)
+                .Skip((page - 1) * limit).Take(limit).Select(u=>new UserInfo
+                {
+                    UserId= u.UserId,
+                    UserName= u.UserName,
+                    UserSurname= u.UserSurname
+                }).AsNoTracking().ToListAsync();
+            return users;
         }
 
         public int GetUserId(ClaimsPrincipal user)
