@@ -64,10 +64,14 @@ header div {
     cursor: pointer;
 }
 
+.custom_button:hover {
+    background-color: #555;
+}
+
 .link_btn {
     background: none;
     border: none;
-    color: #555; /* Нейтральный цвет */
+    color: #555;
     text-decoration: none;
     cursor: pointer;
     padding: 0;
@@ -99,4 +103,11 @@ header div {
 
 .custom_link:hover {
     color: #006666; /* Цвет ссылок при наведении, темнее оттенок teal */
+}
+
+.underlined_title {
+    padding:10px;
+    margin-bottom:10px;
+    margin-top:0px;
+    border-bottom: 2px #333 solid;
 }

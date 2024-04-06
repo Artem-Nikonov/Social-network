@@ -4,9 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SocialNetworkServer.Models;
 using SocialNetworkServer.Services;
 using SocialNetworkServer.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SocialNetworkServer.Controllers
 {
+    [Route("account")]
     public class AccountController : Controller
     {
         private IRegistrationService registrationService;
@@ -17,32 +19,33 @@ namespace SocialNetworkServer.Controllers
             this.authenticationService = authenticationService;
         }
 
-        [HttpGet]
+        [HttpGet("registration")]
         public IActionResult Registration()
         {
             return View();
         }
 
-        [HttpGet]
+        [HttpGet("authorization")]
         public IActionResult Authorization()
         {
             return View();
         }
 
-        [HttpGet]
+        [Authorize]
+        [HttpGet("settings")]
         public IActionResult AccountSettings()
         {
             return View();
         }
 
-        [HttpGet]
+        [HttpGet("logOut")]
         public IActionResult LogOut()
         {
             authenticationService.LogOut(HttpContext);
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost]
+        [HttpPost("registration")]
         public async Task<IActionResult> Registration(UserRegistrationModel userAccount)
         {
             var IsSuccessful = await registrationService.TryRegisterAccountAsync(userAccount);
@@ -52,7 +55,7 @@ namespace SocialNetworkServer.Controllers
             return View(userAccount);
         }
 
-        [HttpPost]
+        [HttpPost("authorization")]
         public async Task<IActionResult> Authorization(string? returnUrl,UserAuthorizationModel accountData)
         {
             var IsSuccessful = await authenticationService.TryAuthenticateUserAsync(accountData, HttpContext);

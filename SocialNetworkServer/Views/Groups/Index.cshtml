@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Группы";
+}
+<div class="main_content">
+    <div>
+        <h2 class="text-center underlined_title">@ViewData["Title"]</h2>
+        <div class="btnContainer btnBorders container">
+            <a asp-controller="Groups" asp-action="CreateGroup" class="custom_button">Создать группу</a>
+        </div>
+    </div>
+    <div id="groupsContainer">
+    </div>
+    <button id="AddLoadGroupsBtn" class="custom_button" style="display:none">Показать больше</button>
+</div>
+<script src="~/js/groups.js" asp-append-version="true" />

@@ -48,7 +48,7 @@ function createUserDiv(userInfo) {
 function createUserLink(userInfo) {
     let userLink = document.createElement("a");
     userLink.classList.add("custom_link");
-    userLink.setAttribute("href", `page/${userInfo.userId}`);
+    userLink.setAttribute("href", `users/${userInfo.userId}`);
     userLink.textContent = `${userInfo.userName} ${userInfo.userSurname}`;
     return userLink;
 }

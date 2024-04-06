@@ -30,6 +30,7 @@ namespace SocialNetworkServer.SocNetworkDBContext
             modelBuilder.ApplyConfiguration(new UserSubscriptionConfiguration());
             modelBuilder.ApplyConfiguration(new GroupSubscriptionConfiguration());
             modelBuilder.ApplyConfiguration(new PostConfiguration());
+            modelBuilder.ApplyConfiguration(new GroupConfiguration());
         }
     }
 }

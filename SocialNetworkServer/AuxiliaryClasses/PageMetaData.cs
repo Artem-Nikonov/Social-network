@@ -2,8 +2,12 @@
 {
     public class PageMetaData
     {
-        public int PageId { get; set; }
         public int VisitorId { get; set; }
         public bool VisitorIsOwner { get; set; }
+        public PageMetaData(int VisitorId, bool VisitorIsOwner)
+        {
+            this.VisitorId = VisitorId;
+            this.VisitorIsOwner = VisitorIsOwner;
+        }
     }
 }

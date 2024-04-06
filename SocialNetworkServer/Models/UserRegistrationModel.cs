@@ -4,13 +4,13 @@ namespace SocialNetworkServer.Models
 {
     public class UserRegistrationModel
     {
-        [Required(ErrorMessage = "Введите имя.")]
+        [Required(ErrorMessage = "Введите имя")]
         [MinLength(2, ErrorMessage = "Длина имени должна быть не меньше 2-х символов.")]
         [RegularExpression(@"^[A-Za-zА-Яа-я]+$", ErrorMessage = "Имя должно содержать только буквы.")]
         [Display(Name = "Имя:")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Введите Фамилию.")]
+        [Required(ErrorMessage = "Введите Фамилию")]
         [MinLength(2, ErrorMessage = "Длина фамилии должна быть не меньше 2-х символов.")]
         [RegularExpression(@"^[A-Za-zА-Яа-я]+$", ErrorMessage = "Фамилия должна содержать только буквы.")]
         [Display(Name = "Фамилия:")]

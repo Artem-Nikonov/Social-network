@@ -25,6 +25,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\groups.js",
+      "PackagePath": "staticwebassets\\js\\groups.js"
+    },
+    {
       "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\posts.js",
       "PackagePath": "staticwebassets\\js\\posts.js"
     },

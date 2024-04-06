@@ -132,7 +132,7 @@ function createMetaDataDiv(name) {
     metaDataDiv.classList.add("post_data_section");
     let autorLink = document.createElement("a");
     autorLink.classList.add("custom_link");
-    autorLink.setAttribute("href", `/page/${pageId}`);
+    autorLink.setAttribute("href", `/users/${pageId}`);
     autorLink.textContent = name;
     metaDataDiv.appendChild(autorLink)
     if (isOwner === "True")

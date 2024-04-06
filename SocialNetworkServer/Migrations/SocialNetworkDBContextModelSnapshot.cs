@@ -36,6 +36,9 @@ namespace SocialNetworkServer.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("PostPermissions")
+                        .HasColumnType("int");
+
                     b.HasKey("GroupId");
 
                     b.HasIndex("CreatorId");
@@ -92,7 +95,7 @@ namespace SocialNetworkServer.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId", "GroupId", "IsDeleted");
 
                     b.ToTable("Posts");
                 });

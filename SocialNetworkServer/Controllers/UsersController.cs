@@ -1,26 +1,40 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SocialNetworkServer.Models;
 using SocialNetworkServer.Services;
-using System.ComponentModel.DataAnnotations;
+using SocialNetworkServer.AuxiliaryClasses;
+using System.Globalization;
+using SocialNetworkServer.Interfaces;
 
 namespace SocialNetworkServer.Controllers
 {
     [Route("users")]
     public class UsersController : Controller
     {
-        private UserService userService;
-        public UsersController(UserService userService)
+        private IUsersService usersService;
+        public UsersController(IUsersService usersService)
         {
-            this.userService = userService;
+            this.usersService = usersService;
         }
 
         [HttpGet]
-        public IActionResult Users()
+        public IActionResult Index()
         {
             return View();
         }
 
         [Authorize]
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> UserPage(int id)
+        {
+            var userInfo = await usersService.GetUserInfo(id);
+            if (userInfo == null) return NotFound();
+            var visitorId = usersService.GetUserId(HttpContext.User);
+            var visitorIsOwner = visitorId == userInfo.UserId;
+            var userPageModel = new UserPageModel(userInfo, new PageMetaData(visitorId, visitorIsOwner));
+            return View(userPageModel);
+        }
+
         [HttpGet("get")]
         public async Task<IActionResult> GetUsers(int page)
         {
@@ -28,15 +42,15 @@ namespace SocialNetworkServer.Controllers
             {
                 return BadRequest("Номер страницы должен быть больше 0.");
             }
-            var users = await userService.GetUsers(page);
+            var users = await usersService.GetUsers(page);
             var usersData = new
             {
                 Meta = new
                 {
                     PageId = page,
-                    IsLastPage = users.Count < UserService.limit
+                    IsLastPage = users.Count < IUsersService.limit
                 },
-                Users=users
+                Users = users
             };
             return Json(usersData);
         }

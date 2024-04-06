@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using SocialNetworkServer.Extentions;
+using SocialNetworkServer.Interfaces;
 using SocialNetworkServer.Models;
 using SocialNetworkServer.SocNetworkDBContext;
 using SocialNetworkServer.SocNetworkDBContext.Entities;
@@ -11,15 +12,16 @@ namespace SocialNetworkServer.Services
     public class UserPostsService
     {
         private SocialNetworkDBContext dbContext;
-        private UserService userService;
+        private IUsersService userService;
         public static int limit { get; private set; } = 5;
 
-        public UserPostsService(SocialNetworkDBContext dbContext, UserService userService)
+        public UserPostsService(SocialNetworkDBContext dbContext, IUsersService userService)
         {
             this.dbContext = dbContext;
             this.userService = userService;
         }
 
+        //создание поста
         public async Task<PostInfoModel> CreatePost(Post post, ClaimsPrincipal user)
         {
             if (post.Content == null || post.Content.Length < 2)
@@ -32,6 +34,7 @@ namespace SocialNetworkServer.Services
             return postInfo;
         }
 
+        //удаление поста
         public async Task<PostInfoModel?> DeletePost(int postId, ClaimsPrincipal user)
         {
             var userId = userService.GetUserId(user);
@@ -43,6 +46,7 @@ namespace SocialNetworkServer.Services
             return postInfo;
         }
 
+        //получение постов через пагинацию
         public async Task<List<PostInfoModel>> GetPosts(int userId, int startPostId)
         {
             IQueryable<Post> query = dbContext.Posts.OrderByDescending(p => p.PostId)

@@ -50,8 +50,9 @@ namespace SocialNetworkServer.Extentions
             services.AddScoped<IJWTProvider, JWTPrpvider>();
             services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
-            services.AddTransient<UserService>();
+            services.AddTransient<IUsersService, UsersService>();
             services.AddScoped<UserPostsService>();
+            services.AddScoped<IGroupsService, GroupsService>();
             return services;
         }
 

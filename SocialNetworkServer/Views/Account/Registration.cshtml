@@ -5,7 +5,9 @@
 <link rel="stylesheet" href="~/css/FormStyle.css" asp-append-version="true" />
 
 <div class="main_content">
-    <p class="text-center">Регистрация</p> <hr />
+    <div>
+        <h2 class="text-center underlined_title">Регистрация</h2>
+    </div>
     <form method="post" >
         <p>
             <label asp-for="UserName"></label><br />
@@ -33,7 +35,7 @@
             <span asp-validation-for="ConfirmPassword"></span>
         </p>
         <div asp-validation-summary="ModelOnly"></div>
-        <input type="submit" value="Зарегистрироваться" class="form_button" />
+        <input type="submit" value="Зарегистрироваться" class="custom_button" />
     </form>
 </div>
 

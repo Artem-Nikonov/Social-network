@@ -13,7 +13,7 @@ namespace SocialNetworkServer.SocNetworkDBContext.EntitiesConfiguration
             builder.Property(post => post.CreationDate).IsRequired();
             builder.Property(post => post.CreationDate).HasColumnType("datetime");
             builder.Property(post => post.CreationDate).HasDefaultValueSql("CURRENT_TIMESTAMP");
-
+            builder.HasIndex(post => new { post.UserId, post.GroupId, post.IsDeleted });
         }
     }
 }

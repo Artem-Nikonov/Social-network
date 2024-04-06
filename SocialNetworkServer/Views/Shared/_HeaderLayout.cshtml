@@ -11,13 +11,13 @@
     <body>
         <header  class="btnContainer">
             <div authentication-status="@SocialNetworkServer.CustomTagHelpers.Enums.AuthenticationStatus.Authenticated">
-                <a asp-controller="Page" asp-action="UserPage" asp-route-id="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value">Моя страница</a>
-                <a asp-controller="Users" asp-action="Users">Пользователи</a>
-            
+                <a asp-controller="Users" asp-action="UserPage" asp-route-id="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value">Моя страница</a>
+                <a asp-controller="Users" asp-action="Index">Пользователи</a>
+                <a asp-controller="Groups" asp-action="Index">Группы</a>
             </div>
             <div authentication-status="@SocialNetworkServer.CustomTagHelpers.Enums.AuthenticationStatus.Authenticated">
                 <a asp-controller="Account" asp-action="AccountSettings">Настройки</a>
-                <a asp-controller="Home" asp-action ="Index">Выход</a>
+                <a asp-controller="Home" asp-action="Index">📧</a>
             </div>
             <div authentication-status="@SocialNetworkServer.CustomTagHelpers.Enums.AuthenticationStatus.NotAuthenticated">
                 <a asp-controller="Home" asp-action="Index">Авторизация</a>
