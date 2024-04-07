@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Caching.Memory;
 using SocialNetworkServer.AuxiliaryClasses;
 using SocialNetworkServer.Interfaces;
+using SocialNetworkServer.OptionModels;
 using SocialNetworkServer.SocNetworkDBContext;
 using SocialNetworkServer.SocNetworkDBContext.Entities;
 using System.Security.Claims;
@@ -41,7 +42,8 @@ namespace SocialNetworkServer.Services
         {
             if (page <= 0) page = 1;
             var users = await dbContext.Users.OrderByDescending(u => u.UserId)
-                .Skip((page - 1) * IUsersService.limit).Take(IUsersService.limit).Select(u=>new UserInfo
+                .Skip((page - 1) * PaginationConstants.UsersPerPage)
+                .Take(PaginationConstants.UsersPerPage).Select(u=>new UserInfo
                 {
                     UserId= u.UserId,
                     UserName= u.UserName,

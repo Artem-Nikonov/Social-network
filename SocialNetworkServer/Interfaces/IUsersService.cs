@@ -8,6 +8,5 @@ namespace SocialNetworkServer.Interfaces
         Task<UserInfo?> GetUserInfo(int id);
         int GetUserId(ClaimsPrincipal user);
         Task<List<UserInfo>> GetUsers(int page);
-        static int limit = 5;
     }
 }

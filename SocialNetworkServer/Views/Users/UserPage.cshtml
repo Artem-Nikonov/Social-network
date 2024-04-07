@@ -8,6 +8,9 @@
     <div>
         <h3 id="userFullName" class="underlined_title">@Model.userInfo.GetFullName()</h3>
     </div>
+    <div>
+        <subscription-button user-id="Model.metaData!.VisitorId" page-id="Model.userInfo.UserId" page-type="userPage"/>
+    </div>
     <span id="IsOwner" data-owner="@Model.metaData!.VisitorIsOwner" style="display: none;"></span>
     <span id="PageId" data="@Model.userInfo.UserId" style="display: none;"></span>
     <div>

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using SocialNetworkServer.Extentions;
 using SocialNetworkServer.Interfaces;
 using SocialNetworkServer.Models;
+using SocialNetworkServer.OptionModels;
 using SocialNetworkServer.SocNetworkDBContext;
 using SocialNetworkServer.SocNetworkDBContext.Entities;
 using System.Security.Claims;
@@ -13,7 +14,6 @@ namespace SocialNetworkServer.Services
     {
         private SocialNetworkDBContext dbContext;
         private IUsersService userService;
-        public static int limit { get; private set; } = 5;
 
         public UserPostsService(SocialNetworkDBContext dbContext, IUsersService userService)
         {
@@ -55,7 +55,7 @@ namespace SocialNetworkServer.Services
             if (startPostId > 0)
                 query = query.Where(p => p.PostId <= startPostId);
 
-            var posts = await query.Take(limit)
+            var posts = await query.Take(PaginationConstants.PostsPerPage)
                 .Select(post => new PostInfoModel
                 {
                     PostId = post.PostId,

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "n2EV6Co++RV612KGlDcEkjQOJ+IqOyL2Wem3TVkKTlI=",
+  "Hash": "4Lyvv7J29rD39imGFaANfBIRJ9zekqAWHS7Q5Nu9qoo=",
   "Source": "SocialNetworkServer",
   "BasePath": "_content/SocialNetworkServer",
   "Mode": "Default",
@@ -151,6 +151,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\groups.js"
+    },
+    {
+      "Identity": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\GroupSubscribe.js",
+      "SourceId": "SocialNetworkServer",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\",
+      "BasePath": "_content/SocialNetworkServer",
+      "RelativePath": "js/GroupSubscribe.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\GroupSubscribe.js"
     },
     {
       "Identity": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\posts.js",

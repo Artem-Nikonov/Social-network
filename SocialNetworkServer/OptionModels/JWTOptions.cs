@@ -8,7 +8,7 @@ namespace SocialNetworkServer.OptionModels
         public const string ISSUER = "MyAuthServer"; // издатель токена
         public const string AUDIENCE = "MyAuthClient"; // потребитель токена
         const string KEY = "SecretKeySocialNetworkJWTAuthantikationTotalCringeStudioSecure";
-        public const int ExpiresHours = 5;
+        public const int ExpiresHours = 1;
         public static SymmetricSecurityKey GetSymmetricSecurityKey() =>
         new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));
     }

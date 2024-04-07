@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SocialNetworkServer.OptionModels;
 using SocialNetworkServer.Services;
 using SocialNetworkServer.SocNetworkDBContext.Entities;
 
@@ -14,8 +15,7 @@ namespace SocialNetworkServer.Controllers
         }
 
         [Authorize]
-        [HttpPost]
-        [Route("userPosts/create")]
+        [HttpPost("userPosts/create")]
         public async Task<IActionResult> CreateUserPost([FromBody][Bind("Content")] Post post)
         {
             try
@@ -30,9 +30,8 @@ namespace SocialNetworkServer.Controllers
         }
 
         [Authorize]
-        [HttpGet]
-        [Route("userPosts/{userId:int}")]
-        public async Task<JsonResult> GetPosts(int UserId, int startPostId)
+        [HttpGet("userPosts/{userId:int}")]
+        public async Task<JsonResult> GetPosts(int UserId, [FromQuery] int startPostId)
         {
             var posts= await userPostsService.GetPosts(UserId, startPostId);
             var postsData = new
@@ -40,7 +39,7 @@ namespace SocialNetworkServer.Controllers
                 Meta = new
                 {
                     LastPostId = posts.LastOrDefault()?.PostId,
-                    IsLastPage = posts.Count < UserPostsService.limit
+                    IsLastPage = posts.Count < PaginationConstants.PostsPerPage
                 },
                 Posts = posts
             };
@@ -48,8 +47,7 @@ namespace SocialNetworkServer.Controllers
         }
 
         [Authorize]
-        [HttpPatch]
-        [Route("userPosts/delete/{postId:int}")]
+        [HttpPatch("userPosts/delete/{postId:int}")]
         public async Task<IActionResult> DeleteUserPost(int postId)
         {
             var deletedPost = await userPostsService.DeletePost(postId, HttpContext.User);

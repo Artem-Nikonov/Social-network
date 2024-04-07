@@ -21,16 +21,11 @@ namespace SocialNetworkServer.SocNetworkDBContext.Entities
 
     public class GroupSubscription
     {
-        public int GroupSubscriptionId { get; set; }
-
-        [Required]
         public int SubscriberId { get; set; }
 
-        public User Subscriber { get; set; }
-
-        [Required]
         public int SubscribedToGroupId { get; set; }
 
+        public User Subscriber { get; set; }
         public Group SubscribedToGroup { get; set; }
     }
 }

@@ -10,14 +10,17 @@ namespace SocialNetworkServer.SocNetworkDBContext.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<GroupSubscription> builder)
         {
-            builder.ToTable("GroupSubscriptions");
-            builder.HasOne(gs => gs.Subscriber)
-                .WithMany(u => u.SubscribedGroups)
-                .HasForeignKey(gs => gs.SubscriberId);
+            builder.ToTable("UserGroupSubscriptions");
 
-            builder.HasOne(gs => gs.SubscribedToGroup)
+            builder.HasKey(ugs => new { ugs.SubscriberId, ugs.SubscribedToGroupId });
+
+            builder.HasOne(ugs => ugs.Subscriber)
+                .WithMany(u => u.SubscribedGroups)
+                .HasForeignKey(ugs => ugs.SubscriberId);
+
+            builder.HasOne(ugs => ugs.SubscribedToGroup)
                 .WithMany(g => g.Subscribers)
-                .HasForeignKey(gs => gs.SubscribedToGroupId);
+                .HasForeignKey(ugs => ugs.SubscribedToGroupId);
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SocialNetworkServer.AuxiliaryClasses;
 using SocialNetworkServer.Interfaces;
 using SocialNetworkServer.Models;
+using SocialNetworkServer.OptionModels;
 using SocialNetworkServer.Services;
 
 namespace SocialNetworkServer.Controllers
@@ -44,7 +45,7 @@ namespace SocialNetworkServer.Controllers
         }
 
         [HttpGet("get")]
-        public async Task<IActionResult> GetGroups(int page)
+        public async Task<IActionResult> GetGroups([FromQuery] int page)
         {
             if (page <= 0)
             {
@@ -57,7 +58,7 @@ namespace SocialNetworkServer.Controllers
                 Meta = new
                 {
                     PageId = page,
-                    IsLastPage = groups.Count < IGroupsService.limit
+                    IsLastPage = groups.Count < PaginationConstants.GroupsPerPage
                 },
                 Groups = groups
             };

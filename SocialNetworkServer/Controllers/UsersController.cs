@@ -5,6 +5,7 @@ using SocialNetworkServer.Services;
 using SocialNetworkServer.AuxiliaryClasses;
 using System.Globalization;
 using SocialNetworkServer.Interfaces;
+using SocialNetworkServer.OptionModels;
 
 namespace SocialNetworkServer.Controllers
 {
@@ -36,7 +37,7 @@ namespace SocialNetworkServer.Controllers
         }
 
         [HttpGet("get")]
-        public async Task<IActionResult> GetUsers(int page)
+        public async Task<IActionResult> GetUsers([FromQuery] int page)
         {
             if (page <= 0)
             {
@@ -48,7 +49,7 @@ namespace SocialNetworkServer.Controllers
                 Meta = new
                 {
                     PageId = page,
-                    IsLastPage = users.Count < IUsersService.limit
+                    IsLastPage = users.Count < PaginationConstants.UsersPerPage
                 },
                 Users = users
             };

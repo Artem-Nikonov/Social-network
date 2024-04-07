@@ -3,6 +3,7 @@ using Microsoft.Extensions.Caching.Memory;
 using SocialNetworkServer.AuxiliaryClasses;
 using SocialNetworkServer.Interfaces;
 using SocialNetworkServer.Models;
+using SocialNetworkServer.OptionModels;
 using SocialNetworkServer.SocNetworkDBContext;
 using SocialNetworkServer.SocNetworkDBContext.Entities;
 using System.Security.Claims;
@@ -29,7 +30,8 @@ namespace SocialNetworkServer.Services
         {
             if (page <= 0) page = 1;
             var groups = await dbContext.Groups.OrderByDescending(g => g.GroupId)
-                .Skip((page - 1) * IGroupsService.limit).Take(IGroupsService.limit).Select(g => new GroupInfoModel
+                .Skip((page - 1) * PaginationConstants.GroupsPerPage)
+                .Take(PaginationConstants.GroupsPerPage).Select(g => new GroupInfoModel
                 {
                     GroupId = g.GroupId,
                     GroupName = g.GroupName,

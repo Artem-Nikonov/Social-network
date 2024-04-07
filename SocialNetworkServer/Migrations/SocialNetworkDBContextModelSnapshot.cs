@@ -48,23 +48,17 @@ namespace SocialNetworkServer.Migrations
 
             modelBuilder.Entity("SocialNetworkServer.SocNetworkDBContext.Entities.GroupSubscription", b =>
                 {
-                    b.Property<int>("GroupSubscriptionId")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("SubscriberId")
                         .HasColumnType("int");
 
                     b.Property<int>("SubscribedToGroupId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubscriberId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GroupSubscriptionId");
+                    b.HasKey("SubscriberId", "SubscribedToGroupId");
 
                     b.HasIndex("SubscribedToGroupId");
 
-                    b.HasIndex("SubscriberId");
-
-                    b.ToTable("GroupSubscriptions", (string)null);
+                    b.ToTable("UserGroupSubscriptions", (string)null);
                 });
 
             modelBuilder.Entity("SocialNetworkServer.SocNetworkDBContext.Entities.Post", b =>

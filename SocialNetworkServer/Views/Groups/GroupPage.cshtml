@@ -9,6 +9,11 @@
         <h3 id="groupTitle" class="underlined_title">@Model.groupInfo.GroupName</h3>
         <h5 id="groupDescription">@Model.groupInfo.Description</h5>
     </div>
+    <div>
+        <div>
+            <subscription-button id="subscribeBtn" user-id="Model.metaData.VisitorId" page-id="Model.groupInfo.GroupId" page-type="group" />
+        </div>
+    </div>
     <span id="IsOwner" data-owner="@Model.metaData!.VisitorIsOwner" style="display: none;"></span>
     <span id="PageId" data="@Model.groupInfo.GroupId" style="display: none;"></span>
     <div>
@@ -23,3 +28,4 @@
     </div>
     <button id="AddLoadPostsBtn" class="custom_button" style="display:none">Показать больше</button>
 </div>
+<script src="~/js/GroupSubscribe.js" asp-append-version="true" />

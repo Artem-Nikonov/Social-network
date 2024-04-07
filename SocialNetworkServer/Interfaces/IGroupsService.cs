@@ -8,6 +8,5 @@ namespace SocialNetworkServer.Interfaces
         Task<GroupInfoModel?> CreateGroup(GroupInfoModel groupInfo, ClaimsPrincipal user);
         Task<GroupInfoModel?> GetGroupInfo(int id);
         Task<List<GroupInfoModel>> GetGroups(int page);
-        static int limit = 2;
     }
 }
