@@ -9,7 +9,7 @@
         <h3 id="userFullName" class="underlined_title">@Model.userInfo.GetFullName()</h3>
     </div>
     <div>
-        <subscription-button user-id="Model.metaData!.VisitorId" page-id="Model.userInfo.UserId" page-type="userPage"/>
+        <subscription-button id="subscribeBtn" user-id="Model.metaData!.VisitorId" page-id="Model.userInfo.UserId" page-type="userPage" />
     </div>
     <span id="IsOwner" data-owner="@Model.metaData!.VisitorIsOwner" style="display: none;"></span>
     <span id="PageId" data="@Model.userInfo.UserId" style="display: none;"></span>
@@ -28,4 +28,8 @@
     </div>
     <button id="AddLoadPostsBtn" class="custom_button" style="display:none">Показать больше</button>
 </div>
-<script src="~/js/posts.js" asp-append-version="true"/>
+<script src="~/js/posts.js" asp-append-version="true"></script>
+@if (!Model.metaData.VisitorIsOwner)
+{
+    <script src="~/js/UserSubscribe.js" asp-append-version="true"></script>
+}

@@ -13,6 +13,8 @@ namespace SocialNetworkServer.SocNetworkDBContext.EntitiesConfiguration
             builder.ToTable("UserGroupSubscriptions");
 
             builder.HasKey(ugs => new { ugs.SubscriberId, ugs.SubscribedToGroupId });
+            builder.HasIndex(ugs => ugs.SubscriberId);
+            builder.HasIndex(ugs => ugs.SubscribedToGroupId);
 
             builder.HasOne(ugs => ugs.Subscriber)
                 .WithMany(u => u.SubscribedGroups)

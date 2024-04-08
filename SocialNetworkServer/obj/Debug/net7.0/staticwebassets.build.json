@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "4Lyvv7J29rD39imGFaANfBIRJ9zekqAWHS7Q5Nu9qoo=",
+  "Hash": "i+7O9ZZB041XTArw5q/2vB5Z2mjRNwaWtdzUimNqO3A=",
   "Source": "SocialNetworkServer",
   "BasePath": "_content/SocialNetworkServer",
   "Mode": "Default",
@@ -219,6 +219,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\users.js"
+    },
+    {
+      "Identity": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\UserSubscribe.js",
+      "SourceId": "SocialNetworkServer",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\",
+      "BasePath": "_content/SocialNetworkServer",
+      "RelativePath": "js/UserSubscribe.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\UserSubscribe.js"
     },
     {
       "Identity": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",

@@ -10,13 +10,19 @@ namespace SocialNetworkServer.SocNetworkDBContext.EntitiesConfiguration
         public void Configure(EntityTypeBuilder<UserSubscription> builder)
         {
             builder.ToTable("UserSubscriptions");
-            builder.HasOne(us => us.SubscribedToUser)
-                .WithMany(u => u.Followers)
-                .HasForeignKey(us => us.SubscribedToUserId);
+
+            builder.HasKey(us => new { us.SubscriberId, us.SubscribedToUserId });
+            builder.HasIndex(us => us.SubscriberId);
+            builder.HasIndex(us => us.SubscribedToUserId);
 
             builder.HasOne(us => us.Subscriber)
-                .WithMany(u => u.Followings)
-                .HasForeignKey(us => us.SubscriberId);
+                   .WithMany(u => u.Followings)
+                   .HasForeignKey(us => us.SubscriberId);
+
+            builder.HasOne(us => us.SubscribedToUser)
+                   .WithMany(u => u.Followers)
+                   .HasForeignKey(us => us.SubscribedToUserId);
         }
+
     }
 }

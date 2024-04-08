@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\js\\GroupSubscribe.js"
     },
     {
+      "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\UserSubscribe.js",
+      "PackagePath": "staticwebassets\\js\\UserSubscribe.js"
+    },
+    {
       "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\groups.js",
       "PackagePath": "staticwebassets\\js\\groups.js"
     },

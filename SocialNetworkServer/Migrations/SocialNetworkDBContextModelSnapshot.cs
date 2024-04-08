@@ -132,21 +132,15 @@ namespace SocialNetworkServer.Migrations
 
             modelBuilder.Entity("SocialNetworkServer.SocNetworkDBContext.Entities.UserSubscription", b =>
                 {
-                    b.Property<int>("UserSubscriptionId")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("SubscriberId")
                         .HasColumnType("int");
 
                     b.Property<int>("SubscribedToUserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubscriberId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserSubscriptionId");
+                    b.HasKey("SubscriberId", "SubscribedToUserId");
 
                     b.HasIndex("SubscribedToUserId");
-
-                    b.HasIndex("SubscriberId");
 
                     b.ToTable("UserSubscriptions", (string)null);
                 });

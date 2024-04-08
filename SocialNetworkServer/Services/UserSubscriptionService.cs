@@ -17,6 +17,7 @@ namespace SocialNetworkServer.Services
 
         public async Task<bool> SubscribeToUser(int followerId, int followeeId)
         {
+            if(followerId == followeeId) return false;
             var subscription = await TryFindSubscription(followerId, followeeId);
             if (subscription != null) return false;
             subscription = new UserSubscription
@@ -31,6 +32,7 @@ namespace SocialNetworkServer.Services
 
         public async Task<bool> UnsubscribeFromUser(int followerId, int followeeId)
         {
+            if (followerId == followeeId) return false;
             var subscription = await TryFindSubscription(followerId, followeeId);
             if (subscription == null) return false;
             dbContext.UserSubscriptions.Remove(subscription);
