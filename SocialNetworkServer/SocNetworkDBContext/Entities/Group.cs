@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SocialNetworkServer.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,13 +22,4 @@ namespace SocialNetworkServer.SocNetworkDBContext.Entities
         public List<GroupSubscription> Subscribers { get; set; } = new();
     }
 
-    public enum PostPermissions
-    {
-        [Display(Name ="Только администратор")]
-        AdminOnly,
-        [Display(Name = "Только подписчики")]
-        SubscribersOnly,
-        [Display(Name = "Все")]
-        Everyone
-    }
 }

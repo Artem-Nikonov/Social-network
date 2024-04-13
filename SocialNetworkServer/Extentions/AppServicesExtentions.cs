@@ -51,9 +51,11 @@ namespace SocialNetworkServer.Extentions
             services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IUsersService, UsersService>();
-            services.AddScoped<UserPostsService>();
+            services.AddScoped<IPostsService, UserPostsService>();
+            services.AddScoped<IPostsService, GroupPostsService>();
             services.AddScoped<IGroupsService, GroupsService>();
             services.AddScoped<IUserSubscriptionService, UserSubscriptionService>();
+            services.AddScoped<ISubscribeChecker, UserSubscriptionService>();
             services.AddScoped<IGroupSubscriptionService, GroupSubscriptionService>();
             return services;
         }

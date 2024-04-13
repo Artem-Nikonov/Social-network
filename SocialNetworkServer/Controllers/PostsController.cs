@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SocialNetworkServer.Enums;
+using SocialNetworkServer.Interfaces;
+using SocialNetworkServer.Models;
 using SocialNetworkServer.OptionModels;
 using SocialNetworkServer.Services;
 using SocialNetworkServer.SocNetworkDBContext.Entities;
@@ -8,32 +11,56 @@ namespace SocialNetworkServer.Controllers
 {
     public class PostsController : Controller
     {
-        private UserPostsService userPostsService;
-        public PostsController(UserPostsService userPostsService)
+        private IPostsService userPostsService;
+        private IPostsService groupPostsService;
+        public PostsController(IEnumerable<IPostsService> postsSerwices)
         {
-            this.userPostsService = userPostsService;
+            userPostsService = postsSerwices.OfType<UserPostsService>().FirstOrDefault()!;
+            groupPostsService = postsSerwices.OfType<GroupPostsService>().FirstOrDefault()!;
         }
 
         [Authorize]
-        [HttpPost("userPosts/create")]
-        public async Task<IActionResult> CreateUserPost([FromBody][Bind("Content")] Post post)
+        [HttpPost("posts/create")]
+        public async Task<IActionResult> CreateUserPost([FromBody][Bind("Content", "GroupId")] Post post)
         {
             try
             {
-                var createdPost = await userPostsService.CreatePost(post, HttpContext.User);
+                PostInfoModel createdPost;
+
+                if(post.GroupId == null)
+                    createdPost = await userPostsService.CreatePost(post, HttpContext.User);
+                else
+                    createdPost = await groupPostsService.CreatePost(post,HttpContext.User);
                 return Json(createdPost);
             }
             catch (ArgumentException ex)
             {
                 return BadRequest(ex.Message);
             }
+            catch (GroupPostsException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [Authorize]
-        [HttpGet("userPosts/{userId:int}")]
-        public async Task<JsonResult> GetPosts(int UserId, [FromQuery] int startPostId)
+        [HttpGet("pagePosts/{pageId:int}")]
+        public async Task<IActionResult> GetUserPosts(int pageId, [FromQuery] PageTypes pageType, [FromQuery] int startPostId)
         {
-            var posts= await userPostsService.GetPosts(UserId, startPostId);
+            List<PostInfoModel> posts = null;
+            switch (pageType)
+            {
+                case PageTypes.userPage:
+                    posts = await userPostsService.GetPosts(pageId, startPostId);
+                    break;
+                case PageTypes.group:
+                    posts = await groupPostsService.GetPosts(pageId,startPostId);
+                    break;
+            }
+
+            if (posts == null)
+                return BadRequest("Некорректный запрос");
+
             var postsData = new
             {
                 Meta = new
@@ -46,11 +73,21 @@ namespace SocialNetworkServer.Controllers
             return Json(postsData);
         }
 
+
         [Authorize]
-        [HttpPatch("userPosts/delete/{postId:int}")]
-        public async Task<IActionResult> DeleteUserPost(int postId)
+        [HttpPatch("pagePosts/delete/{postId:int}")]
+        public async Task<IActionResult> DeleteUserPost(int postId, [FromQuery] PageTypes pageType)
         {
-            var deletedPost = await userPostsService.DeletePost(postId, HttpContext.User);
+            PostInfoModel? deletedPost = null;
+            switch (pageType)
+            {
+                case PageTypes.userPage:
+                    deletedPost = await userPostsService.DeletePost(postId, HttpContext.User);
+                    break;
+                case PageTypes.group:
+                    deletedPost = await groupPostsService.DeletePost(postId,HttpContext.User);
+                    break;
+            }
             if (deletedPost != null) return Ok();
             return BadRequest("Не удалось удалить пост.");
         }

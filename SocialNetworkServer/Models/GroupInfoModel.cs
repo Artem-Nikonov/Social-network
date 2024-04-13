@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using SocialNetworkServer.Enums;
 
 namespace SocialNetworkServer.Models
 {
@@ -31,6 +32,7 @@ namespace SocialNetworkServer.Models
                 CreatorId = group.CreatorId,
                 GroupName = group.GroupName,
                 Description = group.Description,
+                PostPermissions = group.PostPermissions
             };
         }
     }

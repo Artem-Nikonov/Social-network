@@ -1,5 +1,4 @@
 ﻿document.addEventListener("DOMContentLoaded", DOMContentLoaded);
-let pageId = document.getElementById("PageId").getAttribute("data");
 let subscribeBtn;
 
 function DOMContentLoaded() {

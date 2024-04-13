@@ -10,7 +10,7 @@ using System.Security.Claims;
 
 namespace SocialNetworkServer.Services
 {
-    public class UserPostsService
+    public class UserPostsService: IPostsService
     {
         private SocialNetworkDBContext dbContext;
         private IUsersService userService;

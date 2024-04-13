@@ -6,7 +6,7 @@ using SocialNetworkServer.SocNetworkDBContext.Entities;
 
 namespace SocialNetworkServer.Services
 {
-    public class UserSubscriptionService : IUserSubscriptionService
+    public class UserSubscriptionService : IUserSubscriptionService, ISubscribeChecker
     {
         private SocialNetworkDBContext dbContext;
 
@@ -56,6 +56,14 @@ namespace SocialNetworkServer.Services
         public Task<List<UserInfo>> GetUserFollowing(int userId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<bool> UserIsSubscribeToGroup(int userId, int GroupId)
+        {
+            var subscription = await dbContext.GroupSubscriptions.AsNoTracking()
+                .FirstOrDefaultAsync(s =>s.SubscriberId == userId &&
+                s.SubscribedToGroupId==GroupId);
+            return subscription != null;
         }
     }
 }

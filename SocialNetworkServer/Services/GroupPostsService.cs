@@ -1,15 +1,52 @@
 ﻿using SocialNetworkServer.Interfaces;
 using SocialNetworkServer.Models;
+using SocialNetworkServer.SocNetworkDBContext;
+using SocialNetworkServer.Extentions;
 using SocialNetworkServer.SocNetworkDBContext.Entities;
+using SocialNetworkServer.Enums;
 using System.Security.Claims;
+using SocialNetworkServer.OptionModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace SocialNetworkServer.Services
 {
     public class GroupPostsService : IPostsService
     {
-        public Task<PostInfoModel> CreatePost(Post post, ClaimsPrincipal user)
+        private SocialNetworkDBContext dbContext;
+        private IGroupsService groupsService;
+        private IUsersService usersService;
+        private ISubscribeChecker subscribeChecker;
+
+        public GroupPostsService (SocialNetworkDBContext dbContext, IGroupsService groupsService,
+            IUsersService usersService, ISubscribeChecker subscribeChecker)
         {
-            throw new NotImplementedException();
+            this.dbContext = dbContext;
+            this.groupsService = groupsService;
+            this.usersService = usersService;
+            this.subscribeChecker = subscribeChecker;
+        }
+
+        public async Task<PostInfoModel?> CreatePost(Post post, ClaimsPrincipal user)
+        {
+            if (post.Content == null || post.Content.Length < 2)
+                throw new ArgumentException("Длина поста должна быть не менее 2-х символов");
+            
+            if (!post.GroupId.HasValue) return null;
+
+            var groupId = post.GroupId.Value;
+            var userId = usersService.GetUserId(user);
+            var groupInfo = await groupsService.GetGroupInfo(groupId);
+
+            if (groupInfo == null) return null;
+
+            if (!await CanUserPostToGroup(userId, groupInfo))
+                throw new GroupPostsException("Вы не можете опубликовать пост");
+
+            post.UserId = userId;
+            await dbContext.Posts.AddAsync(post);
+            await dbContext.SaveChangesAsync();
+            var postInfo = post;
+            return postInfo;
         }
 
         public Task<PostInfoModel?> DeletePost(int postId, ClaimsPrincipal user)
@@ -17,9 +54,45 @@ namespace SocialNetworkServer.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<PostInfoModel>> GetPosts(int pageId, int startPostId)
+        public async Task<List<PostInfoModel>> GetPosts(int pageId, int startPostId)
         {
-            throw new NotImplementedException();
+            IQueryable<Post> query = dbContext.Posts.OrderByDescending(p => p.PostId)
+                                          .Where(p => p.GroupId == pageId && !p.IsDeleted);
+
+            if (startPostId > 0)
+                query = query.Where(p => p.PostId <= startPostId);
+
+            var posts = await query.Take(PaginationConstants.PostsPerPage)
+                .Select(post => new PostInfoModel
+                {
+                    PostId = post.PostId,
+                    UserId = post.UserId,
+                    GroupId = post.GroupId,
+                    Content = post.Content,
+                    CreationDate = post.CreationDate.GetSpecialFormat()
+                }).AsNoTracking().ToListAsync();
+            return posts;
+        }
+
+        private async Task<bool> CanUserPostToGroup(int userId, GroupInfoModel groupInfo)
+        {
+            switch (groupInfo.PostPermissions)
+            {
+                case PostPermissions.AdminOnly:
+                    return userId == groupInfo.CreatorId;
+                case PostPermissions.SubscribersOnly:
+                    return (await subscribeChecker.UserIsSubscribeToGroup(userId, groupInfo.GroupId) || userId == groupInfo.CreatorId);
+                case PostPermissions.Everyone:
+                    return true;
+                default:
+                    return false;
+            }
         }
     }
+
+    public class GroupPostsException: Exception
+    {
+        public GroupPostsException(string message) : base(message) { }
+    }
+
 }
