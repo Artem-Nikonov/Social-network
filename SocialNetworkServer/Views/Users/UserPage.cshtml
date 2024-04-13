@@ -10,6 +10,9 @@
     </div>
     <div>
         <subscription-button id="subscribeBtn" user-id="Model.metaData!.VisitorId" page-id="Model.userInfo.UserId" page-type="userPage" />
+        <a asp-action="GetUserSubscribers" asp-controller="Users" asp-route-id="@Model.userInfo.UserId" asp-route-page="1">Подписчики</a>
+        <a>Подписки</a>
+        <a>Группы</a>
     </div>
     <span id="IsOwner" data-owner="@Model.metaData!.VisitorIsOwner" style="display: none;"></span>
     <span id="PageId" data="@Model.userInfo.UserId" style="display: none;"></span>

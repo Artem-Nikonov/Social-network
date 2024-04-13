@@ -20,6 +20,40 @@ namespace SocialNetworkServer.Controllers
         }
 
         [Authorize]
+        [HttpGet("pagePosts/{pageId:int}")]
+        public async Task<IActionResult> GetUserPosts(int pageId, [FromQuery] PageTypes pageType, [FromQuery] int startPostId)
+        {
+            if (!Enum.IsDefined(typeof(PageTypes), pageType))
+                return BadRequest("Некорректный тип страницы");
+
+            List<PostInfoModel> posts = null;
+            switch (pageType)
+            {
+                case PageTypes.userPage:
+                    posts = await userPostsService.GetPosts(pageId, startPostId);
+                    break;
+                case PageTypes.group:
+                    posts = await groupPostsService.GetPosts(pageId, startPostId);
+                    break;
+            }
+
+            if (posts == null)
+                return BadRequest("Некорректный запрос");
+
+            var postsData = new
+            {
+                Meta = new
+                {
+                    LastPostId = posts.LastOrDefault()?.PostId,
+                    IsLastPage = posts.Count < PaginationConstants.PostsPerPage
+                },
+                Posts = posts
+            };
+
+            return Json(postsData);
+        }
+
+        [Authorize]
         [HttpPost("posts/create")]
         public async Task<IActionResult> CreateUserPost([FromBody][Bind("Content", "GroupId")] Post post)
         {
@@ -39,56 +73,28 @@ namespace SocialNetworkServer.Controllers
             }
             catch (GroupPostsException ex)
             {
+                Console.WriteLine(ex.Message);
                 return BadRequest(ex.Message);
             }
         }
 
         [Authorize]
-        [HttpGet("pagePosts/{pageId:int}")]
-        public async Task<IActionResult> GetUserPosts(int pageId, [FromQuery] PageTypes pageType, [FromQuery] int startPostId)
-        {
-            List<PostInfoModel> posts = null;
-            switch (pageType)
-            {
-                case PageTypes.userPage:
-                    posts = await userPostsService.GetPosts(pageId, startPostId);
-                    break;
-                case PageTypes.group:
-                    posts = await groupPostsService.GetPosts(pageId,startPostId);
-                    break;
-            }
-
-            if (posts == null)
-                return BadRequest("Некорректный запрос");
-
-            var postsData = new
-            {
-                Meta = new
-                {
-                    LastPostId = posts.LastOrDefault()?.PostId,
-                    IsLastPage = posts.Count < PaginationConstants.PostsPerPage
-                },
-                Posts = posts
-            };
-            return Json(postsData);
-        }
-
-
-        [Authorize]
         [HttpPatch("pagePosts/delete/{postId:int}")]
         public async Task<IActionResult> DeleteUserPost(int postId, [FromQuery] PageTypes pageType)
         {
-            PostInfoModel? deletedPost = null;
+            if (!Enum.IsDefined(typeof(PageTypes), pageType))
+                return BadRequest("Некорректный тип страницы");
+            var deletoonIsSuccessfull = false;
             switch (pageType)
             {
                 case PageTypes.userPage:
-                    deletedPost = await userPostsService.DeletePost(postId, HttpContext.User);
+                    deletoonIsSuccessfull = await userPostsService.DeletePost(postId, HttpContext.User);
                     break;
                 case PageTypes.group:
-                    deletedPost = await groupPostsService.DeletePost(postId,HttpContext.User);
+                    deletoonIsSuccessfull = await groupPostsService.DeletePost(postId,HttpContext.User);
                     break;
             }
-            if (deletedPost != null) return Ok();
+            if (deletoonIsSuccessfull) return Ok();
             return BadRequest("Не удалось удалить пост.");
         }
     }

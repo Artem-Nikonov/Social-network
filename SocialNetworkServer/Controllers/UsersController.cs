@@ -13,9 +13,11 @@ namespace SocialNetworkServer.Controllers
     public class UsersController : Controller
     {
         private IUsersService usersService;
-        public UsersController(IUsersService usersService)
+        private IUserSubscriptionService userSubscriptionService;
+        public UsersController(IUsersService usersService, IUserSubscriptionService userSubscriptionService)
         {
             this.usersService = usersService;
+            this.userSubscriptionService = userSubscriptionService;
         }
 
         [HttpGet]
@@ -52,6 +54,26 @@ namespace SocialNetworkServer.Controllers
                     IsLastPage = users.Count < PaginationConstants.UsersPerPage
                 },
                 Users = users
+            };
+            return Json(usersData);
+        }
+
+        [HttpGet("{id:int}/subscribers")]
+        public async Task<IActionResult> GetUserSubscribers(int id,[FromQuery] int page)
+        {
+            if (page <= 0)
+            {
+                return BadRequest("Номер страницы должен быть больше 0.");
+            }
+            var userSubscribers = await userSubscriptionService.GetUserFollowers(id, page);
+            var usersData = new
+            {
+                Meta = new
+                {
+                    PageId = page,
+                    IsLastPage = userSubscribers.Count < PaginationConstants.UsersPerPage
+                },
+                Users = userSubscribers
             };
             return Json(usersData);
         }

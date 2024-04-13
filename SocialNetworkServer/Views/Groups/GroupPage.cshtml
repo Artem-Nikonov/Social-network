@@ -4,31 +4,46 @@
     ViewData["Title"] = Model.groupInfo.GroupName;
 }
 <link rel="stylesheet" href="~/css/PostEditorStyles.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/GroupStyle.css" asp-append-version="true" />
+
+<div id="meta">
+    <span id="IsOwner" data-owner="@Model.metaData!.VisitorIsOwner" style="display: none;"></span>
+    <span id="VisitorId" data="@Model.metaData.VisitorId" style="display: none;"></span>
+    <span id="PageId" data="@Model.groupInfo.GroupId" style="display: none;"></span>
+</div>
 
 <div class="main_content">
     <div>
         <h3 id="groupName" class="underlined_title">@Model.groupInfo.GroupName</h3>
-        <h5 id="groupDescription">@Model.groupInfo.Description</h5>
     </div>
+    <details open>
+        <summary>Описание</summary>
+        <div class="description_conteiner">
+            <h4 id="groupDescription" class="description_content">@Model.groupInfo.Description</h4>
+            <p class="post_permission_info">Разрешение на публикацию постов (@Model.groupInfo.PostPermissions.GetDisplayName())</p>
+        </div>
+    </details>
+
     <div>
         <div>
             <subscription-button id="subscribeBtn" user-id="Model.metaData.VisitorId" page-id="Model.groupInfo.GroupId" page-type="group" />
         </div>
     </div>
-    <span id="IsOwner" data-owner="@Model.metaData!.VisitorIsOwner" style="display: none;"></span>
-    <span id="VisitorId" data="@Model.metaData.VisitorId" style="display: none;"></span>
-    <span id="PageId" data="@Model.groupInfo.GroupId" style="display: none;"></span>
+    
+    
     <div>
-        <div>
-            <textarea id="postContent" class="post_textarea"></textarea>
-            <br>
-            <p style="color:orange">Разрешение на публикацию постов (@Model.groupInfo.PostPermissions.GetDisplayName())</p>
-            <button id="publishBtn" class="custom_button">Опубликовать</button>
-        </div>
+        <textarea id="postContent" class="post_textarea"></textarea>
+        <br>
+        <button id="publishBtn" class="custom_button">Опубликовать</button>
+    </div>
+
+    <div id="errorWindow" class="error-window">
+        <span id="errorMessage" class="error-message"></span>
     </div>
 
     <div id="postsContainer">
     </div>
+    
     <button id="AddLoadPostsBtn" class="custom_button" style="display:none">Показать больше</button>
 </div>
 <script src="~/js/groupPosts.js" asp-append-version="true"></script>

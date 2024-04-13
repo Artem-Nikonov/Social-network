@@ -52,7 +52,9 @@ async function publishBtnClick() {
             postsContainer.insertBefore(post, lastPostInCintainer)
         }
         else {
-            console.error("Произошла ошибка при выполнении запроса");
+            let statusText = await response.text();
+            showError(statusText);
+            console.log(statusText)
         }
     }
     catch (error) {
@@ -115,6 +117,19 @@ function createPostContentDiv(postInfo) {
     return contentDiv;
 }
 
+function createMetaDataDiv(postInfo) {
+    let metaDataDiv = document.createElement("div");
+    metaDataDiv.classList.add("post_data_section");
+    let mainMeta = document.createElement("div");
+    mainMeta.classList.add("post_data_link_container");
+    mainMeta.appendChild(createGroupLink(pageId, pageName));
+    mainMeta.appendChild(createAutorLink(postInfo.userId));
+    metaDataDiv.appendChild(mainMeta);
+    if (isOwner === "True" || postInfo.userId == visitorId)
+        metaDataDiv.appendChild(createDeleteButton());
+    return metaDataDiv;
+}
+
 function createTimeSpanDiv(postInfo) {
     let timeSpanDiv = document.createElement("div");
     timeSpanDiv.classList.add("post_data_section");
@@ -122,23 +137,20 @@ function createTimeSpanDiv(postInfo) {
     return timeSpanDiv;
 }
 
-function createMetaDataDiv(postInfo) {
-    let metaDataDiv = document.createElement("div");
-    metaDataDiv.classList.add("post_data_section");
-    let autorLink = document.createElement("a");
-    autorLink.classList.add("custom_link");
-    autorLink.setAttribute("href", `/group/${pageId}`);
-    autorLink.textContent = pageName;
-    metaDataDiv.appendChild(autorLink)
-    if (isOwner === "True" || postInfo.userId == visitorId)
-        metaDataDiv.appendChild(createDeleteButton());
-    return metaDataDiv;
+function createGroupLink(groupId, groupName) {
+    let groupLink = document.createElement("a");
+    groupLink.classList.add("custom_link");
+    groupLink.setAttribute("href", `/groups/${groupId}`);
+    groupLink.textContent = groupName;
+    return groupLink;
 }
 
-function createTimeSpan(time) {
-    let timeSpan = document.createElement("span");
-    timeSpan.textContent = time;
-    return timeSpan;
+function createAutorLink(autorId) {
+    let autorLink = document.createElement("a");
+    autorLink.classList.add("custom_link");
+    autorLink.setAttribute("href", `/users/${autorId}`);
+    autorLink.textContent = "Автор";
+    return autorLink;
 }
 
 function createDeleteButton() {
@@ -147,6 +159,13 @@ function createDeleteButton() {
     delBtn.textContent = "Удалить";
     delBtn.addEventListener("click", delBtnClick);
     return delBtn;
+}
+
+function createTimeSpan(time) {
+    let timeSpan = document.createElement("span");
+    timeSpan.classList.add("time_span");
+    timeSpan.textContent = time;
+    return timeSpan;
 }
 
 async function delBtnClick() {
@@ -162,7 +181,7 @@ async function delBtnClick() {
             post.remove();
         }
         else {
-            console.error(await response.text());
+            showError(response.statusText);
         }
     }
     catch (error) {
@@ -178,4 +197,19 @@ function lastPageHandler(pageMetaData) {
         addLoadPostsBtn.style.display = "inline-block";
     }
     startPostId = postsData.meta.lastPostId - 1;
+}
+function showError(message) {
+    var errorWindow = document.getElementById("errorWindow");
+    var errorMessage = document.getElementById("errorMessage");
+
+    errorMessage.textContent = message;
+    errorWindow.classList.add("active");
+
+    setTimeout(function () {
+        errorWindow.classList.remove("active");
+        errorWindow.classList.add("fade-out");
+        setTimeout(function () {
+            errorWindow.classList.remove("fade-out");
+        }, 500); // После завершения анимации исчезновения
+    }, 5000); // После 5 секунд исчезает
 }

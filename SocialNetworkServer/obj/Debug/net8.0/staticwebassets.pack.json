@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\css\\FormStyle.css"
     },
     {
+      "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\GroupStyle.css",
+      "PackagePath": "staticwebassets\\css\\GroupStyle.css"
+    },
+    {
       "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\MainStyles.css",
       "PackagePath": "staticwebassets\\css\\MainStyles.css"
     },

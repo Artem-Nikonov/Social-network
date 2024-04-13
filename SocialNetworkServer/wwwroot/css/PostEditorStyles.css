@@ -23,18 +23,13 @@
     border-radius: 5px;
 }
 
-.post_data {
-    margin: 10px;
-}
-
 .post_content {
     margin: 10px;
     word-wrap: break-word;
 }
 
-.post_content pre {
-    white-space: pre-wrap; /* Перенос текста и сохранение пробелов и символов табуляции */
-    overflow-wrap: break-word; /* Перенос текста при необходимости */
+.post_data {
+    margin: 10px;
 }
 
 .post_data_section {
@@ -44,6 +39,15 @@
     width: 100%; /* Растянуть заголовок на всю ширину экрана */
 }
 
-span {
+.post_data_link_container a{
+    margin-right: 10px;
+}
+
+.post_content pre {
+    white-space: pre-wrap; /* Перенос текста и сохранение пробелов и символов табуляции */
+    overflow-wrap: break-word; /* Перенос текста при необходимости */
+}
+
+.time_span {
     color: #555;
 }

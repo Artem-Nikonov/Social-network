@@ -6,7 +6,7 @@ namespace SocialNetworkServer.Interfaces
     {
         Task<bool> SubscribeToUser(int followerId, int followeeId);
         Task<bool> UnsubscribeFromUser(int followerId, int followeeId);
-        Task<List<UserInfo>> GetUserFollowers(int userId);
-        Task<List<UserInfo>> GetUserFollowing(int userId);
+        Task<List<UserInfo>> GetUserFollowers(int userId, int page);
+        Task<List<UserInfo>> GetUserFollowing(int userId, int page);
     }
 }

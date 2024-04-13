@@ -143,6 +143,7 @@ function createMetaDataDiv(name) {
 
 function createTimeSpan(time) {
     let timeSpan = document.createElement("span");
+    timeSpan.classList.add("time_span");
     timeSpan.textContent = time;
     return timeSpan;
 }

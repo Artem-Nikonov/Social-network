@@ -49,9 +49,20 @@ namespace SocialNetworkServer.Services
             return postInfo;
         }
 
-        public Task<PostInfoModel?> DeletePost(int postId, ClaimsPrincipal user)
+        public async Task<bool> DeletePost(int postId, ClaimsPrincipal user)
         {
-            throw new NotImplementedException();
+            var userId = usersService.GetUserId(user);
+            var post = await dbContext.Posts.Include(p=>p.Group)
+                .ThenInclude(g=>g.Creator)
+                .FirstOrDefaultAsync(p => p.PostId == postId);
+            if (post == null ||  post.IsDeleted) return false;
+            if(post.UserId == userId || post.Group.CreatorId == userId)
+            {
+                post.IsDeleted = true;
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
 
         public async Task<List<PostInfoModel>> GetPosts(int pageId, int startPostId)

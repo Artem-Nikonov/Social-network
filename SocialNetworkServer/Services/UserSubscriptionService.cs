@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using SocialNetworkServer.AuxiliaryClasses;
 using SocialNetworkServer.Interfaces;
+using SocialNetworkServer.Models;
+using SocialNetworkServer.OptionModels;
 using SocialNetworkServer.SocNetworkDBContext;
 using SocialNetworkServer.SocNetworkDBContext.Entities;
 
@@ -40,20 +43,22 @@ namespace SocialNetworkServer.Services
             return true;
         }
 
-        private async Task<UserSubscription?> TryFindSubscription(int followerId, int followeeId)
+        public async Task<List<UserInfo>> GetUserFollowers(int userId, int page)
         {
-            var subscription = await dbContext.UserSubscriptions
-               .FirstOrDefaultAsync(s => s.SubscriberId == followerId &&
-               s.SubscribedToUserId == followeeId);
-            return subscription;
+            if (page <= 0) page = 1;
+            var users = await dbContext.UserSubscriptions.Include(us=>us.Subscriber)
+                .Where(us=>us.SubscribedToUserId == userId)
+                .Skip((page - 1) * PaginationConstants.UsersPerPage)
+                .Take(PaginationConstants.UsersPerPage).Select(us => new UserInfo
+                {
+                    UserId = us.SubscriberId,
+                    UserName = us.Subscriber.UserName,
+                    UserSurname = us.Subscriber.UserSurname
+                }).AsNoTracking().ToListAsync();
+            return users;
         }
 
-        public Task<List<UserInfo>> GetUserFollowers(int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<UserInfo>> GetUserFollowing(int userId)
+        public Task<List<UserInfo>> GetUserFollowing(int userId, int page)
         {
             throw new NotImplementedException();
         }
@@ -64,6 +69,14 @@ namespace SocialNetworkServer.Services
                 .FirstOrDefaultAsync(s =>s.SubscriberId == userId &&
                 s.SubscribedToGroupId==GroupId);
             return subscription != null;
+        }
+
+        private async Task<UserSubscription?> TryFindSubscription(int followerId, int followeeId)
+        {
+            var subscription = await dbContext.UserSubscriptions
+               .FirstOrDefaultAsync(s => s.SubscriberId == followerId &&
+               s.SubscribedToUserId == followeeId);
+            return subscription;
         }
     }
 }

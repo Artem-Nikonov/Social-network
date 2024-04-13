@@ -35,15 +35,14 @@ namespace SocialNetworkServer.Services
         }
 
         //удаление поста
-        public async Task<PostInfoModel?> DeletePost(int postId, ClaimsPrincipal user)
+        public async Task<bool> DeletePost(int postId, ClaimsPrincipal user)
         {
             var userId = userService.GetUserId(user);
             var post = await dbContext.Posts.FindAsync(postId);
-            if (post == null || post.UserId != userId || post.IsDeleted) return null;
+            if (post == null || post.UserId != userId || post.IsDeleted) return false;
             post.IsDeleted = true;
             await dbContext.SaveChangesAsync();
-            PostInfoModel postInfo = post;
-            return postInfo;
+            return true;
         }
 
         //получение постов через пагинацию
