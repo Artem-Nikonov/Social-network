@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SocialNetworkServer.AuxiliaryClasses;
 using SocialNetworkServer.Interfaces;
+using SocialNetworkServer.Models;
+using SocialNetworkServer.OptionModels;
 using SocialNetworkServer.SocNetworkDBContext;
 using SocialNetworkServer.SocNetworkDBContext.Entities;
 
@@ -46,9 +47,19 @@ namespace SocialNetworkServer.Services
             return subscription;
         }
 
-        public Task<List<UserInfo>> GetGroupSubscribers(int groupId)
+        public async Task<List<UserInfoModel>> GetGroupSubscribers(int groupId, int page)
         {
-            throw new NotImplementedException();
+            if (page <= 0) page = 1;
+            var users = await dbContext.GroupSubscriptions.Include(gs => gs.Subscriber)
+                .Where(gs => gs.SubscribedToGroupId == groupId)
+                .Skip((page - 1) * PaginationConstants.UsersPerPage)
+                .Take(PaginationConstants.UsersPerPage).Select(gs => new UserInfoModel
+                {
+                    UserId = gs.SubscriberId,
+                    UserName = gs.Subscriber.UserName,
+                    UserSurname = gs.Subscriber.UserSurname
+                }).AsNoTracking().ToListAsync();
+            return users;
         }
 
         

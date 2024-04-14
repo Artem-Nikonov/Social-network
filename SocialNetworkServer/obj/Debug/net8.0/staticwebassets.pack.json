@@ -29,12 +29,28 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\UserGroups.js",
+      "PackagePath": "staticwebassets\\js\\UserGroups.js"
+    },
+    {
+      "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\UserSubscribers.js",
+      "PackagePath": "staticwebassets\\js\\UserSubscribers.js"
+    },
+    {
+      "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\UserSubscribtions.js",
+      "PackagePath": "staticwebassets\\js\\UserSubscribtions.js"
+    },
+    {
       "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\groupPosts.js",
       "PackagePath": "staticwebassets\\js\\groupPosts.js"
     },
     {
       "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\groupSubscribe.js",
       "PackagePath": "staticwebassets\\js\\groupSubscribe.js"
+    },
+    {
+      "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\groupSubscribers.js",
+      "PackagePath": "staticwebassets\\js\\groupSubscribers.js"
     },
     {
       "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\groups.js",

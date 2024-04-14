@@ -1,12 +1,12 @@
-﻿using SocialNetworkServer.AuxiliaryClasses;
+﻿using SocialNetworkServer.Models;
 using System.Security.Claims;
 
 namespace SocialNetworkServer.Interfaces
 {
     public interface IUsersService
     {
-        Task<UserInfo?> GetUserInfo(int id);
+        Task<UserInfoModel?> GetUserInfo(int id);
         int GetUserId(ClaimsPrincipal user);
-        Task<List<UserInfo>> GetUsers(int page);
+        Task<List<UserInfoModel>> GetUsers(int page);
     }
 }

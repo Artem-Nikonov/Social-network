@@ -1,4 +1,4 @@
-﻿using SocialNetworkServer.AuxiliaryClasses;
+﻿using SocialNetworkServer.Models;
 
 namespace SocialNetworkServer.Interfaces
 {
@@ -6,7 +6,8 @@ namespace SocialNetworkServer.Interfaces
     {
         Task<bool> SubscribeToUser(int followerId, int followeeId);
         Task<bool> UnsubscribeFromUser(int followerId, int followeeId);
-        Task<List<UserInfo>> GetUserFollowers(int userId, int page);
-        Task<List<UserInfo>> GetUserFollowing(int userId, int page);
+        Task<List<UserInfoModel>> GetUserFollowers(int userId, int page);
+        Task<List<UserInfoModel>> GetUserFollowing(int userId, int page);
+        Task<List<GroupInfoModel>> GetUserGroups(int userId, int page);
     }
 }

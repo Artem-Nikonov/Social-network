@@ -1,21 +1,27 @@
-﻿@model UserPageModel
+﻿@using SocialNetworkServer.Enums;
+@model UserPageModel
 @{
     ViewData["Title"] = Model.userInfo.GetFullName();
 }
 <link rel="stylesheet" href="~/css/PostEditorStyles.css" asp-append-version="true" />
 
+<div id="meta">
+    <span id="IsOwner" data-owner="@Model.metaData!.VisitorIsOwner" style="display: none;"></span>
+    <span id="PageId" data="@Model.userInfo.UserId" style="display: none;"></span>
+</div>
+
 <div class="main_content">
     <div>
         <h3 id="userFullName" class="underlined_title">@Model.userInfo.GetFullName()</h3>
     </div>
+    
     <div>
         <subscription-button id="subscribeBtn" user-id="Model.metaData!.VisitorId" page-id="Model.userInfo.UserId" page-type="userPage" />
-        <a asp-action="GetUserSubscribers" asp-controller="Users" asp-route-id="@Model.userInfo.UserId" asp-route-page="1">Подписчики</a>
-        <a>Подписки</a>
-        <a>Группы</a>
+        <a asp-action="UserSubscribtions" asp-controller="Users" asp-route-id="@Model.userInfo.UserId" asp-route-filter="@SubscriptionTypes.subscribers">Подписчики</a>
+        <a asp-action="UserSubscribtions" asp-controller="Users" asp-route-id="@Model.userInfo.UserId" asp-route-filter="@SubscriptionTypes.subscriptions">Подписки</a>
+        <a asp-action="UserSubscribtions" asp-controller="Users" asp-route-id="@Model.userInfo.UserId" asp-route-filter="@SubscriptionTypes.groups">Группы</a>
     </div>
-    <span id="IsOwner" data-owner="@Model.metaData!.VisitorIsOwner" style="display: none;"></span>
-    <span id="PageId" data="@Model.userInfo.UserId" style="display: none;"></span>
+    
     <div>
         @if (Model.metaData.VisitorIsOwner)
         {
@@ -34,5 +40,5 @@
 <script src="~/js/userPosts.js" asp-append-version="true"></script>
 @if (!Model.metaData.VisitorIsOwner)
 {
-    <script src="~/js/userSubscribe.js" asp-append-version="true"></script>
+    <script src="/js/userSubscribe.js" asp-append-version="true"></script>
 }

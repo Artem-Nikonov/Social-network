@@ -1,4 +1,4 @@
-﻿using SocialNetworkServer.AuxiliaryClasses;
+﻿using SocialNetworkServer.Models;
 
 namespace SocialNetworkServer.Interfaces
 {
@@ -6,6 +6,6 @@ namespace SocialNetworkServer.Interfaces
     {
         Task<bool> SubscribeToGroup(int userId, int groupId);
         Task<bool> UnsubscribeFromGroup(int userId, int groupId);
-        Task<List<UserInfo>> GetGroupSubscribers(int groupId);
+        Task<List<UserInfoModel>> GetGroupSubscribers(int groupId, int page);
     }
 }

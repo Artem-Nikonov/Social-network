@@ -1,0 +1,7 @@
+﻿@model UserInfoModel
+@{
+    ViewData["Title"] = $"{Model.GetFullName()} (Группы)";
+}
+@await Html.PartialAsync("Subscriptions", Model.UserId)
+<script src="~/js/UserGroups.js" asp-append-version="true" />
+

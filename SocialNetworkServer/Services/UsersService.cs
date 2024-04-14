@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
-using SocialNetworkServer.AuxiliaryClasses;
 using SocialNetworkServer.Interfaces;
+using SocialNetworkServer.Models;
 using SocialNetworkServer.OptionModels;
 using SocialNetworkServer.SocNetworkDBContext;
 using SocialNetworkServer.SocNetworkDBContext.Entities;
@@ -20,9 +20,9 @@ namespace SocialNetworkServer.Services
             this.cache = memoryCache;
         }
 
-        public async Task<UserInfo?> GetUserInfo(int id)
+        public async Task<UserInfoModel?> GetUserInfo(int id)
         {
-            cache.TryGetValue(id, out UserInfo? userInfo);
+            cache.TryGetValue(id, out UserInfoModel? userInfo);
             if (userInfo == null)
             {
                 var user = await dbContext.Users.FindAsync(id);
@@ -38,12 +38,12 @@ namespace SocialNetworkServer.Services
             return userInfo;
         }
 
-        public async Task<List<UserInfo>>GetUsers(int page)
+        public async Task<List<UserInfoModel>>GetUsers(int page)
         {
             if (page <= 0) page = 1;
             var users = await dbContext.Users.OrderByDescending(u => u.UserId)
                 .Skip((page - 1) * PaginationConstants.UsersPerPage)
-                .Take(PaginationConstants.UsersPerPage).Select(u=>new UserInfo
+                .Take(PaginationConstants.UsersPerPage).Select(u=>new UserInfoModel
                 {
                     UserId= u.UserId,
                     UserName= u.UserName,

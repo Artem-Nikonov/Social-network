@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using SocialNetworkServer.AuxiliaryClasses;
 using SocialNetworkServer.Interfaces;
 using SocialNetworkServer.Models;
 using SocialNetworkServer.OptionModels;
@@ -43,13 +42,14 @@ namespace SocialNetworkServer.Services
             return true;
         }
 
-        public async Task<List<UserInfo>> GetUserFollowers(int userId, int page)
+        //получение подписчиков пользователя
+        public async Task<List<UserInfoModel>> GetUserFollowers(int userId, int page)
         {
             if (page <= 0) page = 1;
             var users = await dbContext.UserSubscriptions.Include(us=>us.Subscriber)
                 .Where(us=>us.SubscribedToUserId == userId)
                 .Skip((page - 1) * PaginationConstants.UsersPerPage)
-                .Take(PaginationConstants.UsersPerPage).Select(us => new UserInfo
+                .Take(PaginationConstants.UsersPerPage).Select(us => new UserInfoModel
                 {
                     UserId = us.SubscriberId,
                     UserName = us.Subscriber.UserName,
@@ -58,11 +58,38 @@ namespace SocialNetworkServer.Services
             return users;
         }
 
-        public Task<List<UserInfo>> GetUserFollowing(int userId, int page)
+        //получение подписок пользователя
+        public async Task<List<UserInfoModel>> GetUserFollowing(int userId, int page)
         {
-            throw new NotImplementedException();
+            if (page <= 0) page = 1;
+            var users = await dbContext.UserSubscriptions.Include(us => us.SubscribedToUser)
+                .Where(us => us.SubscriberId == userId)
+                .Skip((page - 1) * PaginationConstants.UsersPerPage)
+                .Take(PaginationConstants.UsersPerPage).Select(us => new UserInfoModel
+                {
+                    UserId = us.SubscribedToUserId,
+                    UserName = us.SubscribedToUser.UserName,
+                    UserSurname = us.SubscribedToUser.UserSurname
+                }).AsNoTracking().ToListAsync();
+            return users;
         }
 
+        //получение групп на которые подписан пользователь
+        public async Task<List<GroupInfoModel>> GetUserGroups(int userId, int page)
+        {
+            if (page <= 0) page = 1;
+            var groups = await dbContext.GroupSubscriptions.Include(gs => gs.SubscribedToGroup)
+                .Where(gs => gs.SubscriberId == userId)
+                .Skip((page - 1) * PaginationConstants.GroupsPerPage)
+                .Take(PaginationConstants.GroupsPerPage).Select(gs => new GroupInfoModel
+                {
+                    GroupId = gs.SubscribedToGroupId,
+                    GroupName = gs.SubscribedToGroup.GroupName,
+                }).AsNoTracking().ToListAsync();
+            return groups;
+        }
+
+        
         public async Task<bool> UserIsSubscribeToGroup(int userId, int GroupId)
         {
             var subscription = await dbContext.GroupSubscriptions.AsNoTracking()

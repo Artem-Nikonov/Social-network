@@ -27,6 +27,7 @@
     <div>
         <div>
             <subscription-button id="subscribeBtn" user-id="Model.metaData.VisitorId" page-id="Model.groupInfo.GroupId" page-type="group" />
+            <a asp-action="GroupSubscribers" asp-controller="Groups" asp-route-id="@Model.groupInfo.GroupId">Подписчики</a>
         </div>
     </div>
     
