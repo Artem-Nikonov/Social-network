@@ -20,5 +20,7 @@ namespace SocialNetworkServer.SocNetworkDBContext.Entities
 
         // Навигационные свойства для групп, на которые он подписан
         public List<GroupSubscription> SubscribedGroups { get; set; } = new();
+        // Навигационные свойства для чатов пользователя
+        public List<ChatParticipants> ChatParticipants { get; set; } = new();
     }
 }

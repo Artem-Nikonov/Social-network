@@ -29,7 +29,7 @@ namespace SocialNetworkServer.Controllers
             return View();
         }
 
-        //получение информации о пользователе
+        //получение страницы пользователя
         [Authorize]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> UserPage(int id)

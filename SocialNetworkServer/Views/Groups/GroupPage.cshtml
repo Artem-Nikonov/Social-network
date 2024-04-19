@@ -17,7 +17,7 @@
         <h3 id="groupName" class="underlined_title">@Model.groupInfo.GroupName</h3>
     </div>
     <details open>
-        <summary>Описание</summary>
+        <summary>Информация</summary>
         <div class="description_conteiner">
             <h4 id="groupDescription" class="description_content">@Model.groupInfo.Description</h4>
             <p class="post_permission_info">Разрешение на публикацию постов (@Model.groupInfo.PostPermissions.GetDisplayName())</p>
@@ -25,12 +25,10 @@
     </details>
 
     <div>
-        <div>
-            <subscription-button id="subscribeBtn" user-id="Model.metaData.VisitorId" page-id="Model.groupInfo.GroupId" page-type="group" />
-            <a asp-action="GroupSubscribers" asp-controller="Groups" asp-route-id="@Model.groupInfo.GroupId">Подписчики</a>
-        </div>
+        <subscription-button id="subscribeBtn" user-id="Model.metaData.VisitorId" page-id="Model.groupInfo.GroupId" page-type="group" />
+        <a asp-action="GroupSubscribers" asp-controller="Groups" asp-route-id="@Model.groupInfo.GroupId" class="custom_link">Подписчики</a>
+        <a asp-action="UserPage" asp-controller="Users" asp-route-id="@Model.groupInfo.CreatorId" class="custom_link">Админ</a>
     </div>
-    
     
     <div>
         <textarea id="postContent" class="post_textarea"></textarea>

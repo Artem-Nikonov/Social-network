@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Мои чаты";
+}
+<link rel="stylesheet" href="~/css/FormStyle.css" asp-append-version="true" />
+
+<div class="main_content">
+    <div>
+        <h2 class="text-center underlined_title">@ViewData["Title"]</h2>
+        <div>
+            <input type="text" placeholder="Название чата" id="chatName" class="input_field" />
+            <button id="publishBtn" class="custom_button">Создать чат</button>
+        </div>
+    </div>
+    <div id="chatsContainer">
+    </div>
+    <button id="AddLoadGroupsBtn" class="custom_button" style="display:none">Показать больше</button>
+</div>

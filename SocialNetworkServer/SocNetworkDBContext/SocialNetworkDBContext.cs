@@ -13,6 +13,9 @@ namespace SocialNetworkServer.SocNetworkDBContext
         public DbSet<Post> Posts { get; set; } = null!;
         public DbSet<UserSubscription> UserSubscriptions { get; set; } = null!;
         public DbSet<GroupSubscription> GroupSubscriptions { get; set; } = null!;
+        public DbSet<Chat> Chats { get; set; } = null!;
+        public DbSet<Message> Messages { get; set; }=null!;
+        public DbSet<ChatParticipants> ChatParticipants { get; set; } = null!;
 
         public SocialNetworkDBContext(DbContextOptions<SocialNetworkDBContext> options) : base(options)
         {
@@ -27,10 +30,13 @@ namespace SocialNetworkServer.SocNetworkDBContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new GroupConfiguration());
+            modelBuilder.ApplyConfiguration(new PostConfiguration());
             modelBuilder.ApplyConfiguration(new UserSubscriptionConfiguration());
             modelBuilder.ApplyConfiguration(new GroupSubscriptionConfiguration());
-            modelBuilder.ApplyConfiguration(new PostConfiguration());
-            modelBuilder.ApplyConfiguration(new GroupConfiguration());
+            modelBuilder.ApplyConfiguration(new ChatConfiguration());
+            modelBuilder.ApplyConfiguration(new MessageConfiguration());
+            modelBuilder.ApplyConfiguration(new ChatParticipantsConfiguration());
         }
     }
 }

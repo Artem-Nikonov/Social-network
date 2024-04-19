@@ -17,9 +17,9 @@
     
     <div>
         <subscription-button id="subscribeBtn" user-id="Model.metaData!.VisitorId" page-id="Model.userInfo.UserId" page-type="userPage" />
-        <a asp-action="UserSubscribtions" asp-controller="Users" asp-route-id="@Model.userInfo.UserId" asp-route-filter="@SubscriptionTypes.subscribers">Подписчики</a>
-        <a asp-action="UserSubscribtions" asp-controller="Users" asp-route-id="@Model.userInfo.UserId" asp-route-filter="@SubscriptionTypes.subscriptions">Подписки</a>
-        <a asp-action="UserSubscribtions" asp-controller="Users" asp-route-id="@Model.userInfo.UserId" asp-route-filter="@SubscriptionTypes.groups">Группы</a>
+        <a asp-action="UserSubscribtions" asp-controller="Users" asp-route-id="@Model.userInfo.UserId" asp-route-filter="@SubscriptionTypes.subscribers" class="custom_link">Подписчики</a>
+        <a asp-action="UserSubscribtions" asp-controller="Users" asp-route-id="@Model.userInfo.UserId" asp-route-filter="@SubscriptionTypes.subscriptions" class="custom_link">Подписки</a>
+        <a asp-action="UserSubscribtions" asp-controller="Users" asp-route-id="@Model.userInfo.UserId" asp-route-filter="@SubscriptionTypes.groups" class="custom_link">Группы</a>
     </div>
     
     <div>
@@ -38,6 +38,7 @@
     <button id="AddLoadPostsBtn" class="custom_button" style="display:none">Показать больше</button>
 </div>
 <script src="~/js/userPosts.js" asp-append-version="true"></script>
+
 @if (!Model.metaData.VisitorIsOwner)
 {
     <script src="/js/userSubscribe.js" asp-append-version="true"></script>

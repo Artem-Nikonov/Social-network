@@ -40,6 +40,17 @@ namespace SocialNetworkServer.Extentions
                     IssuerSigningKey = JWTOptions.GetSymmetricSecurityKey(),
                     ValidateIssuerSigningKey = true,
                 };
+                //options.Events = new JwtBearerEvents
+                //{
+                //    OnMessageReceived = context =>
+                //    {
+                //        var token = context.Request.Cookies["a_c"];
+                //        if (!string.IsNullOrEmpty(token))
+                //            context.Token = token;
+                //        return Task.CompletedTask;
+                        
+                //    }
+                //};
             });
             return services;
         }

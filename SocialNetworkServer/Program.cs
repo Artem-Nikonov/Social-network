@@ -13,4 +13,5 @@ builder.ConfigureWebHostDefaults(webBuilder =>
 });
 
 var app = builder.Build();
+
 app.Run();

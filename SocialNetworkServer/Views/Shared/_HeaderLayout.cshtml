@@ -14,6 +14,7 @@
                 <a asp-controller="Users" asp-action="UserPage" asp-route-id="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value">Моя страница</a>
                 <a asp-controller="Users" asp-action="Index">Пользователи</a>
                 <a asp-controller="Groups" asp-action="Index">Группы</a>
+                <a asp-controller="Chats" asp-action="Index">Мои чаты</a>
             </div>
             <div authentication-status="@SocialNetworkServer.CustomTagHelpers.Enums.AuthenticationStatus.Authenticated">
                 <a asp-controller="Account" asp-action="AccountSettings">Настройки</a>

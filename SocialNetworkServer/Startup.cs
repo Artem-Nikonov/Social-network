@@ -2,10 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using SocialNetworkServer.AuxiliaryClasses;
 using SocialNetworkServer.Extentions;
 using SocialNetworkServer.OptionModels;
 using SocialNetworkServer.SocNetworkDBContext;
 using System.Net;
+
 
 namespace SocialNetworkServer
 {
@@ -25,6 +27,7 @@ namespace SocialNetworkServer
             services.AddMySqlDBContext(Configuration);
             services.AddCustomServices();
             services.AddMemoryCache();
+            services.AddSignalR();
         }
         
 
@@ -69,12 +72,13 @@ namespace SocialNetworkServer
                 Secure = CookieSecurePolicy.Always
             });
 
+            
+
             app.Use(async (context, next) =>
             {
                 var token = context.Request.Cookies["a_c"];
                 if (!string.IsNullOrEmpty(token))
-                    context.Request.Headers.Add("Authorization", "Bearer " + token);
-
+                    context.Request.Headers.Add("Authorization", $"Bearer {token}");
                 await next();
             });
 
@@ -82,12 +86,24 @@ namespace SocialNetworkServer
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.Use(async (context, next) =>
+            {
+                await Console.Out.WriteLineAsync(context.Request.Path);
+                await next();
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<ChatHub>("/chat/{chatId}");
+            });
+            
         }
     }
 }
