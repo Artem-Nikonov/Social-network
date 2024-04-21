@@ -1,0 +1,32 @@
+﻿.error-window {
+    position: fixed;
+    top: 75px;
+    left: 0;
+    width: 15%;
+    border-radius: 5px;
+    height: 75px;
+    background-color: rgba(255, 0, 0, 0.5); /* Красный полупрозрачный цвет */
+    color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    display: none;
+    z-index: 100;
+}
+
+    .error-window.active {
+        display: block; /* Показать окно при активации */
+    }
+
+    .error-window.fade-out {
+        animation: fadeOut 2s ease; /* Плавное исчезновение */
+    }
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}

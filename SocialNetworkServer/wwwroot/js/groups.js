@@ -14,7 +14,7 @@ function DOMContentLoaded() {
 
 async function getGroups() {
     try {
-        const response = await fetch(`/groups/get?page=${pageId}`, {
+        const response = await fetch(`/groups/list?page=${pageId}`, {
             method: "GET",
             headers: {
                 "Accept": "application/json"

@@ -13,14 +13,15 @@
 <script>
     let chatId = document.getElementById("ci").getAttribute("data");
     const hubConnection = new signalR.HubConnectionBuilder()
-        .withUrl(`/chat/${chatId}`)
+        .withUrl(`/chat`)
         .build();
+    let userGroup = `ch${chatId}`;
 
     document.getElementById("sendBtn").addEventListener("click", function () {
         const userName = document.getElementById("userName").value;   // получаем введенное имя
         const message = document.getElementById("message").value;
 
-        hubConnection.invoke("Send", chatId, message, userName) // отправка данных серверу
+        hubConnection.invoke("Send", message, userName, userGroup) // отправка данных серверу
             .catch(function (err) {
                 return console.error(err.toString());
             });
@@ -46,6 +47,7 @@
     hubConnection.start()
         .then(function () {
             document.getElementById("sendBtn").disabled = false;
+            hubConnection.invoke("Enter", "user", userGroup);
         })
         .catch(function (err) {
             return console.error(err.toString());

@@ -47,7 +47,7 @@ namespace SocialNetworkServer.Controllers
             return View(groupPageModel);
         }
 
-        [HttpGet("get")]
+        [HttpGet("list")]
         public async Task<IActionResult> GetGroups([FromQuery] int page)
         {
             if (page <= 0)
@@ -76,7 +76,7 @@ namespace SocialNetworkServer.Controllers
             return View(groupInfo);
         }
 
-        [HttpGet("{id:int}/subscribers/get")]
+        [HttpGet("{id:int}/subscribers/list")]
         public async Task<IActionResult> GetGroupSubscribers(int id, [FromQuery] int page)
         {
             if (page <= 0)

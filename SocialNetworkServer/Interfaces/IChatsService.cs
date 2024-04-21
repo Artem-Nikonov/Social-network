@@ -1,9 +1,13 @@
-﻿using SocialNetworkServer.SocNetworkDBContext.Entities;
+﻿using SocialNetworkServer.Models;
+using SocialNetworkServer.SocNetworkDBContext.Entities;
 
 namespace SocialNetworkServer.Interfaces
 {
     public interface IChatsService
     {
-        Task<Chat> CreateChat(Chat chat, int creatorId);
+        Task<ChatInfoModel> CreateChat(ChatInfoModel chatInfo, int creatorId);
+        Task<bool> AddUserInChat(int chatId, int UserId);
+        Task<List<UserInfoModel>> GetChatUsers(int chatId, int page);
+        Task<List<ChatInfoModel>> GetUserChats(int userId, int page);
     }
 }

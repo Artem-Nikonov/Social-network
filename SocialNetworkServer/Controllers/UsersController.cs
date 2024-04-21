@@ -43,7 +43,7 @@ namespace SocialNetworkServer.Controllers
         }
 
         //получение пользователей через пагинацию
-        [HttpGet("get")]
+        [HttpGet("list")]
         public async Task<IActionResult> GetUsers([FromQuery] int page)
         {
             if (page <= 0)
@@ -77,7 +77,7 @@ namespace SocialNetworkServer.Controllers
 
         //поучение подписчиков пользователя через пагинацию
         [Authorize]
-        [HttpGet("{id:int}/subscribers/get")]
+        [HttpGet("{id:int}/subscribers/list")]
         public async Task<IActionResult> GetUserSubscribers(int id,[FromQuery] int page)
         {
             if (page <= 0)
@@ -91,7 +91,7 @@ namespace SocialNetworkServer.Controllers
 
         //поучение подписчиков пользователя через пагинацию
         [Authorize]
-        [HttpGet("{id:int}/subscribtions/get")]
+        [HttpGet("{id:int}/subscribtions/list")]
         public async Task<IActionResult> GetUserSubscribtions(int id, [FromQuery] int page)
         {
             if (page <= 0)
@@ -105,7 +105,7 @@ namespace SocialNetworkServer.Controllers
 
         //поучение подписчиков пользователя через пагинацию
         [Authorize]
-        [HttpGet("{id:int}/groups/get")]
+        [HttpGet("{id:int}/groups/list")]
         public async Task<IActionResult> GetUserGroups(int id, [FromQuery] int page)
         {
             if (page <= 0)

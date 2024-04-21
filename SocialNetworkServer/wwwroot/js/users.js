@@ -14,7 +14,7 @@ function DOMContentLoaded() {
 
 async function getUsers() {
     try {
-        const response = await fetch(`/users/get?page=${pageId}`, {
+        const response = await fetch(`/users/list?page=${pageId}`, {
             method: "GET",
             headers: {
                 "Accept": "application/json"
@@ -31,7 +31,7 @@ async function getUsers() {
             lastPageHandler(usersData.meta);
         }
         else {
-            console.error("Произошла ошибка при выполнении запроса");
+            showError("Произошла ошибка при выполнении запроса");
         }
     }
     catch (error) {

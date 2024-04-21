@@ -7,7 +7,7 @@ namespace SocialNetworkServer.Models
     {
         [Display(Name = "Логин:")]
         [Required(ErrorMessage = "Введите логин")]
-        [StringLength(12, MinimumLength = 5, ErrorMessage = "Длина логина должна быть от 5 до 12 символов.")]
+        [StringLength(40, MinimumLength = 4, ErrorMessage = "Длина логина должна быть от 4 до 40 символов.")]
         public string? Login { get; set; }
 
         [Display(Name = "Пароль:")]

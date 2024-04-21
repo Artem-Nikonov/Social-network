@@ -13,7 +13,7 @@ function DOMContentLoaded() {
 
 async function getUsers() {
     try {
-        const response = await fetch(`/groups/${groupId}/subscribers/get?page=${pageId}`, {
+        const response = await fetch(`/groups/${groupId}/subscribers/list?page=${pageId}`, {
             method: "GET",
             headers: {
                 "Accept": "application/json"

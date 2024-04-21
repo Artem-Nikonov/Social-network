@@ -101,7 +101,7 @@ namespace SocialNetworkServer
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<ChatHub>("/chat/{chatId}");
+                endpoints.MapHub<ChatHub>("/chat");
             });
             
         }

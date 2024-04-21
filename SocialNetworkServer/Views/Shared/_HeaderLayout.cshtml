@@ -25,12 +25,15 @@
             </div>
 
         </header>
-        
+
+        <div id="errorWindow" class="error-window">
+            <span id="errorMessage" class="error-message"></span>
+        </div>
 
         <main role="main">
             @RenderBody()
         </main>
 
     </body>
-
+    <script src="~/js/ErrorHandler.js" asp-append-version="true"></script>
 </html>

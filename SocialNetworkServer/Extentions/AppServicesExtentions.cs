@@ -11,6 +11,7 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using SocialNetworkServer.OptionModels;
 using Microsoft.AspNetCore.Authentication.OAuth;
+using SocialNetworkServer.AuxiliaryClasses;
 
 namespace SocialNetworkServer.Extentions
 {
@@ -59,6 +60,7 @@ namespace SocialNetworkServer.Extentions
         {
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IJWTProvider, JWTPrpvider>();
+            services.AddScoped<IPaginator, PaginationService>();
             services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IUsersService, UsersService>();
@@ -68,6 +70,7 @@ namespace SocialNetworkServer.Extentions
             services.AddScoped<IUserSubscriptionService, UserSubscriptionService>();
             services.AddScoped<ISubscribeChecker, UserSubscriptionService>();
             services.AddScoped<IGroupSubscriptionService, GroupSubscriptionService>();
+            services.AddScoped<IChatsService, ChatsService>();
             return services;
         }
 

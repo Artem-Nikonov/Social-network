@@ -7,11 +7,12 @@
     <div>
         <h2 class="text-center underlined_title">@ViewData["Title"]</h2>
         <div>
-            <input type="text" placeholder="Название чата" id="chatName" class="input_field" />
-            <button id="publishBtn" class="custom_button">Создать чат</button>
+            <input id="chatName" type="text" placeholder="Название чата" class="input_field" />
+            <button id="createChatBtn" class="custom_button">Создать чат</button>
         </div>
     </div>
     <div id="chatsContainer">
     </div>
-    <button id="AddLoadGroupsBtn" class="custom_button" style="display:none">Показать больше</button>
+    <button id="AddLoadChatsBtn" class="custom_button" style="display:none">Показать больше</button>
 </div>
+<script src="/js/Chats.js" asp-append-version="true"></script>

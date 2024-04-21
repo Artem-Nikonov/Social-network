@@ -73,7 +73,6 @@ namespace SocialNetworkServer.Controllers
             }
             catch (GroupPostsException ex)
             {
-                Console.WriteLine(ex.Message);
                 return BadRequest(ex.Message);
             }
         }

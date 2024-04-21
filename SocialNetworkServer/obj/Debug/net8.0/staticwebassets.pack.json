@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\SocialNetworkServer.bundle.scp.css"
     },
     {
+      "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\ErrorWindowStyle.css",
+      "PackagePath": "staticwebassets\\css\\ErrorWindowStyle.css"
+    },
+    {
       "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\FormStyle.css",
       "PackagePath": "staticwebassets\\css\\FormStyle.css"
     },
@@ -27,6 +31,14 @@
     {
       "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\Chats.js",
+      "PackagePath": "staticwebassets\\js\\Chats.js"
+    },
+    {
+      "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\ErrorHandler.js",
+      "PackagePath": "staticwebassets\\js\\ErrorHandler.js"
     },
     {
       "Id": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\UserGroups.js",
