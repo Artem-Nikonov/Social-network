@@ -69,7 +69,15 @@ namespace SocialNetworkServer.Services
         //полцчение пользователей чата
         public async Task<List<UserInfoModel>> GetChatUsers(int chatId, int page)
         {
-            throw new NotImplementedException();
+            if (page <= 0) page = 1;
+            var users = await dbContext.ChatParticipants
+            .Where(cp => cp.ChatId == chatId)
+            .OrderBy(cp => cp.UserId)
+            .Skip((page - 1) * PaginationConstants.UsersPerPage)
+            .Take(PaginationConstants.UsersPerPage)
+            .Select(cp => (UserInfoModel)cp.User)
+            .AsNoTracking().ToListAsync();
+            return users;
         }
 
         public async Task<List<ChatInfoModel>> GetUserChats(int userId, int page)

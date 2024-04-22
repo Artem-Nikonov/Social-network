@@ -50,8 +50,21 @@ namespace SocialNetworkServer.Controllers
             return View("Chat", chatInfo);
         }
 
+        [HttpGet("{chatId:int}/users")]
+        public async Task<IActionResult> GetChatUsers(int chatId, [FromQuery] int page)
+        {
+            var userId = userService.GetUserId(HttpContext.User);
+            if (page <= 0)
+            {
+                return BadRequest("Номер страницы должен быть больше 0.");
+            }
+            var chatUsers = await chatsService.GetChatUsers(chatId, page);
+            var usersData = paginator.BuildPaginationDataFromPageId(chatUsers, page, PaginationConstants.UsersPerPage);
+            return Json(usersData);
+        }
+
         [HttpGet("list")]
-        public async Task<IActionResult> GetUserSubscribtions([FromQuery] int page)
+        public async Task<IActionResult> GetUserChats([FromQuery] int page)
         {
             var userId = userService.GetUserId(HttpContext.User);
             if (page <= 0)
@@ -87,7 +100,7 @@ namespace SocialNetworkServer.Controllers
             var userIsChatParcipant = await chatParticipantChecker.UserIsAChatParcipant(inviteeId, chatId);
             Console.WriteLine(userIsChatParcipant);
             if (!userIsChatParcipant) return Forbid();
-            bool isSuccess = false;
+            bool isSuccess;
 
             switch (act)
             {

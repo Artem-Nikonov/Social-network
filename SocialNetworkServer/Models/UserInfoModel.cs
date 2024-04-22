@@ -18,7 +18,13 @@ namespace SocialNetworkServer.Models
             UserName = userName;
             UserSurname = userSurname;
         }
-
+        public UserInfoModel(int userId, string userFullName)
+        {
+            UserId = userId;
+            var userInfo= userFullName.Split(' ');
+            UserName = userInfo[0];
+            UserSurname = userInfo[1];
+        }
         public static implicit operator UserInfoModel(User user)
         {
             return new UserInfoModel(user.UserId, user.UserName, user.UserSurname);

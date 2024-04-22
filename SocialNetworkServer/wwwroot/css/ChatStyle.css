@@ -1,23 +1,31 @@
 ﻿/* Основной контейнер */
-.main_content {
+.main_chat_content {
+    flex-basis: auto;
+    margin: 10px;
+    padding: 10px;
+    background-color: #292929;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
-    height: 70vh; /* Растянуть на весь экран */
-    max-height: 70vh;
-    overflow: hidden; /* Скрыть любые переполнения контента */
+    height: 82vh; /* Растянуть на весь экран */
+    min-width: 70%;
+    overflow-wrap: break-word;
 }
-/* Панель с основным содержимым */
 
-/* Панель для отправки сообщений */
-#sendPanel {
-    position: fixed;
-    bottom: 0;
-    left: 15%;
-    width: 70%;
-    z-index: 1;
-    margin: 0 auto;
-    min-height: 10vh;
+.chat_Info {
+    flex-basis: auto;
+    margin: 10px;
+    padding: 10px;
+    background-color: #292929;
     border-radius: 5px;
+    height: 82vh; /* Растянуть на весь экран */
+    overflow-wrap: break-word;
+    min-width: 25%;
+}
+
+.chat_wrapp {
+    display: flex;
+    width: 100%;
 }
 
 /* Поле ввода сообщения */
@@ -33,8 +41,33 @@
     padding: 10px;
 }
 
+.message_field {
+    color: #f2f2f2;
+    max-width: 80%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #333;
+    margin-bottom: 10px;
+}
+
+.user_id_field {
+    color: #f2f2f2;
+    width: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #333;
+    margin-bottom: 10px;
+}
+
+
+.user_id_field:focus {
+    outline: none;
+    border-color: #555;
+}
 /* Стили для кнопок */
-.custom_button {
+.chat_custom_button {
     background-color: #4CAF50;
     border: none;
     color: white;
@@ -46,15 +79,4 @@
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 4px;
-}
-
-/* Добавить некоторый стиль для заголовка чата */
-#chatName {
-    margin-top: 0;
-    padding-top: 20px;
-}
-
-/* Добавить некоторый стиль для поля ввода ID пользователя */
-#userId {
-    margin-bottom: 10px;
 }

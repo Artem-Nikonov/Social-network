@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using SocialNetworkServer.AuxiliaryClasses;
 using SocialNetworkServer.Extentions;
 using SocialNetworkServer.OptionModels;
 using SocialNetworkServer.SocNetworkDBContext;

@@ -72,6 +72,7 @@ namespace SocialNetworkServer.Extentions
             services.AddScoped<IGroupSubscriptionService, GroupSubscriptionService>();
             services.AddScoped<IChatsService, ChatsService>();
             services.AddScoped<IChatParticipantChecker, ChatsService>();
+            services.AddScoped<IMessagesService, MessagesService>();
             return services;
         }
 

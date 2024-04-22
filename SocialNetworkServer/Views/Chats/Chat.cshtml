@@ -5,25 +5,37 @@
     <span id="chatId" data="@Model.ChatId"></span>
 </div>
 
-<div class="main_content">
-    <div>
-        <h3 id="chatName" class="underlined_title">@Model.ChatName</h3>
-    </div>
-    <div id="mainPanel" class="fixed_panel">
-        <input id="userId" type="text" placeholder="ID пользователя" class="input_field" />
-        <button id="addUserBtn" class="custom_button">Добавить пользователя</button>
+<div class="chat_wrapp">
+    <div class="main_chat_content">
+        <div>
+            <h3 id="chatName" class="underlined_title">@Model.ChatName</h3>
+        </div>
+   
+        <div id="chatroom">
+        </div>
+
+        <div id="sendPanel">
+            <input type="text" id="message" class="message_field" />
+            <input type="button" id="sendBtn" value="Отправить" disabled="disabled" class="chat_custom_button" />
+        </div>
     </div>
 
-    <div id="chatroom">
+    <div class="chat_Info">
+        <h3 class="text-center underlined_title">Участники чата</h3>
+        <div>
+            <input id="userId" type="text" placeholder="ID пользователя" class="user_id_field" />
+            <button id="addUserBtn" class="custom_button">Добавить</button>
+        </div>
+        <div>
+            <div id="usersContainer">
 
+            </div>
+            <button id="addLoadUsersBtn" class="custom_button" style="display:none">Показать больше</button>
+        </div>
+        
     </div>
-
-    <div id="sendPanel" class="fixed_panel">
-        <input type="text" id="message" class="long_input_field" />
-        <input type="button" id="sendBtn" value="Отправить" disabled="disabled" class="custom_button" />
-    </div>
-    
 </div>
+
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
