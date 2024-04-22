@@ -17,7 +17,7 @@ function DOMContentLoaded() {
 }
 
 async function createChatBtnClick() {
-    const chatName = chatNameInput.value;
+    let chatName = chatNameInput.value;
     if (chatName.length < 1) {
         showError("Длина названия чата должна быть не менее 1-го символа.");
         return;
@@ -41,7 +41,7 @@ async function createChatBtnClick() {
         }
         if (response.ok) {
             console.log("чат создан");
-            chatName.value = "";
+            chatNameInput.value = "";
             const chatInfo = await response.json();
             const chat = createChatDiv(chatInfo);
             let lastChatInCintainer = chatsContainer.firstChild;

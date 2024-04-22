@@ -6,14 +6,15 @@ namespace SocialNetworkServer.AuxiliaryClasses
     [Authorize]
     public class ChatHub : Hub
     {
-        public async Task Enter(string username, string groupName)
+        public async Task Enter( string groupName)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
             //await Clients.All.SendAsync("Notify", $"{username} вошел в чат в группу {groupName}");
         }
 
-        public async Task Send(string message, string userName, string groupName)
+        public async Task Send(string message, string groupName)
         {
+            var userName = Context.User.Identity.Name;
             await Clients.Group(groupName).SendAsync("Receive", message, userName);
         }
 

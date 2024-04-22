@@ -104,7 +104,7 @@ namespace SocialNetworkServer.Controllers
             var result = await groupsService.CreateGroup(groupInfo, HttpContext.User);
             if (result == null)
                 return BadRequest("Не удалось создать группу");
-            return Redirect("/groups");
+            return Redirect($"/groups/{result.GroupId}");
         }
     }
 }

@@ -15,6 +15,16 @@
     margin-bottom: 10px;
 }
 
+.long_input_field {
+    color: #f2f2f2;
+    width: 85%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #333;
+    margin-bottom: 10px;
+}
+
 .input_field:focus {
     outline: none;
     border-color: #555;

@@ -1,55 +1,31 @@
-﻿@model int
-<span id="ci" data="@Model"></span>
-<div>
-    Введите логин:<br />
-    <input id="userName" type="text" /><br /><br />
-    Введите сообщение:<br />
-    <input type="text" id="message" /><br /><br />
-    <input type="button" id="sendBtn" value="Отправить" disabled="disabled" />
+﻿@model ChatInfoModel
+<link rel="stylesheet" href="~/css/FormStyle.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/ChatStyle.css" asp-append-version="true" />
+<div id="meta">
+    <span id="chatId" data="@Model.ChatId"></span>
 </div>
-<div id="chatroom"></div>
+
+<div class="main_content">
+    <div>
+        <h3 id="chatName" class="underlined_title">@Model.ChatName</h3>
+    </div>
+    <div id="mainPanel" class="fixed_panel">
+        <input id="userId" type="text" placeholder="ID пользователя" class="input_field" />
+        <button id="addUserBtn" class="custom_button">Добавить пользователя</button>
+    </div>
+
+    <div id="chatroom">
+
+    </div>
+
+    <div id="sendPanel" class="fixed_panel">
+        <input type="text" id="message" class="long_input_field" />
+        <input type="button" id="sendBtn" value="Отправить" disabled="disabled" class="custom_button" />
+    </div>
+    
+</div>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
 
-<script>
-    let chatId = document.getElementById("ci").getAttribute("data");
-    const hubConnection = new signalR.HubConnectionBuilder()
-        .withUrl(`/chat`)
-        .build();
-    let userGroup = `ch${chatId}`;
-
-    document.getElementById("sendBtn").addEventListener("click", function () {
-        const userName = document.getElementById("userName").value;   // получаем введенное имя
-        const message = document.getElementById("message").value;
-
-        hubConnection.invoke("Send", message, userName, userGroup) // отправка данных серверу
-            .catch(function (err) {
-                return console.error(err.toString());
-            });
-    });
-    // получение данных с сервера
-    hubConnection.on("Receive", function (message, userName) {
-
-        // создаем элемент <b> для имени пользователя
-        const userNameElem = document.createElement("b");
-        userNameElem.textContent = `${userName}: `;
-
-        // создает элемент <p> для сообщения пользователя
-        const elem = document.createElement("p");
-        elem.appendChild(userNameElem);
-        elem.appendChild(document.createTextNode(message));
-
-        // добавляем новый элемент в самое начало
-        // для этого сначала получаем первый элемент
-        const firstElem = document.getElementById("chatroom").firstChild;
-        document.getElementById("chatroom").insertBefore(elem, firstElem);
-    });
-
-    hubConnection.start()
-        .then(function () {
-            document.getElementById("sendBtn").disabled = false;
-            hubConnection.invoke("Enter", "user", userGroup);
-        })
-        .catch(function (err) {
-            return console.error(err.toString());
-        });
-</script>
+<script src="/js/Chat.js" asp-append-version="true"></script>

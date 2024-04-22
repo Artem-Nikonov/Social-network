@@ -36,5 +36,10 @@ namespace SocialNetworkServer.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        [HttpGet("httpError/{statusCode}")]
+        public IActionResult HttpError(int statusCode)
+        {
+            return View(statusCode);
+        }
     }
 }

@@ -74,14 +74,7 @@ namespace SocialNetworkServer.Services
                 query = query.Where(p => p.PostId <= startPostId);
 
             var posts = await query.Take(PaginationConstants.PostsPerPage)
-                .Select(post => new PostInfoModel
-                {
-                    PostId = post.PostId,
-                    UserId = post.UserId,
-                    GroupId = post.GroupId,
-                    Content = post.Content,
-                    CreationDate = post.CreationDate.GetSpecialFormat()
-                }).AsNoTracking().ToListAsync();
+                .Select(post => (PostInfoModel) post).AsNoTracking().ToListAsync();
             return posts;
         }
 

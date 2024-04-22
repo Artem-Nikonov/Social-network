@@ -34,7 +34,7 @@ namespace SocialNetworkServer
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
+            app.UseStatusCodePagesWithReExecute("/httpError/{0}");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -78,7 +78,7 @@ namespace SocialNetworkServer
             {
                 var token = context.Request.Cookies["a_c"];
                 if (!string.IsNullOrEmpty(token))
-                    context.Request.Headers.Add("Authorization", $"Bearer {token}");
+                    context.Request.Headers.Authorization = $"Bearer {token}";
                 await next();
             });
 
@@ -88,7 +88,7 @@ namespace SocialNetworkServer
 
             app.Use(async (context, next) =>
             {
-                await Console.Out.WriteLineAsync(context.Request.Path);
+                await Console.Out.WriteLineAsync($"{context.Request.Path} {context.Request.QueryString}");
                 await next();
             });
 

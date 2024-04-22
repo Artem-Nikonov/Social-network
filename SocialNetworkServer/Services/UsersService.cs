@@ -43,12 +43,8 @@ namespace SocialNetworkServer.Services
             if (page <= 0) page = 1;
             var users = await dbContext.Users.OrderByDescending(u => u.UserId)
                 .Skip((page - 1) * PaginationConstants.UsersPerPage)
-                .Take(PaginationConstants.UsersPerPage).Select(u=>new UserInfoModel
-                {
-                    UserId= u.UserId,
-                    UserName= u.UserName,
-                    UserSurname= u.UserSurname
-                }).AsNoTracking().ToListAsync();
+                .Take(PaginationConstants.UsersPerPage)
+                .Select(user=> (UserInfoModel)user).AsNoTracking().ToListAsync();
             return users;
         }
 

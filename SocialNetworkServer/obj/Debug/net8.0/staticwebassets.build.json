@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "i5bVQDNvqYfMb5omqALPfLoWY8/v3Pay1ZLw+C4v5Xs=",
+  "Hash": "1nnssdhejqplQDyUxqXcJ5NnMsq2OGiiyHFkEjc6Iok=",
   "Source": "SocialNetworkServer",
   "BasePath": "_content/SocialNetworkServer",
   "Mode": "Default",
@@ -53,6 +53,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\SocialNetworkServer.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\ChatStyle.css",
+      "SourceId": "SocialNetworkServer",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\",
+      "BasePath": "_content/SocialNetworkServer",
+      "RelativePath": "css/ChatStyle.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\ChatStyle.css"
     },
     {
       "Identity": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\css\\ErrorWindowStyle.css",
@@ -186,6 +205,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\Chat.js",
+      "SourceId": "SocialNetworkServer",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\",
+      "BasePath": "_content/SocialNetworkServer",
+      "RelativePath": "js/Chat.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Chat.js"
     },
     {
       "Identity": "D:\\Репозитории\\Social_network\\SocialNetworkServer\\wwwroot\\js\\Chats.js",

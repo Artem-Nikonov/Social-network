@@ -19,7 +19,7 @@ namespace SocialNetworkServer.Services
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName)
+                new Claim(ClaimTypes.Name, $"{user.UserName} {user.UserSurname}")
             };
             var signingCredentials = new SigningCredentials(JWTOptions.GetSymmetricSecurityKey(),SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
 using SocialNetworkServer.AuxiliaryClasses;
+using SocialNetworkServer.Enums;
 using SocialNetworkServer.Interfaces;
 using SocialNetworkServer.Models;
 using SocialNetworkServer.OptionModels;
@@ -18,13 +19,16 @@ namespace SocialNetworkServer.Controllers
     {
         private SocialNetworkDBContext dbContext;
         private IChatsService chatsService;
+        private IChatParticipantChecker chatParticipantChecker;
         private IUsersService userService;
         private IPaginator paginator;
 
-        public ChatsController(SocialNetworkDBContext dbContext, IChatsService chatsService, IUsersService userService, IPaginator paginator)
+        public ChatsController(SocialNetworkDBContext dbContext, IChatsService chatsService,
+            IChatParticipantChecker chatParticipantChecker, IUsersService userService, IPaginator paginator)
         {
             this.dbContext = dbContext;
             this.chatsService = chatsService;
+            this.chatParticipantChecker = chatParticipantChecker;
             this.userService = userService;
             this.paginator = paginator;
         }
@@ -37,9 +41,13 @@ namespace SocialNetworkServer.Controllers
         }
 
         [HttpGet("{chatId:int}")]
-        public IActionResult GoToChat(int chatId)
+        public async Task<IActionResult> GoToChat(int chatId)
         {
-            return View("Chat", chatId);
+            var userId = userService.GetUserId(HttpContext.User);
+            var userIsChatParcipant = await chatParticipantChecker.UserIsAChatParcipant(userId, chatId);
+            if(!userIsChatParcipant) return Forbid();
+            var chatInfo = await chatsService.GetChatInfo(chatId);
+            return View("Chat", chatInfo);
         }
 
         [HttpGet("list")]
@@ -70,6 +78,28 @@ namespace SocialNetworkServer.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpPost("{chatId:int}")]
+        public async Task<IActionResult> AddUserToChat(int chatId,[FromQuery] ChatActions act, [FromQuery] int userId)
+        {
+            var inviteeId = userService.GetUserId(HttpContext.User);
+            var userIsChatParcipant = await chatParticipantChecker.UserIsAChatParcipant(inviteeId, chatId);
+            Console.WriteLine(userIsChatParcipant);
+            if (!userIsChatParcipant) return Forbid();
+            bool isSuccess = false;
+
+            switch (act)
+            {
+                case ChatActions.addUser:
+                    isSuccess = await chatsService.AddUserInChat(chatId, userId);
+                    break;
+                default:
+                   isSuccess= await chatsService.AddUserInChat(chatId, userId);
+                    break;
+            }
+            if (isSuccess) return Ok();
+            return BadRequest();
         }
 
     }

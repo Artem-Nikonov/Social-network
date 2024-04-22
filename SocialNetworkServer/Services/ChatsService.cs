@@ -7,7 +7,7 @@ using SocialNetworkServer.SocNetworkDBContext.Entities;
 
 namespace SocialNetworkServer.Services
 {
-    public class ChatsService : IChatsService
+    public class ChatsService : IChatsService, IChatParticipantChecker
     {
         private SocialNetworkDBContext dbContext;
 
@@ -16,9 +16,18 @@ namespace SocialNetworkServer.Services
             this.dbContext = dbContext;
         }
 
+        //Получение информации о конкретном чате
+        public async Task<ChatInfoModel?> GetChatInfo(int chatId)
+        {
+            var chat = await dbContext.Chats.FindAsync(chatId);
+            if (chat == null) return null;
+            return chat;
+        }
+
         //создание чата
         public async Task<ChatInfoModel> CreateChat(ChatInfoModel chatInfo, int creatorId)
         {
+
             if(chatInfo.ChatName.Length<1)
                 throw new ChatException("Длина названия чата должна быть не менее 2-х символов");
             var chat = new Chat()
@@ -40,9 +49,21 @@ namespace SocialNetworkServer.Services
         }
 
         //добавление пользователя в чат
-        public Task<bool> AddUserInChat(int chatId, int UserId)
+        public async Task<bool> AddUserInChat(int chatId, int UserId)
         {
-            throw new NotImplementedException();
+            var chatParticipant = new ChatParticipants
+            {
+                ChatId = chatId,
+                UserId = UserId
+            };
+            try
+            {
+                await dbContext.ChatParticipants.AddAsync(chatParticipant);
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch {  return false; }
+            
         }
 
         //полцчение пользователей чата
@@ -59,8 +80,15 @@ namespace SocialNetworkServer.Services
             .Skip((page - 1) * PaginationConstants.ChatsPerPage)
             .Take(PaginationConstants.ChatsPerPage)
             .Select(cp => (ChatInfoModel)cp.Chat)
-            .ToListAsync();
+            .AsNoTracking().ToListAsync();
             return chats;
+        }
+
+        public async Task<bool> UserIsAChatParcipant(int userId, int chatId)
+        {
+            var userIsParticipant = await dbContext.ChatParticipants
+                .FirstOrDefaultAsync(cp=>cp.ChatId == chatId && cp.UserId==userId);
+            return userIsParticipant != null;
         }
     }
 

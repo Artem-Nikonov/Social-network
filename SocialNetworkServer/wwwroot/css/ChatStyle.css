@@ -1,0 +1,60 @@
+﻿/* Основной контейнер */
+.main_content {
+    display: flex;
+    flex-direction: column;
+    height: 70vh; /* Растянуть на весь экран */
+    max-height: 70vh;
+    overflow: hidden; /* Скрыть любые переполнения контента */
+}
+/* Панель с основным содержимым */
+
+/* Панель для отправки сообщений */
+#sendPanel {
+    position: fixed;
+    bottom: 0;
+    left: 15%;
+    width: 70%;
+    z-index: 1;
+    margin: 0 auto;
+    min-height: 10vh;
+    border-radius: 5px;
+}
+
+/* Поле ввода сообщения */
+#message {
+    width: calc(100% - 80px); /* Учесть ширину кнопки отправки */
+    margin-right: 10px;
+}
+
+/* Панель чата */
+#chatroom {
+    flex: 1;
+    overflow-y: auto; /* Разрешить прокрутку, если содержимое переполнено */
+    padding: 10px;
+}
+
+/* Стили для кнопок */
+.custom_button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* Добавить некоторый стиль для заголовка чата */
+#chatName {
+    margin-top: 0;
+    padding-top: 20px;
+}
+
+/* Добавить некоторый стиль для поля ввода ID пользователя */
+#userId {
+    margin-bottom: 10px;
+}

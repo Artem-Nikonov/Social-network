@@ -80,7 +80,7 @@ namespace SocialNetworkServer.Services
             };
             await dbContext.Groups.AddAsync(group);
             await dbContext.SaveChangesAsync();
-            return groupInfo;
+            return (GroupInfoModel)group;
         }
     }
 }
