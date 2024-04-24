@@ -11,6 +11,7 @@ namespace SocialNetworkServer.Models
         public int MessageId { get; set; }
         public int? ChatId { get; set; }
         public int UserId { get; set; }
+        public UserInfoModel? User { get; set; }
         public string Content { get; set; }
         public string SendingDate { get; set; }
         public bool IsDeleted { get; set; }
@@ -30,6 +31,7 @@ namespace SocialNetworkServer.Models
                 MessageId = message.MessageId,
                 ChatId = message.ChatId,
                 UserId = message.UserId,
+                User = message.User,
                 Content = message.Content,
                 SendingDate = message.SendingDate.GetSpecialFormat(),
                 IsDeleted = message.IsDeleted,

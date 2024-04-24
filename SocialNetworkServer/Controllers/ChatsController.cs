@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Hosting;
 using SocialNetworkServer.AuxiliaryClasses;
 using SocialNetworkServer.Enums;
 using SocialNetworkServer.Interfaces;
@@ -20,15 +21,17 @@ namespace SocialNetworkServer.Controllers
         private SocialNetworkDBContext dbContext;
         private IChatsService chatsService;
         private IChatParticipantChecker chatParticipantChecker;
+        private IMessagesService messagesService;
         private IUsersService userService;
         private IPaginator paginator;
 
-        public ChatsController(SocialNetworkDBContext dbContext, IChatsService chatsService,
-            IChatParticipantChecker chatParticipantChecker, IUsersService userService, IPaginator paginator)
+        public ChatsController(SocialNetworkDBContext dbContext, IChatsService chatsService,IChatParticipantChecker chatParticipantChecker,
+            IMessagesService messagesService,IUsersService userService, IPaginator paginator)
         {
             this.dbContext = dbContext;
             this.chatsService = chatsService;
             this.chatParticipantChecker = chatParticipantChecker;
+            this.messagesService = messagesService;
             this.userService = userService;
             this.paginator = paginator;
         }
@@ -40,6 +43,7 @@ namespace SocialNetworkServer.Controllers
             return View();
         }
 
+        //перход на страницу чата
         [HttpGet("{chatId:int}")]
         public async Task<IActionResult> GoToChat(int chatId)
         {
@@ -50,6 +54,20 @@ namespace SocialNetworkServer.Controllers
             return View("Chat", chatInfo);
         }
 
+        //получение сообщений чата
+        [HttpGet("{chatId:int}/messages")]
+        public async Task<IActionResult> GetChatMessages(int chatId, [FromQuery] int startMessageId)
+        {
+            var userId = userService.GetUserId(HttpContext.User);
+            var userIsChatParcipant = await chatParticipantChecker.UserIsAChatParcipant(userId, chatId);
+            if (!userIsChatParcipant) return Forbid();
+            var messages = await messagesService.GetMessages(chatId, startMessageId);
+            var lastMessageId = messages.LastOrDefault()?.MessageId ?? 0;
+            var messagesData = paginator.BuildPaginationDataFromLastItemId(messages, lastMessageId, PaginationConstants.MessagesPerPage);
+            return Json(messagesData);
+        }
+
+        //получение пользователей чата
         [HttpGet("{chatId:int}/users")]
         public async Task<IActionResult> GetChatUsers(int chatId, [FromQuery] int page)
         {
@@ -63,6 +81,7 @@ namespace SocialNetworkServer.Controllers
             return Json(usersData);
         }
 
+        //получение чатов пользователя
         [HttpGet("list")]
         public async Task<IActionResult> GetUserChats([FromQuery] int page)
         {
@@ -93,6 +112,7 @@ namespace SocialNetworkServer.Controllers
             }
         }
 
+        //добавление пользователя в чат
         [HttpPost("{chatId:int}")]
         public async Task<IActionResult> AddUserToChat(int chatId,[FromQuery] ChatActions act, [FromQuery] int userId)
         {

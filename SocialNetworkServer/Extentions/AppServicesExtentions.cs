@@ -63,7 +63,7 @@ namespace SocialNetworkServer.Extentions
             services.AddScoped<IPaginator, PaginationService>();
             services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
-            services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IUsersService,UsersService>();
             services.AddScoped<IPostsService, UserPostsService>();
             services.AddScoped<IPostsService, GroupPostsService>();
             services.AddScoped<IGroupsService, GroupsService>();

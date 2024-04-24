@@ -1,7 +1,40 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\\u0420\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\Social_network\\SocialNetworkServer\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3D114194-9D4F-4825-88E5-27D4D5B43878}|SocialNetworkServer.csproj|d:\\\u0440\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\social_network\\socialnetworkserver\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D114194-9D4F-4825-88E5-27D4D5B43878}|SocialNetworkServer.csproj|solutionrelative:chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D114194-9D4F-4825-88E5-27D4D5B43878}|SocialNetworkServer.csproj|d:\\\u0440\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\social_network\\socialnetworkserver\\services\\messagesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D114194-9D4F-4825-88E5-27D4D5B43878}|SocialNetworkServer.csproj|solutionrelative:services\\messagesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D114194-9D4F-4825-88E5-27D4D5B43878}|SocialNetworkServer.csproj|d:\\\u0440\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\social_network\\socialnetworkserver\\controllers\\chatscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D114194-9D4F-4825-88E5-27D4D5B43878}|SocialNetworkServer.csproj|solutionrelative:controllers\\chatscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D114194-9D4F-4825-88E5-27D4D5B43878}|SocialNetworkServer.csproj|d:\\\u0440\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\social_network\\socialnetworkserver\\models\\messageinfomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D114194-9D4F-4825-88E5-27D4D5B43878}|SocialNetworkServer.csproj|solutionrelative:models\\messageinfomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D114194-9D4F-4825-88E5-27D4D5B43878}|SocialNetworkServer.csproj|d:\\\u0440\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\social_network\\socialnetworkserver\\wwwroot\\js\\userposts.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{3D114194-9D4F-4825-88E5-27D4D5B43878}|SocialNetworkServer.csproj|solutionrelative:wwwroot\\js\\userposts.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D114194-9D4F-4825-88E5-27D4D5B43878}|SocialNetworkServer.csproj|d:\\\u0440\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\social_network\\socialnetworkserver\\views\\chats\\chat.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3D114194-9D4F-4825-88E5-27D4D5B43878}|SocialNetworkServer.csproj|solutionrelative:views\\chats\\chat.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D114194-9D4F-4825-88E5-27D4D5B43878}|SocialNetworkServer.csproj|d:\\\u0440\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\social_network\\socialnetworkserver\\wwwroot\\js\\chat.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{3D114194-9D4F-4825-88E5-27D4D5B43878}|SocialNetworkServer.csproj|solutionrelative:wwwroot\\js\\chat.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D114194-9D4F-4825-88E5-27D4D5B43878}|SocialNetworkServer.csproj|d:\\\u0440\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\social_network\\socialnetworkserver\\wwwroot\\css\\chatstyle.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{3D114194-9D4F-4825-88E5-27D4D5B43878}|SocialNetworkServer.csproj|solutionrelative:wwwroot\\css\\chatstyle.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,8 +42,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ChatHub.cs",
+              "DocumentMoniker": "D:\\\u0420\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\Social_network\\SocialNetworkServer\\ChatHub.cs",
+              "RelativeDocumentMoniker": "ChatHub.cs",
+              "ToolTip": "D:\\\u0420\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\Social_network\\SocialNetworkServer\\ChatHub.cs",
+              "RelativeToolTip": "ChatHub.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAQwCoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T23:03:51.672Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
@@ -30,6 +76,97 @@
             {
               "$type": "Bookmark",
               "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ChatStyle.css",
+              "DocumentMoniker": "D:\\\u0420\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\Social_network\\SocialNetworkServer\\wwwroot\\css\\ChatStyle.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\ChatStyle.css",
+              "ToolTip": "D:\\\u0420\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\Social_network\\SocialNetworkServer\\wwwroot\\css\\ChatStyle.css",
+              "RelativeToolTip": "wwwroot\\css\\ChatStyle.css",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAAACUAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-04-24T22:19:39.448Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MessagesService.cs",
+              "DocumentMoniker": "D:\\\u0420\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\Social_network\\SocialNetworkServer\\Services\\MessagesService.cs",
+              "RelativeDocumentMoniker": "Services\\MessagesService.cs",
+              "ToolTip": "D:\\\u0420\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\Social_network\\SocialNetworkServer\\Services\\MessagesService.cs",
+              "RelativeToolTip": "Services\\MessagesService.cs",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAuwBwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T22:07:50.142Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Chat.cshtml",
+              "DocumentMoniker": "D:\\\u0420\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\Social_network\\SocialNetworkServer\\Views\\Chats\\Chat.cshtml",
+              "RelativeDocumentMoniker": "Views\\Chats\\Chat.cshtml",
+              "ToolTip": "D:\\\u0420\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\Social_network\\SocialNetworkServer\\Views\\Chats\\Chat.cshtml",
+              "RelativeToolTip": "Views\\Chats\\Chat.cshtml",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABMAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-24T21:40:45.267Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MessageInfoModel.cs",
+              "DocumentMoniker": "D:\\\u0420\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\Social_network\\SocialNetworkServer\\Models\\MessageInfoModel.cs",
+              "RelativeDocumentMoniker": "Models\\MessageInfoModel.cs",
+              "ToolTip": "D:\\\u0420\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\Social_network\\SocialNetworkServer\\Models\\MessageInfoModel.cs",
+              "RelativeToolTip": "Models\\MessageInfoModel.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAzwCEAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T21:25:17.316Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ChatsController.cs",
+              "DocumentMoniker": "D:\\\u0420\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\Social_network\\SocialNetworkServer\\Controllers\\ChatsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ChatsController.cs",
+              "ToolTip": "D:\\\u0420\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\Social_network\\SocialNetworkServer\\Controllers\\ChatsController.cs",
+              "RelativeToolTip": "Controllers\\ChatsController.cs",
+              "ViewState": "AQIAACoAAAAAAAAAAAAYwDoAAABVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T20:42:17.968Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "userPosts.js",
+              "DocumentMoniker": "D:\\\u0420\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\Social_network\\SocialNetworkServer\\wwwroot\\js\\userPosts.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\userPosts.js",
+              "ToolTip": "D:\\\u0420\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\Social_network\\SocialNetworkServer\\wwwroot\\js\\userPosts.js",
+              "RelativeToolTip": "wwwroot\\js\\userPosts.js",
+              "ViewState": "AQIAAHgAAAAAAAAAAAAowHgAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-04-24T19:59:25.336Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Chat.js",
+              "DocumentMoniker": "D:\\\u0420\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\Social_network\\SocialNetworkServer\\wwwroot\\js\\Chat.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\Chat.js",
+              "ToolTip": "D:\\\u0420\u0435\u043F\u043E\u0437\u0438\u0442\u043E\u0440\u0438\u0438\\Social_network\\SocialNetworkServer\\wwwroot\\js\\Chat.js",
+              "RelativeToolTip": "wwwroot\\js\\Chat.js",
+              "ViewState": "AQIAADIAAAAAAAAAAAA3wDwAAAA+AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-04-24T18:56:55.517Z",
+              "EditorCaption": ""
             }
           ]
         }

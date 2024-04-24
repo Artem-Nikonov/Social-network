@@ -6,5 +6,6 @@
         public const int GroupsPerPage = 5;
         public const int PostsPerPage = 5;
         public const int ChatsPerPage = 5;
+        public const int MessagesPerPage = 5;
     }
 }

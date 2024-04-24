@@ -1,19 +1,27 @@
 ﻿document.addEventListener("DOMContentLoaded", DOMContentLoaded);
+document.addEventListener("DOMContentLoaded", getMessages);
 document.addEventListener("DOMContentLoaded", getUsers);
 
 let userIdInput;
 let addUserBtn;
+let addLoadUsersBtn;
+
 let chatId;
 let userGroup;
-let pageId = 1;//id пагинации
+
+let usersPageId = 1;//id пагинации
+let startMessageId;
+
+let messagesContainer;
 let usersContainer;
-let addLoadUsersBtn;
+
 
 const hubConnection = new signalR.HubConnectionBuilder()
     .withUrl(`/chat`)
     .build(); 
 
 function DOMContentLoaded() {
+    messagesContainer = document.getElementById("messagesContainer");
     userIdInput = document.getElementById("userId");
     addUserBtn = document.getElementById("addUserBtn");
     usersContainer = document.getElementById("usersContainer");
@@ -49,15 +57,36 @@ function sendMessage() {
         });
 }
 function ReceiveMessage(messageInfo, userInfo) {
-    const userNameElem = createUserLink(userInfo);
-    const meta = document.createElement("p");
-    meta.textContent = messageInfo.sendingDate;
-    const elem = document.createElement("p");
-    elem.appendChild(userNameElem);
-    elem.appendChild(meta);
-    elem.appendChild(document.createTextNode(`: ${messageInfo.content}`));
+    console.log(messageInfo.user)
+    messagesContainer.appendChild(createMessageDiv(messageInfo))
+}
 
-    document.getElementById("chatroom").appendChild(elem);
+
+async function getMessages() {
+    try {
+        const response = await fetch(`/myChats/${chatId}/messages?startMessageId=${startMessageId}`, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+
+        if (response.ok) {
+            console.log("сообщения получены");
+            messagesData = await response.json()
+            console.log(messagesData)
+            for (let message of messagesData.items) {
+                messagesContainer.appendChild(createMessageDiv(message));
+            }
+            //lastPageHandler(postsData.meta)
+        }
+        else {
+            console.error("Произошла ошибка при выполнении запроса");
+        }
+    }
+    catch (error) {
+        console.error("Ошибка:", error.message);
+    }
 }
 
 async function addUserBtnClick() {
@@ -91,10 +120,10 @@ async function addUserBtnClick() {
         console.error("Ошибка:", error.message);
     }
 };
-
+//=================================
 async function getUsers() {
     try {
-        const response = await fetch(`/myChats/${chatId}/users?page=${pageId}`, {
+        const response = await fetch(`/myChats/${chatId}/users?page=${usersPageId}`, {
             method: "GET",
             headers: {
                 "Accept": "application/json"
@@ -119,6 +148,50 @@ async function getUsers() {
     }
 }
 
+
+
+
+function createMessageDiv(messageInfo) {
+    let messageDiv = document.createElement("div");
+    messageDiv.classList.add("post");
+    messageDiv.appendChild(createMetaDataDiv(messageInfo));
+    messageDiv.appendChild(createMessageContentDiv(messageInfo));
+    return messageDiv;
+}
+
+function createMessageContentDiv(messageInfo) {
+    let contentDiv = document.createElement("div");
+    let content = document.createElement("pre");
+    content.textContent = messageInfo.content;
+    contentDiv.appendChild(content)
+    return contentDiv;
+}
+
+function createTimeSpanDiv(time) {
+    let timeSpanDiv = document.createElement("div");
+    timeSpanDiv.classList.add("post_data_section");
+    let timeSpan = document.createElement("span");
+    timeSpan.textContent = time;
+    timeSpanDiv.appendChild(timeSpan);
+    return timeSpanDiv;
+}
+
+function createMetaDataDiv(messageInfo) {
+    let metaDataDiv = document.createElement("div");
+    metaDataDiv.appendChild(createUserLink(messageInfo.user));
+    metaDataDiv.appendChild(createTimeSpan(messageInfo.sendingDate));
+    return metaDataDiv;
+}
+
+function createTimeSpan(time) {
+    let timeSpan = document.createElement("span");
+    timeSpan.classList.add("time_span");
+    timeSpan.textContent = time;
+    return timeSpan;
+}
+
+
+
 function createUserDiv(userInfo) {
     let userDiv = document.createElement("div");
     userDiv.appendChild(createUserLink(userInfo));
@@ -133,6 +206,7 @@ function createUserLink(userInfo) {
     return userLink;
 }
 
+
 function lastPageHandler(pageMetaData) {
     if (pageMetaData.isLastPage) {
         addLoadUsersBtn.style.display = "none";
@@ -140,5 +214,5 @@ function lastPageHandler(pageMetaData) {
     else {
         addLoadUsersBtn.style.display = "inline-block";
     }
-    pageId = pageMetaData.pageId + 1;
+    usersPageId = pageMetaData.pageId + 1;
 }

@@ -35,7 +35,7 @@
 }
 
 /* Панель чата */
-#chatroom {
+#messagesContainer {
     flex: 1;
     overflow-y: auto; /* Разрешить прокрутку, если содержимое переполнено */
     padding: 10px;
