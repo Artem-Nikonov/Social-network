@@ -8,7 +8,7 @@ namespace SocialNetworkServer.SocNetworkDBContext.Entities
         [Key]
         public int MessageId { get; set; }
 
-        public int? ChatId { get; set; }
+        public int ChatId { get; set; }
         [BindNever]
         public virtual Chat Chat { get; set; }
 

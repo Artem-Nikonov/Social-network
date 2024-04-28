@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SocialNetworkServer.Extentions;
 using SocialNetworkServer.Interfaces;
 using SocialNetworkServer.Models;
 using SocialNetworkServer.OptionModels;
@@ -20,14 +21,15 @@ namespace SocialNetworkServer.Services
         {
             var message = new Message()
             {
-                UserId = messageInfo.UserId,
+                UserId = messageInfo.UserInfo.UserId,
                 ChatId = messageInfo.ChatId,
                 Content = messageInfo.Content,
             };
             await dbContext.Messages.AddAsync(message);
             await dbContext.SaveChangesAsync();
-            await dbContext.Entry(message).Reference(message=>message.User).Query().LoadAsync();
-            return (MessageInfoModel)message;
+            messageInfo.MessageId = messageInfo.MessageId;
+            messageInfo.SendingDate = message.SendingDate.GetSpecialFormat();
+            return messageInfo;
         }
 
         public async Task<List<MessageInfoModel>> GetMessages(int chatId, int startMessageId)

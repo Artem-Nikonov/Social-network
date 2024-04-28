@@ -148,7 +148,7 @@ header div {
 
 /* Стили для скроллбара */
 ::-webkit-scrollbar {
-    width: 1px;
+    width: 10px;
     background-color: #181818;
     border-radius: 5px;
 }

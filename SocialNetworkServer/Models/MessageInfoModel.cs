@@ -9,18 +9,16 @@ namespace SocialNetworkServer.Models
     public class MessageInfoModel
     {
         public int MessageId { get; set; }
-        public int? ChatId { get; set; }
-        public int UserId { get; set; }
-        public UserInfoModel? User { get; set; }
+        public int ChatId { get; set; }
+        public UserInfoModel UserInfo { get; set; }
         public string Content { get; set; }
         public string SendingDate { get; set; }
         public bool IsDeleted { get; set; }
 
         public MessageInfoModel() { }
-        public MessageInfoModel(int? chatId, int userId, string content)
+        public MessageInfoModel(int chatId, string content)
         {
             ChatId = chatId;
-            UserId = userId;
             Content = content;
         }
 
@@ -30,8 +28,7 @@ namespace SocialNetworkServer.Models
             {
                 MessageId = message.MessageId,
                 ChatId = message.ChatId,
-                UserId = message.UserId,
-                User = message.User,
+                UserInfo = message.User,
                 Content = message.Content,
                 SendingDate = message.SendingDate.GetSpecialFormat(),
                 IsDeleted = message.IsDeleted,

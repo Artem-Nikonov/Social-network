@@ -34,22 +34,29 @@
     margin-right: 10px;
 }
 
+.send_panel{
+    position:fixed;
+}
 /* Панель чата */
-#messagesContainer {
+#mainMessagesContainer {
     flex: 1;
-    overflow-y: auto; /* Разрешить прокрутку, если содержимое переполнено */
+    overflow-y: auto; /* Разрешить вертикальную прокрутку, если содержимое переполнено */
     padding: 10px;
+}
+pre {
+    white-space: pre-wrap; /* Перенос текста и сохранение пробелов и символов табуляции */
+    overflow-wrap: break-word; /* Перенос текста при необходимости */
 }
 
-.message_field {
-    color: #f2f2f2;
-    max-width: 80%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background-color: #333;
-    margin-bottom: 10px;
-}
+    .message_field {
+        color: #f2f2f2;
+        max-width: 80%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        background-color: #333;
+        margin-bottom: 10px;
+    }
 
 .user_id_field {
     color: #f2f2f2;
@@ -79,4 +86,11 @@
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 4px;
+}
+
+.meta_data_section > *{
+    margin-right:10px;
+}
+.time_span {
+    color: #555;
 }

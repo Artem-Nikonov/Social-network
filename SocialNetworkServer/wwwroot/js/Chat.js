@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", getUsers);
 let userIdInput;
 let addUserBtn;
 let addLoadUsersBtn;
+let addLoadMessagesBtn;
 
 let chatId;
 let userGroup;
@@ -12,6 +13,8 @@ let userGroup;
 let usersPageId = 1;//id пагинации
 let startMessageId;
 
+let messageTextInput;
+let mainMessagesContainer;
 let messagesContainer;
 let usersContainer;
 
@@ -21,16 +24,24 @@ const hubConnection = new signalR.HubConnectionBuilder()
     .build(); 
 
 function DOMContentLoaded() {
+    mainMessagesContainer = document.getElementById("mainMessagesContainer");
     messagesContainer = document.getElementById("messagesContainer");
+    addLoadMessagesBtn = document.getElementById("addLoadMessagesBtn");
     userIdInput = document.getElementById("userId");
     addUserBtn = document.getElementById("addUserBtn");
+    messageTextInput = document.getElementById("message");
     usersContainer = document.getElementById("usersContainer");
     addLoadUsersBtn = document.getElementById("addLoadUsersBtn");
 
+    addLoadMessagesBtn.addEventListener("click", getMessages);
     addUserBtn.addEventListener("click", addUserBtnClick);
     addLoadUsersBtn.addEventListener("click", getUsers);
     chatId = parseInt(document.getElementById("chatId").getAttribute("data"));
     document.getElementById("sendBtn").addEventListener("click", sendMessage);
+    messageTextInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" && !event.shiftKey)
+            sendMessage();
+    });
     userGroup = `ch${chatId}`;
 }
 
@@ -49,15 +60,15 @@ hubConnection.start()
 
 
 function sendMessage() {
-    const message = document.getElementById("message").value;
-    console.log("hi")
+    const message = messageTextInput.value;
+    if (message.length == 0) return;
     hubConnection.invoke("Send", message, chatId) // отправка данных серверу
         .catch(function (err) {
             return console.error(err.toString());
         });
+    messageTextInput.value = "";
 }
-function ReceiveMessage(messageInfo, userInfo) {
-    console.log(messageInfo.user)
+function ReceiveMessage(messageInfo) {
     messagesContainer.appendChild(createMessageDiv(messageInfo))
 }
 
@@ -75,10 +86,24 @@ async function getMessages() {
             console.log("сообщения получены");
             messagesData = await response.json()
             console.log(messagesData)
+
+            const containerHeightBeforeLoad = messagesContainer.scrollHeight;
+            const scrollTopBeforeLoad = mainMessagesContainer.scrollTop;
+
+            let lastMsgElrment = messagesContainer.firstElementChild;
+
             for (let message of messagesData.items) {
-                messagesContainer.appendChild(createMessageDiv(message));
+                let messageDiv = createMessageDiv(message);
+                messagesContainer.insertBefore(messageDiv, lastMsgElrment);
+                lastMsgElrment = messageDiv;
             }
-            //lastPageHandler(postsData.meta)
+            lastMessagesPageHandler(messagesData.meta)
+            const containerHeightAfterLoad = messagesContainer.scrollHeight;
+            const addedHeight = containerHeightAfterLoad - containerHeightBeforeLoad;
+
+            // Установить скроллбар обратно на позицию, соответствующую сохраненной позиции скролла и добавленной высоте
+            mainMessagesContainer.scrollTop = scrollTopBeforeLoad + addedHeight;
+
         }
         else {
             console.error("Произошла ошибка при выполнении запроса");
@@ -137,7 +162,7 @@ async function getUsers() {
             for (let user of usersData.items) {
                 usersContainer.appendChild(createUserDiv(user));
             }
-            lastPageHandler(usersData.meta);
+            lastUsersPageHandler(usersData.meta);
         }
         else {
             console.error("Произошла ошибка при выполнении запроса");
@@ -153,7 +178,6 @@ async function getUsers() {
 
 function createMessageDiv(messageInfo) {
     let messageDiv = document.createElement("div");
-    messageDiv.classList.add("post");
     messageDiv.appendChild(createMetaDataDiv(messageInfo));
     messageDiv.appendChild(createMessageContentDiv(messageInfo));
     return messageDiv;
@@ -178,7 +202,8 @@ function createTimeSpanDiv(time) {
 
 function createMetaDataDiv(messageInfo) {
     let metaDataDiv = document.createElement("div");
-    metaDataDiv.appendChild(createUserLink(messageInfo.user));
+    metaDataDiv.classList.add("meta_data_section")
+    metaDataDiv.appendChild(createUserLink(messageInfo.userInfo));
     metaDataDiv.appendChild(createTimeSpan(messageInfo.sendingDate));
     return metaDataDiv;
 }
@@ -207,7 +232,7 @@ function createUserLink(userInfo) {
 }
 
 
-function lastPageHandler(pageMetaData) {
+function lastUsersPageHandler(pageMetaData) {
     if (pageMetaData.isLastPage) {
         addLoadUsersBtn.style.display = "none";
     }
@@ -215,4 +240,14 @@ function lastPageHandler(pageMetaData) {
         addLoadUsersBtn.style.display = "inline-block";
     }
     usersPageId = pageMetaData.pageId + 1;
+}
+
+function lastMessagesPageHandler(pageMetaData) {
+    if (pageMetaData.isLastPage) {
+        addLoadMessagesBtn.style.display = "none";
+    }
+    else {
+        addLoadMessagesBtn.style.display = "inline-block";
+    }
+    startMessageId = pageMetaData.lastItemId - 1;
 }

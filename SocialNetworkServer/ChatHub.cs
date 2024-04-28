@@ -36,9 +36,11 @@ namespace SocialNetworkServer
             if (userId == 0 || !IsChatIdValid(chatId) || string.IsNullOrEmpty(message)) return;
             string groupName = GetGroupName(chatId);
             string userFullName = Context.User?.Identity?.Name ?? "Unknown";
-            var messageInfo = await messagesService.SaveMessage(new MessageInfoModel(chatId, userId, message));
-            var userInfo = new UserInfoModel(GetUserIdFromContext(), userFullName);
-            await Clients.Group(groupName).SendAsync("Receive", messageInfo, userInfo);
+            var messageInfo = await messagesService.SaveMessage(new MessageInfoModel(chatId, message)
+            {
+                UserInfo = new UserInfoModel(userId, userFullName) { UserId= userId },
+            });
+            await Clients.Group(groupName).SendAsync("Receive", messageInfo);
         }
 
         public override async Task OnDisconnectedAsync(Exception? exception)
