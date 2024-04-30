@@ -15,7 +15,7 @@
         <h3 id="userFullName" class="underlined_title">@Model.userInfo.GetFullName()</h3>
     </div>
     
-    <div>
+    <div class="page_panel">
         <subscription-button id="subscribeBtn" user-id="Model.metaData!.VisitorId" page-id="Model.userInfo.UserId" page-type="userPage" />
         <a asp-action="UserSubscribtions" asp-controller="Users" asp-route-id="@Model.userInfo.UserId" asp-route-filter="@SubscriptionTypes.subscribers" class="custom_link">Подписчики</a>
         <a asp-action="UserSubscribtions" asp-controller="Users" asp-route-id="@Model.userInfo.UserId" asp-route-filter="@SubscriptionTypes.subscriptions" class="custom_link">Подписки</a>

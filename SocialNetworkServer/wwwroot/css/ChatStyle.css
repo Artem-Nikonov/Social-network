@@ -28,9 +28,27 @@
     width: 100%;
 }
 
+.message {
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+
 /* Поле ввода сообщения */
-#message {
-    width: calc(100% - 80px); /* Учесть ширину кнопки отправки */
+#messageInput {
+    color: #f2f2f2;
+    min-width: 95%;
+    max-width: 95%;
+    height: 25px;
+    min-height: 25px;
+    max-height: 75px;
+    resize: vertical;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #333;
+    font-size: x-large;
     margin-right: 10px;
 }
 
@@ -48,15 +66,15 @@ pre {
     overflow-wrap: break-word; /* Перенос текста при необходимости */
 }
 
-    .message_field {
-        color: #f2f2f2;
-        max-width: 80%;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        background-color: #333;
-        margin-bottom: 10px;
-    }
+.message_field {
+    color: #f2f2f2;
+    max-width: 80%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #333;
+    margin-bottom: 10px;
+}
 
 .user_id_field {
     color: #f2f2f2;
@@ -73,6 +91,7 @@ pre {
     outline: none;
     border-color: #555;
 }
+
 /* Стили для кнопок */
 .chat_custom_button {
     background-color: #4CAF50;
@@ -88,8 +107,21 @@ pre {
     border-radius: 4px;
 }
 
-.meta_data_section > *{
-    margin-right:10px;
+.meta_data_section {
+    margin: 10px;
+    margin-bottom: 5px;
+}
+
+.message_content {
+    margin-left: 10px;
+}
+
+.message_content_pre {
+    margin-top: 5px;
+}
+
+.meta_data_section > * {
+    margin-right: 10px;
 }
 .time_span {
     color: #555;

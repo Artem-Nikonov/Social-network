@@ -25,10 +25,12 @@ namespace SocialNetworkServer.Controllers
             return View();
         }
 
-        [HttpGet("authorization")]
-        public IActionResult Authorization()
+        [HttpGet("logIn")]
+        public IActionResult LogIn()
         {
-            return View();
+            if (User.Identity is not null && User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
+            return View("LogIn");
         }
 
         [Authorize]
@@ -55,11 +57,11 @@ namespace SocialNetworkServer.Controllers
             return View(userAccount);
         }
 
-        [HttpPost("authorization")]
-        public async Task<IActionResult> Authorization(string? returnUrl,UserAuthorizationModel accountData)
+        [HttpPost("logIn")]
+        public async Task<IActionResult> LogIn(string? returnUrl,UserAuthorizationModel accountData)
         {
             var IsSuccessful = await authenticationService.TryAuthenticateUserAsync(accountData, HttpContext);
-            if (IsSuccessful && ModelState.IsValid) return Redirect(returnUrl ?? "~/Home/Index");
+            if (IsSuccessful && ModelState.IsValid) return Redirect(returnUrl ?? "/");
             var errorMessage = "Неверный логин или пароль.";
             ModelState.AddModelError("", errorMessage);
             return View(accountData);

@@ -147,7 +147,7 @@ function createGroupLink(groupId, groupName) {
 
 function createAutorLink(autorId) {
     let autorLink = document.createElement("a");
-    autorLink.classList.add("custom_link");
+    autorLink.classList.add("gray_link");
     autorLink.setAttribute("href", `/users/${autorId}`);
     autorLink.textContent = "Автор";
     return autorLink;

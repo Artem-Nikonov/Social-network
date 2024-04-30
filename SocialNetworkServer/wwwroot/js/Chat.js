@@ -29,7 +29,7 @@ function DOMContentLoaded() {
     addLoadMessagesBtn = document.getElementById("addLoadMessagesBtn");
     userIdInput = document.getElementById("userId");
     addUserBtn = document.getElementById("addUserBtn");
-    messageTextInput = document.getElementById("message");
+    messageTextInput = document.getElementById("messageInput");
     usersContainer = document.getElementById("usersContainer");
     addLoadUsersBtn = document.getElementById("addLoadUsersBtn");
 
@@ -39,7 +39,7 @@ function DOMContentLoaded() {
     chatId = parseInt(document.getElementById("chatId").getAttribute("data"));
     document.getElementById("sendBtn").addEventListener("click", sendMessage);
     messageTextInput.addEventListener("keydown", function (event) {
-        if (event.key === "Enter" && !event.shiftKey)
+        if (event.ctrlKey && event.key === "Enter")
             sendMessage();
     });
     userGroup = `ch${chatId}`;
@@ -178,6 +178,7 @@ async function getUsers() {
 
 function createMessageDiv(messageInfo) {
     let messageDiv = document.createElement("div");
+    messageDiv.classList.add("message");
     messageDiv.appendChild(createMetaDataDiv(messageInfo));
     messageDiv.appendChild(createMessageContentDiv(messageInfo));
     return messageDiv;
@@ -185,7 +186,9 @@ function createMessageDiv(messageInfo) {
 
 function createMessageContentDiv(messageInfo) {
     let contentDiv = document.createElement("div");
+    contentDiv.classList.add("message_content");
     let content = document.createElement("pre");
+    content.classList.add("message_content_pre");
     content.textContent = messageInfo.content;
     contentDiv.appendChild(content)
     return contentDiv;

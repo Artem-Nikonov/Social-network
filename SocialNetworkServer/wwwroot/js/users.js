@@ -41,16 +41,32 @@ async function getUsers() {
 
 function createUserDiv(userInfo) {
     let userDiv = document.createElement("div");
-    userDiv.appendChild(createUserLink(userInfo));
+    let userLinkSection = document.createElement("div");
+    let userSubscribersLinkSection = document.createElement("div");
+    userDiv.classList.add("card");
+    userLinkSection.classList.add("card_data_section");
+    userSubscribersLinkSection.classList.add("card_data_section");
+    userLinkSection.appendChild(createUserLink(userInfo));
+    userSubscribersLinkSection.appendChild(createUserSubscribersLink(userInfo.userId));
+    userDiv.appendChild(userLinkSection);
+    userDiv.appendChild(userSubscribersLinkSection);
     return userDiv;
 }
 
 function createUserLink(userInfo) {
     let userLink = document.createElement("a");
     userLink.classList.add("custom_link");
-    userLink.setAttribute("href", `users/${userInfo.userId}`);
+    userLink.setAttribute("href", `/users/${userInfo.userId}`);
     userLink.textContent = `${userInfo.userName} ${userInfo.userSurname}`;
     return userLink;
+}
+
+function createUserSubscribersLink(userId) {
+    let subscribersLink = document.createElement("a");
+    subscribersLink.classList.add("gray_link");
+    subscribersLink.setAttribute("href", `/users/${userId}/subscribtions?filter=subscribers`);
+    subscribersLink.textContent = `Подписчики`;
+    return subscribersLink;
 }
 
 function lastPageHandler(pageMetaData) {

@@ -86,7 +86,11 @@ async function getChats() {
 
 function createChatDiv(chatInfo) {
     let chatDiv = document.createElement("div");
-    chatDiv.appendChild(createChatLink(chatInfo));
+    let chatLinkSection = document.createElement("div");
+    chatLinkSection.classList.add("card_data_section");
+    chatDiv.classList.add("card");
+    chatLinkSection.appendChild(createChatLink(chatInfo));
+    chatDiv.appendChild(chatLinkSection);
     return chatDiv;
 }
 

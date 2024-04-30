@@ -25,7 +25,10 @@ function DOMContentLoaded()
 
 async function publishBtnClick() {
     const postContent = postTextArea.value;
-    if (postContent.length < 1) return;
+    if (postContent.length < 2) {
+        showError("Пост слишком короткий")
+        return;
+    }
     const postData = {
         Content: postContent
     };

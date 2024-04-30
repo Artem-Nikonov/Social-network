@@ -59,9 +59,10 @@ namespace SocialNetworkServer
 
                 if (response.StatusCode == (int)HttpStatusCode.Unauthorized)
                 {
-                    var path = context.HttpContext.Request.Path;
-                    response.Redirect($"/Account/Authorization?returnUrl={path}");
+                    var path = $"{context.HttpContext.Request.Path}{context.HttpContext.Request.QueryString}";
+                    response.Redirect($"/account/logIn?returnUrl={path}");
                 }
+                await Task.CompletedTask;
             });
 
             app.UseCookiePolicy(new CookiePolicyOptions

@@ -1,4 +1,7 @@
 ﻿@model ChatInfoModel
+@{
+    ViewData["Title"] = $"Чат";
+}
 <link rel="stylesheet" href="~/css/FormStyle.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/ChatStyle.css" asp-append-version="true" />
 <div id="meta">
@@ -18,7 +21,7 @@
         </div>
 
         <div id="sendPanel">
-            <input type="text" id="message" class="message_field" />
+            <textarea id="messageInput" class="message_field"></textarea>
             <input type="button" id="sendBtn" value="Отправить" disabled="disabled" class="chat_custom_button" />
         </div>
     </div>
@@ -29,6 +32,7 @@
             <input id="userId" type="text" placeholder="ID пользователя" class="user_id_field" />
             <button id="addUserBtn" class="custom_button">Добавить</button>
         </div>
+
         <div>
             <div id="usersContainer">
 
