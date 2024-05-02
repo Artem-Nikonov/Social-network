@@ -12,7 +12,7 @@
     overflow-wrap: break-word;
 }
 
-.chat_Info {
+.chat_panel {
     flex-basis: auto;
     margin: 10px;
     padding: 10px;
@@ -21,6 +21,10 @@
     height: 82vh; /* Растянуть на весь экран */
     overflow-wrap: break-word;
     min-width: 25%;
+}
+
+.chat_panel_section {
+    margin-bottom:15px;
 }
 
 .chat_wrapp {
@@ -32,7 +36,6 @@
     margin-top: 10px;
     margin-bottom: 25px;
 }
-
 
 /* Поле ввода сообщения */
 #messageInput {
@@ -123,6 +126,14 @@ pre {
 .meta_data_section > * {
     margin-right: 10px;
 }
+
 .time_span {
     color: #555;
+}
+
+.user_info_section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Растянуть заголовок на всю ширину экрана */
 }

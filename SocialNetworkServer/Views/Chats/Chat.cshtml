@@ -1,17 +1,18 @@
-﻿@model ChatInfoModel
+﻿@model ChatFullInfoModel
 @{
     ViewData["Title"] = $"Чат";
 }
 <link rel="stylesheet" href="~/css/FormStyle.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/ChatStyle.css" asp-append-version="true" />
 <div id="meta">
-    <span id="chatId" data="@Model.ChatId"></span>
+    <span id="ChatId" data="@Model.chatInfo.ChatId"></span>
+    <span id="VisitorId" data="@Model.metaData.VisitorId"></span>
 </div>
 
 <div class="chat_wrapp">
     <div class="main_chat_content">
         <div>
-            <h3 id="chatName" class="underlined_title">@Model.ChatName</h3>
+            <h3 id="chatName" class="underlined_title">@Model.chatInfo.ChatName</h3>
         </div>
         <div id="mainMessagesContainer">
             <button id="addLoadMessagesBtn" class="custom_button" style="display:none">Показать больше</button>
@@ -22,23 +23,33 @@
 
         <div id="sendPanel">
             <textarea id="messageInput" class="message_field"></textarea>
-            <input type="button" id="sendBtn" value="Отправить" disabled="disabled" class="chat_custom_button" />
+            <input type="button" id="sendBtn" value="Отправить" disabled="disabled" class="custom_button" />
         </div>
     </div>
 
-    <div class="chat_Info">
-        <h3 class="text-center underlined_title">Участники чата</h3>
-        <div>
-            <input id="userId" type="text" placeholder="ID пользователя" class="user_id_field" />
-            <button id="addUserBtn" class="custom_button">Добавить</button>
-        </div>
+    <div class="chat_panel">
 
-        <div>
-            <div id="usersContainer">
-
+        <div class="chat_panel_section">
+            <h3 class="text-center underlined_title">Участники чата</h3>
+            <div>
+                <div id="chatParticipantsContainer">
+                </div>
+                <button id="addLoadParticipantsBtn" class="custom_button" style="display:none">Показать больше</button>
             </div>
-            <button id="addLoadUsersBtn" class="custom_button" style="display:none">Показать больше</button>
         </div>
+        
+        <div class="chat_panel_section">
+            <h3 class="text-center underlined_title">Добавить пользователей</h3>
+            <div>
+                <input id="userId" type="text" placeholder="ID пользователя" class="user_id_field" />
+                <button id="addUserBtn" class="custom_button">Добавить</button>
+                <div id="invitedUsersContainer">
+                </div>
+                <button id="addLoadInvitedUsersBtn" class="custom_button" style="display:none">Показать больше</button>
+            </div>
+        </div>
+
+        
         
     </div>
 </div>

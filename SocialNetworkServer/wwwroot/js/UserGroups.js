@@ -56,7 +56,7 @@ function createGroupDiv(groupInfo) {
 function createGroupLink(groupInfo) {
     let groupLink = document.createElement("a");
     groupLink.classList.add("custom_link");
-    groupLink.setAttribute("href", `groups/${groupInfo.groupId}`);
+    groupLink.setAttribute("href", `/groups/${groupInfo.groupId}`);
     groupLink.textContent = `${groupInfo.groupName}`;
     return groupLink;
 }

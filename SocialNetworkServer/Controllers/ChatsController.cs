@@ -51,7 +51,8 @@ namespace SocialNetworkServer.Controllers
             var userIsChatParcipant = await chatParticipantChecker.UserIsAChatParcipant(userId, chatId);
             if(!userIsChatParcipant) return Forbid();
             var chatInfo = await chatsService.GetChatInfo(chatId);
-            return View("Chat", chatInfo);
+            var chatFullInfo = new ChatFullInfoModel(chatInfo!, new PageMetaData(userId, userId== chatInfo!.CreatorId));
+            return View("Chat", chatFullInfo);
         }
 
         //получение сообщений чата
