@@ -1,20 +1,38 @@
 ﻿document.addEventListener("DOMContentLoaded", DOMContentLoaded);
-document.addEventListener("DOMContentLoaded", getUsers);
+document.addEventListener("DOMContentLoaded", function () {
+    getUsers(null);
+});
 
 let pageId = 1;
 let usersContainer;
 let addLoadUsersBtn;
 
+let searchField;
+let searchBtn;
+
 function DOMContentLoaded() {
     usersContainer = document.getElementById("usersContainer");
     addLoadUsersBtn = document.getElementById("AddLoadUsersBtn");
-    addLoadUsersBtn.addEventListener("click", getUsers);
+    searchField = document.getElementById("searchField");
+    searchBtn = document.getElementById("searchBtn");
+    addLoadUsersBtn.addEventListener("click", function () {
+        var searchQuery = searchField.value;
+        getUsers(searchQuery);
+    });
+
+    searchBtn.addEventListener("click", function () {
+        var searchQuery = searchField.value;
+        usersContainer.innerHTML = '';
+        pageId = 1;
+        getUsers(searchQuery);
+    });
 }
 
 
-async function getUsers() {
+async function getUsers(filter) {
     try {
-        const response = await fetch(`/users/list?page=${pageId}`, {
+        let path = filter ? `/users/list?page=${pageId}&filter=${filter}` : `/users/list?page=${pageId}`;
+        const response = await fetch(path, {
             method: "GET",
             headers: {
                 "Accept": "application/json"

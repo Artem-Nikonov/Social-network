@@ -2,7 +2,7 @@
 {
     public class PaginationConstants
     {
-        public const int UsersPerPage = 25;
+        public const int UsersPerPage = 3;
         public const int GroupsPerPage = 5;
         public const int PostsPerPage = 5;
         public const int ChatsPerPage = 5;

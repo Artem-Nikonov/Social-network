@@ -5,7 +5,8 @@
     <div>
         <h2 class="text-center underlined_title">@ViewData["Title"]</h2>
     </div>
-    <div id="usersContainer">
+    @await Html.PartialAsync("SearchBar")
+    <div id="usersContainer" class="flex_container">
     </div>
     <button id="AddLoadUsersBtn" class="custom_button" style="display:none">Показать больше</button>
 </div>

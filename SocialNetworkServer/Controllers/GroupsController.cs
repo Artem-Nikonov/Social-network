@@ -15,11 +15,13 @@ namespace SocialNetworkServer.Controllers
         private IGroupsService groupsService;
         private IUsersService usersService;
         private IGroupSubscriptionService groupSubscriptionService;
-        public GroupsController( IGroupsService groupsService, IUsersService usersService, IGroupSubscriptionService groupSubscriptionService)
+        private IPaginator paginator;
+        public GroupsController( IGroupsService groupsService, IUsersService usersService, IGroupSubscriptionService groupSubscriptionService, IPaginator paginator)
         {
             this.groupsService = groupsService;
             this.usersService = usersService;
             this.groupSubscriptionService = groupSubscriptionService;
+            this.paginator = paginator;
         }
 
         [HttpGet]
@@ -48,23 +50,10 @@ namespace SocialNetworkServer.Controllers
         }
 
         [HttpGet("list")]
-        public async Task<IActionResult> GetGroups([FromQuery] int page)
+        public async Task<IActionResult> GetGroups([FromQuery] int page, [FromQuery] string? filter)
         {
-            if (page <= 0)
-            {
-                return BadRequest("Номер страницы должен быть больше 0.");
-            }
-            var groups = await groupsService.GetGroups(page);
-
-            var groupsData = new
-            {
-                Meta = new
-                {
-                    PageId = page,
-                    IsLastPage = groups.Count < PaginationConstants.GroupsPerPage
-                },
-                Groups = groups
-            };
+            var groups = await groupsService.GetGroups(page, filter);
+            var groupsData = paginator.BuildPaginationDataFromPageId(groups, page, PaginationConstants.GroupsPerPage);
             return Json(groupsData);
         }
 

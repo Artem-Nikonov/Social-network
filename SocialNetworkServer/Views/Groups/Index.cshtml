@@ -4,10 +4,13 @@
 <div class="main_content">
     <div>
         <h2 class="text-center underlined_title">@ViewData["Title"]</h2>
+        <div>
+            @await Html.PartialAsync("SearchBar")
             <a asp-controller="Groups" asp-action="CreateGroup" class="custom_button">Создать группу</a>
+        </div>
         
     </div>
-    <div id="groupsContainer">
+    <div id="groupsContainer" class="flex_container">
     </div>
     <button id="AddLoadGroupsBtn" class="custom_button" style="display:none">Показать больше</button>
 </div>

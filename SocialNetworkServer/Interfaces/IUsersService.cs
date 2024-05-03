@@ -7,6 +7,6 @@ namespace SocialNetworkServer.Interfaces
     {
         Task<UserInfoModel?> GetUserInfo(int id);
         int GetUserId(ClaimsPrincipal user);
-        Task<List<UserInfoModel>> GetUsers(int page);
+        Task<List<UserInfoModel>> GetUsers(int page, string? filter = null);
     }
 }

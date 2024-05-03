@@ -7,6 +7,7 @@ using SocialNetworkServer.OptionModels;
 using SocialNetworkServer.SocNetworkDBContext;
 using SocialNetworkServer.SocNetworkDBContext.Entities;
 using System.Security.Claims;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 
 namespace SocialNetworkServer.Services
@@ -27,11 +28,16 @@ namespace SocialNetworkServer.Services
             this.logger = logger;
         }
 
-        public async Task<List<GroupInfoModel>> GetGroups(int page)
+        public async Task<List<GroupInfoModel>> GetGroups(int page, string? filter = null)
         {
             if (page <= 0) page = 1;
-            var groups = await dbContext.Groups.OrderByDescending(g => g.GroupId)
-                .Skip((page - 1) * PaginationConstants.GroupsPerPage)
+
+            IQueryable<Group> query = dbContext.Groups.OrderByDescending(g => g.GroupId);
+
+            if (!string.IsNullOrEmpty(filter))
+                query = query.Where(group =>(group.GroupName.ToLower()).Contains(filter));
+   
+                var groups = await query.Skip((page - 1) * PaginationConstants.GroupsPerPage)
                 .Take(PaginationConstants.GroupsPerPage).Select(g => new GroupInfoModel
                 {
                     GroupId = g.GroupId,

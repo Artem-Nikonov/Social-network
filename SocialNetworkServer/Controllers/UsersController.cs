@@ -44,13 +44,9 @@ namespace SocialNetworkServer.Controllers
 
         //получение пользователей через пагинацию
         [HttpGet("list")]
-        public async Task<IActionResult> GetUsers([FromQuery] int page)
+        public async Task<IActionResult> GetUsers([FromQuery] int page, [FromQuery] string? filter)
         {
-            if (page <= 0)
-            {
-                return BadRequest("Номер страницы должен быть больше 0.");
-            }
-            var users = await usersService.GetUsers(page);
+            var users = await usersService.GetUsers(page, filter);
             var usersData = BuildUsersData(page, users);
             return Json(usersData);
         }

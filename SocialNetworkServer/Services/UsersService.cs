@@ -6,6 +6,8 @@ using SocialNetworkServer.OptionModels;
 using SocialNetworkServer.SocNetworkDBContext;
 using SocialNetworkServer.SocNetworkDBContext.Entities;
 using System.Security.Claims;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Text.RegularExpressions;
 
 namespace SocialNetworkServer.Services
 {
@@ -38,13 +40,19 @@ namespace SocialNetworkServer.Services
             return userInfo;
         }
 
-        public async Task<List<UserInfoModel>>GetUsers(int page)
+        public async Task<List<UserInfoModel>>GetUsers(int page, string? filter=null)
         {
             if (page <= 0) page = 1;
-            var users = await dbContext.Users.OrderByDescending(u => u.UserId)
-                .Skip((page - 1) * PaginationConstants.UsersPerPage)
-                .Take(PaginationConstants.UsersPerPage)
-                .Select(user=> (UserInfoModel)user).AsNoTracking().ToListAsync();
+            IQueryable<User> query =  dbContext.Users.OrderByDescending(u => u.UserId);
+
+            if (!string.IsNullOrEmpty(filter))
+                query = query.Where(user =>
+                (user.UserName.ToLower() + " " + user.UserSurname.ToLower()).Contains(filter));
+
+            var users = await query.Skip((page - 1) * PaginationConstants.UsersPerPage)
+           .Take(PaginationConstants.UsersPerPage)
+           .Select(user => (UserInfoModel)user)
+           .AsNoTracking().ToListAsync();
             return users;
         }
 

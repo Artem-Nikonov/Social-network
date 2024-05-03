@@ -1,20 +1,39 @@
 ﻿document.addEventListener("DOMContentLoaded", DOMContentLoaded);
-document.addEventListener("DOMContentLoaded", getGroups);
+document.addEventListener("DOMContentLoaded", function () {
+    getGroups(null);
+});
 
 let pageId = 1;
 let groupsContainer;
 let addLoadGroupsBtn;
 
+let searchField;
+let searchBtn;
+
 function DOMContentLoaded() {
     groupsContainer = document.getElementById("groupsContainer");
     addLoadGroupsBtn = document.getElementById("AddLoadGroupsBtn");
-    addLoadGroupsBtn.addEventListener("click", getGroups);
+    searchField = document.getElementById("searchField");
+    searchBtn = document.getElementById("searchBtn");
+
+    addLoadGroupsBtn.addEventListener("click", function () {
+        var searchQuery = searchField.value;
+        getGroups(searchQuery);
+    });
+
+    searchBtn.addEventListener("click", function () {
+        var searchQuery = searchField.value;
+        groupsContainer.innerHTML = '';
+        pageId = 1;
+        getGroups(searchQuery);
+    });
 }
 
 
-async function getGroups() {
+async function getGroups(filter) {
     try {
-        const response = await fetch(`/groups/list?page=${pageId}`, {
+        let path = filter ? `/groups/list?page=${pageId}&filter=${filter}` : `/groups/list?page=${pageId}`;
+        const response = await fetch(path, {
             method: "GET",
             headers: {
                 "Accept": "application/json"
@@ -25,7 +44,7 @@ async function getGroups() {
             console.log("Группы получены");
             groupsData = await response.json()
             console.log(groupsData)
-            for (let group of groupsData.groups) {
+            for (let group of groupsData.items) {
                 groupsContainer.appendChild(createGroupDiv(group));
             }
             lastPageHandler(groupsData.meta);

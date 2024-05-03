@@ -138,6 +138,7 @@ header div {
     border-bottom: 2px #333 solid;
 }
 
+
 /* Модальное окно ошибки */
 .error-window {
     position: fixed;
@@ -190,14 +191,14 @@ header div {
 }
 
 .card {
-    display: inline-block;
-    margin:5px;
-    margin-left:0px;
+    margin: 5px;
+    margin-left: 0px;
     border: 2px #333 solid;
     border-radius: 5px;
-    width:19%;
-    min-width:150px;
-    height:75px;
+    height: 75px;
+    flex: 0 0 calc(20% - 20px); /* 20% - это 1/5 часть контейнера, учитывая промежутки между элементами */
+    max-width: calc(20% - 20px); /* 20% - это 1/5 часть контейнера, учитывая промежутки между элементами */
+    min-width: 75px;
 }
 
 .card_data_section {
@@ -206,4 +207,10 @@ header div {
     text-overflow: ellipsis;
     white-space: nowrap;
     color:teal;
+}
+.flex_container {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-wrap: wrap;
 }
